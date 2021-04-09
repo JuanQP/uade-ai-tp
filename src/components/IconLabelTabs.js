@@ -7,6 +7,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import AccessibilityIcon from '@material-ui/icons/Accessibility';
 import HomeIcon from '@material-ui/icons/Home';
+import {
+  Link
+} from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -33,10 +36,10 @@ export default function IconLabelTabs() {
         textColor="secondary"
         aria-label="icon label tabs example"
       >
-          <Tab icon={<HomeIcon />} label="Home" />
-        <Tab icon={<ShoppingCartIcon />} label="Productos" />
-        <Tab icon={<HelpOutlineIcon />} label="Quienes Somos" />
-        <Tab icon={<AccessibilityIcon />} label="Loguearse" />
+        <Tab icon={<HomeIcon />} label="Home" component={Link} to="/" />
+        <Tab icon={<ShoppingCartIcon />} label="Productos" component={Link} to="/shop" />
+        <Tab icon={<HelpOutlineIcon />} label="Quienes Somos" component={Link} to="/about" />
+        <Tab icon={<AccessibilityIcon />} label="Loguearse" component={Link} to="/admin" />
       </Tabs>
     </Paper>
   );

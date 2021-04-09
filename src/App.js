@@ -2,53 +2,38 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
+import Container from '@material-ui/core/Container';
 import { Home } from "./Home";
 import { About } from "./About";
 import { Admin } from "./Admin";
 import { Shop } from "./Shop";
+import Banner from "./components/IconLabelTabs";
 
 function App() {
   return (
-    <Router>
-      {/* Este es el banner de navegación */}
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/shop">Shop</Link>
-            </li>
-            <li>
-              <Link to="/admin">Administración</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
+    <Container maxWidth="lg">
+      <Router>
+          {/* Banner con las distintas secciones de la página */}
+          <Banner />
 
-          </ul>
-        </nav>
-
-        {/* Todas las páginas */}
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/shop">
-            <Shop />
-          </Route>
-          <Route path="/admin">
-            <Admin />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+          {/* Todas las páginas */}
+          <Switch>
+            <Route path="/about">
+              <About />
+            </Route>
+            <Route path="/shop">
+              <Shop />
+            </Route>
+            <Route path="/admin">
+              <Admin />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+      </Router>
+    </Container>
   );
 }
 
