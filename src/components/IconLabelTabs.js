@@ -39,7 +39,7 @@ export default function IconLabelTabs() {
         <Tab icon={<HomeIcon />} label="Home" component={Link} to="/" />
         <Tab icon={<ShoppingCartIcon />} label="Productos" component={Link} to="/shop" />
         <Tab icon={<HelpOutlineIcon />} label="Quienes Somos" component={Link} to="/about" />
-        <Tab icon={<AccessibilityIcon />} label="Loguearse" component={Link} to="/admin" />
+        <Tab icon={<AccessibilityIcon />} label="Loguearse" component={Link} to="/login" />
       </Tabs>
     </Paper>
   );
