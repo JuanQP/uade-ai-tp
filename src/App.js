@@ -6,8 +6,8 @@ import {
 import Container from '@material-ui/core/Container';
 import { Home } from "./Home";
 import { About } from "./About";
-import { Admin } from "./Admin";
 import { Shop } from "./Shop";
+import { Login } from "./Login";
 import Banner from "./components/IconLabelTabs";
 
 function App() {
@@ -15,21 +15,21 @@ function App() {
     <Container maxWidth="lg">
       <Router>
           {/* Banner con las distintas secciones de la página */}
-          <Banner />
+          <Banner/>
 
           {/* Todas las páginas */}
           <Switch>
             <Route path="/about">
-              <About />
+              <About/>
             </Route>
             <Route path="/shop">
-              <Shop />
+              <Shop/>
             </Route>
-            <Route path="/admin">
-              <Admin />
+            <Route path="/login">
+              <Login/>
             </Route>
             <Route path="/">
-              <Home />
+              <Home/>
             </Route>
           </Switch>
       </Router>
