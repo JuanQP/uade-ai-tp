@@ -14,7 +14,7 @@ import {
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    maxWidth: 1000,
+    maxWidth: 10000,
   },
 });
 
