@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function SingUp() {
+export function SignUp() {
   const classes = useStyles();
 
   return (

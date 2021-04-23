@@ -8,6 +8,7 @@ import { Home } from "./Home";
 import { About } from "./About";
 import { Shop } from "./Shop";
 import { Login } from "./Login";
+import { SignUp } from "./SignUp";
 import Banner from "./components/IconLabelTabs";
 
 function App() {
@@ -27,6 +28,9 @@ function App() {
             </Route>
             <Route path="/login">
               <Login/>
+            </Route>
+            <Route path="/sign-up">
+              <SignUp/>
             </Route>
             <Route path="/">
               <Home/>
