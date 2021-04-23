@@ -40,6 +40,11 @@ function App() {
     setTab(0);
   }
 
+  function handleSignUp(newUser) {
+    usuarios.push(newUser);
+    setTab(0);
+  }
+
   function handleTabChanged(newValue) {
     setTab(newValue);
   }
@@ -62,7 +67,7 @@ function App() {
             {user ? <Redirect to="/" /> : <Login onLogin={checkLogin}/>}
           </Route>
           <Route path="/sign-up">
-            <SignUp/>
+            {user ? <Redirect to="/user" /> : <SignUp onSignUp={handleSignUp}/>}
           </Route>
           <Route path="/user">
             {user ? <UserPage user={user} onLogout={handleLogOut}/> : <Redirect to="/" />}

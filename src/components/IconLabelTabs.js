@@ -5,9 +5,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
-import TuneIcon from '@material-ui/icons/Tune';
+import PersonIcon from '@material-ui/icons/Person';
 import {
   Link
 } from "react-router-dom";
@@ -40,8 +39,8 @@ export default function IconLabelTabs(props) {
         <Tab icon={<ShoppingCartIcon />} label="Productos" component={Link} to="/shop" />
         <Tab icon={<HelpOutlineIcon />} label="Quienes Somos" component={Link} to="/about" />
         {props.user
-          ? <Tab icon={<TuneIcon />} label="Cuenta" component={Link} to="/user" />
-          : <Tab icon={<AccountCircleIcon />} label="Loguearse" component={Link} to="/login" />
+          ? <Tab icon={<PersonIcon />} label={props.user.firstName} component={Link} to="/user" />
+          : <Tab icon={<PersonIcon />} label="Loguearse" component={Link} to="/login" />
         }
       </Tabs>
     </Paper>

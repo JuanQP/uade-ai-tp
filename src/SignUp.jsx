@@ -5,22 +5,25 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
+import UILink from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-
+import {
+  Link,
+  Redirect,
+} from "react-router-dom";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
+      <UILink color="inherit" href="https://material-ui.com/">
         FQ Computer
-      </Link>{' '}
+      </UILink>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -47,8 +50,43 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function SignUp() {
+export function SignUp(props) {
   const classes = useStyles();
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [newUserCreated, setNewUserCreated] = React.useState(false);
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSignUpButtonClick = () => {
+    props.onSignUp({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: password,
+    });
+    setNewUserCreated(true);
+  }
+
+  if(newUserCreated) {
+    return <Redirect to="/"/>;
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -72,6 +110,8 @@ export function SignUp() {
                 id="firstName"
                 label="Nombre"
                 autoFocus
+                value={firstName}
+                onChange={handleFirstNameChange}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -83,6 +123,8 @@ export function SignUp() {
                 label="Apellido"
                 name="lastName"
                 autoComplete="lname"
+                value={lastName}
+                onChange={handleLastNameChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -94,6 +136,8 @@ export function SignUp() {
                 label="E-mail"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={handleEmailChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -106,6 +150,8 @@ export function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={handlePasswordChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -116,19 +162,19 @@ export function SignUp() {
             </Grid>
           </Grid>
           <Button
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={handleSignUpButtonClick}
           >
             Registrarse
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="/Login" variant="body2">
+              <UILink variant="body2" to="/login" component={Link}>
                ¿Ya tenes una cuenta? Ingresa
-              </Link>
+              </UILink>
             </Grid>
           </Grid>
         </form>
