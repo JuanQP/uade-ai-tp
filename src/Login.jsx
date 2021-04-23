@@ -60,8 +60,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function Login() {
+export function Login(props) {
   const classes = useStyles();
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+  const handleLoginButtonClick = () => {
+    props.onLogin({email: email, password: password});
+  }
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -86,6 +98,8 @@ export function Login() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={handleEmailChange}
             />
             <TextField
               variant="outlined"
@@ -97,17 +111,19 @@ export function Login() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={handlePasswordChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Recordar"
             />
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={handleLoginButtonClick}
             >
               Ingresar
             </Button>

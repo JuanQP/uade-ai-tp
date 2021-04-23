@@ -5,8 +5,9 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import AccessibilityIcon from '@material-ui/icons/Accessibility';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import HomeIcon from '@material-ui/icons/Home';
+import TuneIcon from '@material-ui/icons/Tune';
 import {
   Link
 } from "react-router-dom";
@@ -18,18 +19,17 @@ const useStyles = makeStyles({
   },
 });
 
-export default function IconLabelTabs() {
+export default function IconLabelTabs(props) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    props.onTabChanged(newValue);
   };
 
   return (
     <Paper square className={classes.root}>
       <Tabs
-        value={value}
+        value={props.activeTab}
         onChange={handleChange}
         variant="fullWidth"
         indicatorColor="secondary"
@@ -39,7 +39,10 @@ export default function IconLabelTabs() {
         <Tab icon={<HomeIcon />} label="Home" component={Link} to="/" />
         <Tab icon={<ShoppingCartIcon />} label="Productos" component={Link} to="/shop" />
         <Tab icon={<HelpOutlineIcon />} label="Quienes Somos" component={Link} to="/about" />
-        <Tab icon={<AccessibilityIcon />} label="Loguearse" component={Link} to="/login" />
+        {props.user
+          ? <Tab icon={<TuneIcon />} label="Cuenta" component={Link} to="/user" />
+          : <Tab icon={<AccountCircleIcon />} label="Loguearse" component={Link} to="/login" />
+        }
       </Tabs>
     </Paper>
   );
