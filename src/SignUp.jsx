@@ -96,7 +96,7 @@ export function SignUp(props) {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-         FQ Computer Registración
+         Registración
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
@@ -179,7 +179,7 @@ export function SignUp(props) {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
+      <Box mt={2}>
         <Copyright />
       </Box>
     </Container>
