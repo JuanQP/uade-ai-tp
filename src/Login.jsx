@@ -85,7 +85,7 @@ export function Login(props) {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-          FQ Computer Login
+          Login
           </Typography>
           <form className={classes.form} noValidate>
             <TextField
@@ -139,7 +139,7 @@ export function Login(props) {
                 </UILink>
               </Grid>
             </Grid>
-            <Box mt={5}>
+            <Box mt={2}>
               <Copyright />
             </Box>
           </form>
