@@ -1,8 +1,83 @@
-export function Home() {
+import Carrusel from './TextMobileStepper'
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Link from '@material-ui/core/Link';
+
+function Copyright() {
   return (
-    <div>
-      <h1>Home</h1>
-      <div>Página de bienvenida</div>
-    </div>
+    <Typography variant="body2" color="textSecondary" align="center">
+      {'Copyright © '}
+      <Link color="inherit" href="https://material-ui.com/">
+      FQ Computer
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+const useStyles = makeStyles((theme) => ({
+  icon: {
+    marginRight: theme.spacing(2),
+  },
+  heroContent: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(8, 0, 6),
+  },
+  heroButtons: {
+    marginTop: theme.spacing(4),
+  },
+  cardGrid: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  card: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  cardMedia: {
+    paddingTop: '56.25%', // 16:9
+  },
+  cardContent: {
+    flexGrow: 1,
+  },
+  footer: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing(6),
+  },
+  root: {
+    maxWidth: 300,
+  },
+}));
+
+
+export function Home() {
+  const classes = useStyles();
+  return (
+    <React.Fragment>
+      <main>
+        {/* Hero unit */}
+        <div className={classes.heroContent}>
+          <Container maxWidth="mx">
+            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+              Bienvenido a FQ Computer  
+            </Typography>
+            <Typography variant="h5" align="center" color="textSecondary" paragraph>
+              Disfrute de las siguientes ofertas:
+            </Typography>
+          </Container>
+        </div>
+        </main>
+        <Carrusel></Carrusel>
+     {/* Footer */}
+     <footer className={classes.footer}>
+       <Copyright />
+     </footer>
+     {/* End footer */}
+   </React.Fragment>
+
   );
 }
