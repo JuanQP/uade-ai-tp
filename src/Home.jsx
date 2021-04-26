@@ -66,7 +66,7 @@ export function Home() {
               Bienvenido a FQ Computer  
             </Typography>
             <Typography variant="h5" align="center" color="textSecondary" paragraph>
-              Disfrute de las siguientes ofertas:
+               Disfrute de las ultimas novedades:
             </Typography>
           </Container>
         </div>
