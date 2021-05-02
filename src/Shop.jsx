@@ -67,7 +67,7 @@ export function Shop() {
         <GridListTile key="Subheader" cols={3} style={{ height: 'auto' }}>
      
         </GridListTile>
-        {tileData.map((tile) => (
+        {TileData.map((tile) => (
           <GridListTile key={tile.img}>
             <img src={tile.img} alt={tile.title} />
             <GridListTileBar
