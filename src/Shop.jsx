@@ -9,7 +9,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
-import tileData from './tileData';
+import TileData from './TileData';
 
 function Copyright() {
   return (
