@@ -38,8 +38,12 @@ const DashboardLayoutContent = experimentalStyled('div')({
   overflow: 'auto'
 });
 
-const DashboardLayout = () => {
+const DashboardLayout = (props) => {
   const [isMobileNavOpen, setMobileNavOpen] = useState(false);
+
+  function handleLogOut() {
+    props.onLogOut();
+  }
 
   return (
     <DashboardLayoutRoot>
@@ -47,6 +51,8 @@ const DashboardLayout = () => {
       <DashboardSidebar
         onMobileClose={() => setMobileNavOpen(false)}
         openMobile={isMobileNavOpen}
+        user={props.user}
+        onLogOut={handleLogOut}
       />
       <DashboardLayoutWrapper>
         <DashboardLayoutContainer>

@@ -14,8 +14,12 @@ import {
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
 
-const Login = () => {
+const Login = (props) => {
   const navigate = useNavigate();
+
+  const handleLoginButtonClick = (values) => {
+    props.onLogin(values);
+  }
 
   return (
     <>
@@ -34,15 +38,15 @@ const Login = () => {
         <Container maxWidth="sm">
           <Formik
             initialValues={{
-              email: 'jiquinteros@uade.edu.ar',
-              password: 'Password123'
+              email: '',
+              password: '',
             }}
             validationSchema={Yup.object().shape({
               email: Yup.string().email('Ingrese un e-mail válido').max(255).required('Debe ingresar e-mail'),
               password: Yup.string().max(255).required('Debe ingresar contraseña')
             })}
-            onSubmit={() => {
-              navigate('/app/products', { replace: true });
+            onSubmit={(values) => {
+              handleLoginButtonClick(values);
             }}
           >
             {({
@@ -121,7 +125,7 @@ const Login = () => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email)}
+                  error={Boolean(touched.email && errors.email) || props.failedLogin}
                   fullWidth
                   helperText={touched.email && errors.email}
                   label="E-mail"
@@ -134,7 +138,7 @@ const Login = () => {
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password)}
+                  error={Boolean(touched.password && errors.password) || props.failedLogin}
                   fullWidth
                   helperText={touched.password && errors.password}
                   label="Contraseña"
@@ -148,8 +152,7 @@ const Login = () => {
                 />
                 <Box sx={{ py: 2 }}>
                   <Button
-                    color="primary"
-                    disabled={isSubmitting}
+                    color={"primary"}
                     fullWidth
                     size="large"
                     type="submit"
@@ -158,6 +161,15 @@ const Login = () => {
                     Ingresar
                   </Button>
                 </Box>
+                {props.failedLogin
+                ? (<Typography
+                    color="red"
+                    variant="body1"
+                  >
+                    Parece que algo salió mal 😔. ¿El usuario y contraseña son correctos?
+                  </Typography>)
+                : null}
+
                 <Typography
                   color="textSecondary"
                   variant="body1"

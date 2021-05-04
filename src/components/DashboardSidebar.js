@@ -12,17 +12,12 @@ import {
 } from '@material-ui/core';
 import {
   Home as HomeIcon,
-  Lock as LockIcon,
+  LogOut,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   AlertCircle as AboutIcon,
 } from 'react-feather';
 import NavItem from './NavItem';
-
-const user = {
-  avatar: '',
-  name: 'Juan Ignacio Quinteros'
-};
 
 const items = [
   {
@@ -46,16 +41,14 @@ const items = [
     icon: SettingsIcon,
     title: 'Datos de la cuenta'
   },
-  {
-    href: '/login',
-    icon: LockIcon,
-    title: 'Login'
-  },
-
 ];
 
-const DashboardSidebar = ({ onMobileClose, openMobile }) => {
+const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user }) => {
   const location = useLocation();
+
+  function handleLogOutClick() {
+    onLogOut();
+  }
 
   useEffect(() => {
     if (openMobile && onMobileClose) {
@@ -81,7 +74,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       >
         <Avatar
           component={RouterLink}
-          src={user.avatar}
+          src={''}
           sx={{
             cursor: 'pointer',
             width: 64,
@@ -93,7 +86,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           color="textPrimary"
           variant="h5"
         >
-          {user.name}
+          {user.firstName}
         </Typography>
       </Box>
       <Divider />
@@ -107,6 +100,13 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
               icon={item.icon}
             />
           ))}
+          <NavItem
+            href={'#'}
+            key={'Log out'}
+            title={'Log out'}
+            icon={LogOut}
+            onClick={handleLogOutClick}
+          />
         </List>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
