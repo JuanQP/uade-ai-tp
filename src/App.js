@@ -25,6 +25,7 @@ const App = () => {
     handleLogOut: handleLogOut,
     handleSignUp: handleSignUp,
     failedLogin: failedLogin,
+    handleAccountDetailsSave: handleAccountDetailsSave,
   }));
 
   function checkLogin(loginAttempt) {
@@ -44,6 +45,14 @@ const App = () => {
 
   function handleSignUp(newUser) {
     usuarios.push(newUser);
+  }
+
+  function handleAccountDetailsSave(data) {
+    setUser({
+      ...user,
+      firstName: data.firstName,
+      lastName: data.lastName,
+    });
   }
 
   return (

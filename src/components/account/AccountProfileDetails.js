@@ -12,17 +12,24 @@ import {
 
 const AccountProfileDetails = (props) => {
   const [values, setValues] = useState({
-    firstName: 'Juan Ignacio',
-    lastName: 'Quinteros',
-    email: 'jiquinteros@uade.edu.ar',
+    firstName: props.user.firstName,
+    lastName: props.user.lastName,
+    email: props.user.email,
   });
 
-  const handleChange = (event) => {
+  function handleChange(event) {
     setValues({
       ...values,
       [event.target.name]: event.target.value
     });
   };
+
+  function handleSaveButtonClick() {
+    props.onAccountDetailsSave({
+      firstName: values.firstName,
+      lastName: values.lastName,
+    });
+  }
 
   return (
     <form
@@ -79,6 +86,7 @@ const AccountProfileDetails = (props) => {
             >
               <TextField
                 fullWidth
+                disabled
                 label="E-mail"
                 name="email"
                 onChange={handleChange}
@@ -100,6 +108,7 @@ const AccountProfileDetails = (props) => {
           <Button
             color="primary"
             variant="contained"
+            onClick={handleSaveButtonClick}
           >
             Guardar Cambios
           </Button>

@@ -15,7 +15,7 @@ const routes = (props) => [
     path: 'app',
     element: props.user ? <DashboardLayout user={props.user} onLogOut={props.handleLogOut} /> : <Navigate to="/login" />,
     children: [
-      { path: 'account', element: <Account /> },
+      { path: 'account', element: <Account user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} /> },
       { path: 'customers', element: <CustomerList /> },
       { path: 'home', element: <Home /> },
       { path: 'products', element: <ProductList /> },
