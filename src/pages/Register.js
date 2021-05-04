@@ -1,4 +1,5 @@
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { Link as RouterLink, useNavigate, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -13,8 +14,18 @@ import {
   Typography
 } from '@material-ui/core';
 
-const Register = () => {
+const Register = (props) => {
   const navigate = useNavigate();
+  const [newUserCreated, setNewUserCreated] = useState(false);
+
+  const handleSignUpButtonClick = (values) => {
+    props.onSignUp(values);
+    setNewUserCreated(true);
+  }
+
+  if (newUserCreated) {
+    return <Navigate to="/login"/>;
+  }
 
   return (
     <>
@@ -48,8 +59,8 @@ const Register = () => {
                 policy: Yup.boolean().oneOf([true], 'Aceptar Terminos')
               })
             }
-            onSubmit={() => {
-              navigate('/app/home', { replace: true });
+            onSubmit={(values) => {
+              handleSignUpButtonClick(values);
             }}
           >
             {({

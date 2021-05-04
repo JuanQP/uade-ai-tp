@@ -23,6 +23,7 @@ const App = () => {
     user: user,
     checkLogin: checkLogin,
     handleLogOut: handleLogOut,
+    handleSignUp: handleSignUp,
     failedLogin: failedLogin,
   }));
 
@@ -39,6 +40,10 @@ const App = () => {
 
   function handleLogOut() {
     setUser(null);
+  }
+
+  function handleSignUp(newUser) {
+    usuarios.push(newUser);
   }
 
   return (

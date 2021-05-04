@@ -26,9 +26,12 @@ const routes = (props) => [
     path: '/',
     element: <MainLayout />,
     children: [
-      { path: 'login', element: props.user ? <Navigate to="/app/home" /> : <Login onLogin={props.checkLogin} failedLogin={props.failedLogin} /> },
-      { path: 'register', element: <Register /> },
-      { path: '/', element: props.user ? <Navigate to="/app/home" /> : <Navigate to="/login" /> },
+      { path: 'login',
+        element: props.user ? <Navigate to="/app/home" /> : <Login onLogin={props.checkLogin} failedLogin={props.failedLogin} /> },
+      { path: 'register',
+        element: props.user ? <Navigate to="/app/home" /> : <Register onSignUp={props.handleSignUp} /> },
+      { path: '/',
+        element: props.user ? <Navigate to="/app/home" /> : <Navigate to="/login" /> },
     ]
   }
 ];
