@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -10,12 +9,10 @@ import {
   Toolbar
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import NotificationsIcon from '@material-ui/icons/NotificationsOutlined';
-import InputIcon from '@material-ui/icons/Input';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Logo from './Logo';
 
-const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
-  const [notifications] = useState([]);
+const DashboardNavbar = ({ products, onMobileNavOpen, ...rest }) => {
 
   return (
     <AppBar
@@ -28,17 +25,13 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
         </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <Hidden lgDown>
-          <IconButton color="inherit">
+          <IconButton color="inherit" component={RouterLink} to="/app/cart-detail">
             <Badge
-              badgeContent={notifications.length}
-              color="primary"
-              variant="dot"
+              badgeContent={products.map(p => p.quantity).reduce((a,b) => (a+b), 0)}
+              color="secondary"
             >
-              <NotificationsIcon />
+              <ShoppingCart />
             </Badge>
-          </IconButton>
-          <IconButton color="inherit">
-            <InputIcon />
           </IconButton>
         </Hidden>
         <Hidden lgUp>

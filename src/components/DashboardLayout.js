@@ -47,12 +47,16 @@ const DashboardLayout = (props) => {
 
   return (
     <DashboardLayoutRoot>
-      <DashboardNavbar onMobileNavOpen={() => setMobileNavOpen(true)} />
+      <DashboardNavbar
+        products={props.products}
+        onMobileNavOpen={() => setMobileNavOpen(true)}
+      />
       <DashboardSidebar
         onMobileClose={() => setMobileNavOpen(false)}
         openMobile={isMobileNavOpen}
         user={props.user}
         onLogOut={handleLogOut}
+        productCount={props.products.map(p => p.quantity).reduce((a,b) => (a+b), 0)}
       />
       <DashboardLayoutWrapper>
         <DashboardLayoutContainer>

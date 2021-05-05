@@ -17,6 +17,7 @@ import {
   ShoppingBag as ShoppingBagIcon,
   AlertCircle as AboutIcon,
 } from 'react-feather';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import NavItem from './NavItem';
 
 const items = [
@@ -29,7 +30,7 @@ const items = [
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Catalago de Productos'
+    title: 'Catálogo de Productos'
   },
   {
     href: '/app/about',
@@ -43,7 +44,7 @@ const items = [
   },
 ];
 
-const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user }) => {
+const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCount }) => {
   const location = useLocation();
 
   function handleLogOutClick() {
@@ -100,6 +101,12 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user }) => {
               icon={item.icon}
             />
           ))}
+          <NavItem
+            href={'/app/cart-detail'}
+            key={'Detalle del Carrito'}
+            title={`Detalle del Carrito (${productCount})`}
+            icon={ShoppingCart}
+          />
           <NavItem
             href={'#'}
             key={'Log out'}

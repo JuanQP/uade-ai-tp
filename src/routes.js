@@ -9,17 +9,31 @@ import Login from 'src/pages/Login';
 import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import About from 'src/pages/About';
+import CartDetail from 'src/pages/CartDetail';
 
 const routes = (props) => [
   {
     path: 'app',
-    element: props.user ? <DashboardLayout user={props.user} onLogOut={props.handleLogOut} /> : <Navigate to="/login" />,
+    element: props.user ?
+      <DashboardLayout
+        user={props.user}
+        products={props.products}
+        onLogOut={props.handleLogOut}
+      />
+      : <Navigate to="/login" />,
     children: [
       { path: 'account', element: <Account user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} /> },
       { path: 'customers', element: <CustomerList /> },
       { path: 'home', element: <Home /> },
-      { path: 'products', element: <ProductList /> },
+      { path: 'products', element: <ProductList onAgregarClick={props.handleAddProduct} /> },
       { path: 'about', element: <About /> },
+      { path: 'cart-detail', element:
+        <CartDetail
+          products={props.products}
+          onAddProduct={props.handleAddProduct}
+          onMinusProduct={props.handleMinusProduct}
+          onRemoveProduct={props.handleRemoveProduct}
+        /> },
     ]
   },
   {
