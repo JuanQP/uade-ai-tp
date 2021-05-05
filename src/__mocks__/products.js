@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-export default [
+const products = [
   {
     id: uuid(),
     createdAt: '27/03/2019',
@@ -45,3 +45,5 @@ export default [
   }
 
 ];
+
+export default products;

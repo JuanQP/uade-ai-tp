@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-export default [
+const customers = [
   {
     id: uuid(),
     img: '/static/images/products/product_1.png',
@@ -70,3 +70,5 @@ export default [
   },
 
 ];
+
+export default customers;

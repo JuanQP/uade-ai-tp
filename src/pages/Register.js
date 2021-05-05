@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link as RouterLink, useNavigate, Navigate } from 'react-router-dom';
+import { Link as RouterLink, Navigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -15,7 +15,6 @@ import {
 } from '@material-ui/core';
 
 const Register = (props) => {
-  const navigate = useNavigate();
   const [newUserCreated, setNewUserCreated] = useState(false);
 
   const handleSignUpButtonClick = (values) => {

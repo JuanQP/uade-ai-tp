@@ -55,6 +55,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
     if (openMobile && onMobileClose) {
       onMobileClose();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
 
   const content = (
