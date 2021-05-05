@@ -13,6 +13,7 @@ const usuarios = [
     lastName: 'Quinteros Parada',
     email: 'juanquinteros@uade.edu.ar',
     password: 'password',
+    avatar: 'doge.png',
   },
 ];
 

@@ -10,12 +10,6 @@ import {
   Typography
 } from '@material-ui/core';
 
-const user = {
-  avatar: '',
-  name: 'Juan Ignacio Quinteros',
-  timezone: ''
-};
-
 const AccountProfile = (props) => (
   <Card {...props}>
     <CardContent>
@@ -27,7 +21,7 @@ const AccountProfile = (props) => (
         }}
       >
         <Avatar
-          src={user.avatar}
+          src={props.user.avatar ? `/static/images/avatars/${props.user.avatar}` : ''}
           sx={{
             height: 100,
             width: 100
@@ -44,7 +38,7 @@ const AccountProfile = (props) => (
           color="textSecondary"
           variant="body1"
         >
-          {`${moment().format('hh:mm A')} ${user.timezone}`}
+          {`${moment().format('HH:mm')}`}
         </Typography>
       </Box>
     </CardContent>
