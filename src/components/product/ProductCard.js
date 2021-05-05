@@ -29,9 +29,13 @@ const ProductCard = ({ product, ...rest }) => (
         }}
       >
         <Avatar
-          alt="Product"
           src={product.media}
+          alt="Product"
           variant="square"
+          sx={{
+            height: 170,
+            width: 230
+          }}
         />
       </Box>
       <Typography
@@ -50,7 +54,7 @@ const ProductCard = ({ product, ...rest }) => (
         {product.description}
       </Typography>
     </CardContent>
-    <Box sx={{ flexGrow: 1 }} />
+    <Box sx={{ flexGrow: 4 }} />
     <Divider />
     <Box sx={{ p: 2 }}>
       <Grid
@@ -89,8 +93,6 @@ const ProductCard = ({ product, ...rest }) => (
             sx={{ pl: 1 }}
             variant="body2"
           >
-            {product.totalDownloads}
-            {' '}
             Agregar al carrito
           </Typography>
         </Grid>
