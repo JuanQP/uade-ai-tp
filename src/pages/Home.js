@@ -4,7 +4,7 @@ import {
   Container,
   Grid
 } from '@material-ui/core';
-import LatestProducts from 'src/components/Home/LatestProducts';
+import LatestProducts from 'src/components/home/LatestProducts';
 
 const Home = () => (
   <>
