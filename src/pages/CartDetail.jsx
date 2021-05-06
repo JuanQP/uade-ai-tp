@@ -59,36 +59,41 @@ const CartDetail = (props) => {
             title="Resumen del Carrito"
             subheader="Acá podés ver todos los productos que elegiste 😁"
           />
-          <CardContent>
-            {props.products.length === 0 ?
+          {props.products.length === 0 ?
             // Si no hay productos...
-            <Alert severity="info">Todavía no seleccionaste ningún producto. ¿Qué estás esperando? 😁</Alert>
-            : // Si hay productos:
-            <List>
-              {props.products.map(p => (
-                <CartDetailItem
-                  key={p.product.id}
-                  item={p}
-                  onAddUnit={handleAddUnit}
-                  onMinusUnit={handleMinusUnit}
-                  onRemoveProduct={handleRemoveProduct}
-                />
-              ))}
-            </List>}
-            <Typography variant="h3" paragraph>
-              Total ${props.products.map(p => p.product.price * p.quantity).reduce((a,b) => (a+b), 0)}
-            </Typography>
-          </CardContent>
-          <CardActions sx={{justifyContent: 'center'}}>
-            <Button
-              variant="contained"
-              className={classes.root}
-              startIcon={<CheckIcon />}
-              onClick={handleFinalizarCompraClick}
-            >
-              Finalizar compra
-            </Button>
-          </CardActions>
+            <CardContent>
+              <Alert severity="info">Todavía no seleccionaste ningún producto. ¿Qué estás esperando? 😁</Alert>
+            </CardContent> :
+            // Si hay productos...
+            <>
+            <CardContent>
+              <List>
+                {props.products.map(p => (
+                  <CartDetailItem
+                    key={p.product.id}
+                    item={p}
+                    onAddUnit={handleAddUnit}
+                    onMinusUnit={handleMinusUnit}
+                    onRemoveProduct={handleRemoveProduct}
+                  />
+                ))}
+              </List>
+              <Typography variant="h3" paragraph>
+                Total ${props.products.map(p => p.product.price * p.quantity).reduce((a,b) => (a+b), 0)}
+              </Typography>
+            </CardContent>
+            <CardActions sx={{justifyContent: 'center'}}>
+              <Button
+                variant="contained"
+                className={classes.root}
+                startIcon={<CheckIcon />}
+                onClick={handleFinalizarCompraClick}
+              >
+                Finalizar compra
+              </Button>
+            </CardActions>
+            </>
+          }
         </Card>
       </Container>
     </Box>
