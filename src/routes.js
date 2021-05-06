@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import DashboardLayout from 'src/components/DashboardLayout';
 import MainLayout from 'src/components/MainLayout';
 import Account from 'src/pages/Account';
-import CustomerList from 'src/pages/CustomerList';
+import ABM from 'src/pages/ABM';
 import Home from 'src/pages/Home';
 import Login from 'src/pages/Login';
 import ProductList from 'src/pages/ProductList';
@@ -24,7 +24,7 @@ const routes = (props) => [
       : <Navigate to="/login" />,
     children: [
       { path: 'account', element: <Account user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} /> },
-      { path: 'customers', element: <CustomerList /> },
+      { path: 'ABM', element: <ABM /> },
       { path: 'home', element: <Home /> },
       { path: 'products', element: <ProductList onAgregarClick={props.handleAddProduct} /> },
       { path: 'about', element: <About /> },
