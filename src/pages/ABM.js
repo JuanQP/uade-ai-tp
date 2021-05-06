@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet';
 import { Box, Container } from '@material-ui/core';
 import ABMadmin from 'src/components/admin/ABMadmin';
-import CustomerListToolbar from 'src/components/customer/CustomerListToolbar';
+import AdminListToolbar from 'src/components/admin/AdminListToolbar';
 import ABMlist from 'src/__mocks__/ABMlist';
 
 const ABM = () => (
   <>
     <Helmet>
-      <title>Customers | Material Kit</title>
+      <title>FQ Computer | Admin ABM</title>
     </Helmet>
     <Box
       sx={{
@@ -17,7 +17,7 @@ const ABM = () => (
       }}
     >
       <Container maxWidth={false}>
-        <CustomerListToolbar />
+        <AdminListToolbar />
         <Box sx={{ pt: 3 }}>
           <ABMadmin ABMlist={ABMlist} />
         </Box>
