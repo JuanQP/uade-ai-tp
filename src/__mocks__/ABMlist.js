@@ -9,8 +9,8 @@ const ABMlist = [
     modelo: 'DX-110',
     conect: 'USB',
     peso: 'Aprox. 85g',
-    precio: '$500',
-    cant: '30'
+    precio: 500,
+    cant: 30
   },
   {
     id: uuid(),
@@ -20,8 +20,8 @@ const ABMlist = [
     modelo: 'DX-125',
     conect: 'USB',
     peso: 'Aprox. 85g',
-    precio: '$700',
-    cant: '20'
+    precio: 700,
+    cant: 20
   },
   {
     id: uuid(),
@@ -31,8 +31,8 @@ const ABMlist = [
     modelo: 'KB-116',
     conect: 'USB',
     peso: 'Aprox. 488g',
-    precio: '$350',
-    cant: '12'
+    precio: 350,
+    cant: 12
   },
   {
     id: uuid(),
@@ -42,8 +42,8 @@ const ABMlist = [
     modelo: 'KB-118',
     conect: 'USB',
     peso: 'Aprox. 467g',
-    precio: '$400',
-    cant: '8'
+    precio: 400,
+    cant: 8
   },
   {
     id: uuid(),
@@ -53,8 +53,8 @@ const ABMlist = [
     modelo: 'SW-21-370',
     conect: 'USB',
     peso: 'Aprox. 1.5k',
-    precio: '$700',
-    cant: '10'
+    precio: 700,
+    cant: 10
   },
   {
     id: uuid(),
@@ -64,10 +64,8 @@ const ABMlist = [
     modelo: 'SW-21-375',
     conect: 'USB',
     peso: 'Aprox. 1.7k',
-    precio: '$800',
-    cant: '15'
-
+    precio: 800,
+    cant: 15
   },
-
 ];
 export default ABMlist;
