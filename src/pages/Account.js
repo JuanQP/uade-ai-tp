@@ -15,7 +15,7 @@ const Account = (props) => {
   return (
     <>
       <Helmet>
-        <title>Account | Material Kit</title>
+        <title>FQ Computer | Cuenta</title>
       </Helmet>
       <Box
         sx={{
@@ -24,7 +24,7 @@ const Account = (props) => {
           py: 3
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
           <Grid
             container
             spacing={3}
