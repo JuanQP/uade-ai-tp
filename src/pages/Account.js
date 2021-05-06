@@ -15,7 +15,7 @@ const Account = (props) => {
   return (
     <>
       <Helmet>
-        <title>FQ Computer | Cuenta</title>
+        <title>FQ Computer | Datos de la cuenta</title>
       </Helmet>
       <Box
         sx={{
