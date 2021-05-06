@@ -11,39 +11,7 @@ import {
   ListItemText
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-
-const products = [
-  {
-    id: uuid(),
-    name: 'Mouse Genius DX-110',
-    imageUrl: '/static/images/products/product_1.png',
-  },
-  {
-    id: uuid(),
-    name: 'Mouse Genius DX-125',
-    imageUrl: '/static/images/products/product_2.png',
-  },
-  {
-    id: uuid(),
-    name: 'Teclado Genius KB-116',
-    imageUrl: '/static/images/products/product_3.png',
-  },
-  {
-    id: uuid(),
-    name: 'Teclado Genius KB-118',
-    imageUrl: '/static/images/products/product_4.png',
-  },
-  {
-    id: uuid(),
-    name: 'Parlante Genius SW-21-370',
-    imageUrl: '/static/images/products/product_5.png',
-  },
-  {
-    id: uuid(),
-    name: 'Parlante Genius SW-21-375',
-    imageUrl: '/static/images/products/product_6.png',
-  }
-];
+import products from 'src/__mocks__/ABMlist';
 
 const LatestProducts = (props) => (
   <Card {...props}>
@@ -52,15 +20,15 @@ const LatestProducts = (props) => (
     />
     <Divider />
     <List>
-      {products.map((product, i) => (
+      {products.slice(0, 5).map((product, i) => (
         <ListItem
           divider={i < products.length - 1}
           key={product.id}
         >
           <ListItemAvatar>
             <img
-              alt={product.name}
-              src={product.imageUrl}
+              alt={`${product.producto} ${product.marca} ${product.modelo}`}
+              src={product.img}
               style={{
                 height: 100,
                 width: 140
@@ -68,7 +36,7 @@ const LatestProducts = (props) => (
             />
           </ListItemAvatar>
           <ListItemText
-            primary={product.name}
+            primary={`${product.producto} ${product.marca} ${product.modelo}`}
           />
         </ListItem>
       ))}

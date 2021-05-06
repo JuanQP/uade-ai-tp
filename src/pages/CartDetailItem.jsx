@@ -26,11 +26,11 @@ const CartDetailItem = (props) => {
   return (
     <ListItem key={props.item.product.id}>
       <ListItemAvatar>
-        <Avatar src={props.item.product.media} />
+        <Avatar src={props.item.product.img} />
       </ListItemAvatar>
       <ListItemText
-        primary={props.item.product.title}
-        secondary={`${props.item.quantity} ${props.item.quantity === 1 ? "unidad" : "unidades"} ($${props.item.quantity * props.item.product.price})`}
+        primary={`${props.item.product.producto} ${props.item.product.marca} ${props.item.product.modelo}`}
+        secondary={`${props.item.quantity} ${props.item.quantity === 1 ? "unidad" : "unidades"} ($${props.item.quantity * props.item.product.precio})`}
       />
       <ListItemSecondaryAction>
         <IconButton aria-label="add" onClick={handleAddUnit}>

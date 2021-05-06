@@ -36,7 +36,7 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
           }}
         >
           <Avatar
-            src={product.media}
+            src={product.img}
             alt="Product"
             variant="square"
             sx={{
@@ -51,7 +51,7 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
           gutterBottom
           variant="h4"
         >
-          {product.title}
+          {`${product.producto} ${product.marca} ${product.modelo}`}
         </Typography>
         <Typography
           align="center"
@@ -59,7 +59,7 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
           gutterBottom
           variant="h4"
         >
-          ${product.price}
+          ${product.precio}
         </Typography>
       </CardContent>
       <Box sx={{ flexGrow: 4 }} />

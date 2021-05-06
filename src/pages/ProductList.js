@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import ProductListToolbar from 'src/components/product/ProductListToolbar';
 import ProductCard from 'src/components/product//ProductCard';
-import products from 'src/__mocks__/products';
+import products from 'src/__mocks__/ABMlist';
 
 const ProductList = (props) => {
 

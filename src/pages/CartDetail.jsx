@@ -79,7 +79,7 @@ const CartDetail = (props) => {
                 ))}
               </List>
               <Typography variant="h3" paragraph>
-                Total ${props.products.map(p => p.product.price * p.quantity).reduce((a,b) => (a+b), 0)}
+                Total ${props.products.map(p => p.product.precio * p.quantity).reduce((a,b) => (a+b), 0)}
               </Typography>
             </CardContent>
             <CardActions sx={{justifyContent: 'center'}}>

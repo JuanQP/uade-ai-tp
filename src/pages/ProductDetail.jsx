@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { useParams } from 'react-router-dom';
-import products from 'src/__mocks__/products';
+import products from 'src/__mocks__/ABMlist';
 
 const ProductDetail = (props) => {
   const { product_id } = useParams();
@@ -38,7 +38,7 @@ const ProductDetail = (props) => {
           }}
         >
           <Avatar
-            src={product.media}
+            src={product.img}
             alt="Product"
             variant="square"
             sx={{
@@ -53,8 +53,48 @@ const ProductDetail = (props) => {
           gutterBottom
           variant="h4"
         >
-          {product.title}
+          {`${product.producto} ${product.marca} ${product.modelo}`}
         </Typography>
+        <Grid sx={{marginTop: 3}} container spacing={3}>
+          <Grid item xs={6}>
+          <Typography color="textPrimary" variant="h4">Marca</Typography>
+          <Typography
+            color="textPrimary"
+            variant="body1"
+          >
+            {product.marca}
+          </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography color="textPrimary" variant="h4">Modelo</Typography>
+            <Typography
+              color="textPrimary"
+              variant="body1"
+            >
+              {product.modelo}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid sx={{marginTop: 3}} container spacing={3}>
+          <Grid item xs={6}>
+          <Typography color="textPrimary" variant="h4">Conector</Typography>
+          <Typography
+            color="textPrimary"
+            variant="body1"
+          >
+            {product.conect}
+          </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography color="textPrimary" variant="h4">Peso</Typography>
+            <Typography
+              color="textPrimary"
+              variant="body1"
+            >
+              {product.peso}
+            </Typography>
+          </Grid>
+        </Grid>
         <Grid sx={{marginTop: 3}} container spacing={3}>
           <Grid item xs={6}>
           <Typography color="textPrimary" variant="h4">Descripción</Typography>
@@ -62,7 +102,7 @@ const ProductDetail = (props) => {
             color="textPrimary"
             variant="body1"
           >
-            {product.description}
+            {product.descripcion}
           </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -71,7 +111,7 @@ const ProductDetail = (props) => {
               color="textPrimary"
               variant="body1"
             >
-              ${product.price}
+              ${product.precio}
             </Typography>
           </Grid>
         </Grid>
