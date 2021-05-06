@@ -1,6 +1,6 @@
 import { useState } from "react";
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import { useRoutes } from 'react-router-dom';
+import { useRoutes, useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core';
 import GlobalStyles from 'src/components/GlobalStyles';
 import 'src/mixins/chartjs';
@@ -18,6 +18,7 @@ const usuarios = [
 ];
 
 const App = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [failedLogin, setFailedLogin] = useState(false);
   const [products, setProducts] = useState([]);
@@ -32,6 +33,7 @@ const App = () => {
     handleAddProduct: handleAddProduct,
     handleMinusProduct: handleMinusProduct,
     handleRemoveProduct: handleRemoveProduct,
+    handleFinishedBuy: handleFinishedBuy,
   }));
 
   function checkLogin(loginAttempt) {
@@ -100,6 +102,12 @@ const App = () => {
 
       setProducts(products.filter(p => p.product.id !== product.id));
     }
+  }
+
+  function handleFinishedBuy() {
+    setProducts([])
+    navigate("/app/home");
+    alert("Compra realizada :D!");
   }
 
   return (

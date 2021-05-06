@@ -1,3 +1,4 @@
+import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
@@ -55,9 +56,10 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
         <Typography
           align="center"
           color="textPrimary"
-          variant="body1"
+          gutterBottom
+          variant="h4"
         >
-          {product.description}
+          ${product.price}
         </Typography>
       </CardContent>
       <Box sx={{ flexGrow: 4 }} />
@@ -79,6 +81,8 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
               variant="contained"
               color="inherit"
               startIcon={<InfoIcon />}
+              component={RouterLink}
+              to={`/app/product/${product.id}`}
             >
               Detalles
             </Button>

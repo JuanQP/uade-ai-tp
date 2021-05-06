@@ -10,6 +10,7 @@ import ProductList from 'src/pages/ProductList';
 import Register from 'src/pages/Register';
 import About from 'src/pages/About';
 import CartDetail from 'src/pages/CartDetail';
+import ProductDetail from 'src/pages/ProductDetail';
 
 const routes = (props) => [
   {
@@ -33,7 +34,9 @@ const routes = (props) => [
           onAddProduct={props.handleAddProduct}
           onMinusProduct={props.handleMinusProduct}
           onRemoveProduct={props.handleRemoveProduct}
+          onFinishedBuy={props.handleFinishedBuy}
         /> },
+      { path: 'product/:product_id', element: <ProductDetail onAgregarClick={props.handleAddProduct} />},
     ]
   },
   {

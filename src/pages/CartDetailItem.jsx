@@ -30,7 +30,7 @@ const CartDetailItem = (props) => {
       </ListItemAvatar>
       <ListItemText
         primary={props.item.product.title}
-        secondary={`${props.item.quantity} ${props.item.quantity === 1 ? "unidad" : "unidades"}`}
+        secondary={`${props.item.quantity} ${props.item.quantity === 1 ? "unidad" : "unidades"} ($${props.item.quantity * props.item.product.price})`}
       />
       <ListItemSecondaryAction>
         <IconButton aria-label="add" onClick={handleAddUnit}>

@@ -7,6 +7,7 @@ const products = [
     description: 'Este mouse posee Tres botones (izquierda, derecha y central con desplazamiento) y es el último módelo sacado al mercado por Genius.',
     media: '/static/images/products/product_1.png',
     title: 'Mouse Genius DX-110',
+    price: 100,
   },
   {
     id: uuid(),
@@ -14,6 +15,7 @@ const products = [
     description: 'Este mouse posee Tres botones (izquierda, derecha y central con desplazamiento). Apto para el uso con cualquiera de las manos.',
     media: '/static/images/products/product_2.png',
     title: 'Mouse Genius DX-125',
+    price: 100,
   },
   {
     id: uuid(),
@@ -21,6 +23,7 @@ const products = [
     description: 'Este teclado tiene teclas de bajo perfil lo que le permitiran escribir cómodamente, en silencio y con un toque receptivo.',
     media: '/static/images/products/product_3.png',
     title: 'Teclado Genius KB-116',
+    price: 100,
   },
   {
     id: uuid(),
@@ -28,6 +31,7 @@ const products = [
     description: 'Este teclado tiene teclas de bajo perfil permitiendo una escritura rápida y fluida, además ofrece resistencia ante los derrames',
     media: '/static/images/products/product_4.png',
     title: 'Teclado Genius KB-118',
+    price: 100,
   },
   {
     id: uuid(),
@@ -35,6 +39,7 @@ const products = [
     description: 'Este parlante tiene altavoces de madera lo que logra obtener un sonido más potente. Tiene una potencia de 8W.',
     media: '/static/images/products/product_5.png',
     title: 'Parlante Genius SW-21-370',
+    price: 100,
   },
   {
     id: uuid(),
@@ -42,6 +47,7 @@ const products = [
     description: 'Este parlante tiene altavoces de madera lo que logra obtener un sonido más potente. Tiene una potencia de 6W.',
     media: '/static/images/products/product_6.png',
     title: 'Parlante Genius SW-21-375',
+    price: 100,
   }
 
 ];
