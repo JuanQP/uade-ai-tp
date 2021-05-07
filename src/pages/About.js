@@ -14,7 +14,7 @@ const About = () => (
         py: 3
       }}
     >
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <SettingsNotifications />
       </Container>
     </Box>
