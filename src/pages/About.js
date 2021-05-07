@@ -24,7 +24,7 @@ const About = () => (
              FQ Computer
             </Typography>
             <Typography variant="h4" align="left" color="textSecondary" paragraph>
-            Somo una empresa que nos dedicamos puramente a la venta de artículos de PC, buscamos continuamente nuevas formas de satisfacer las necesidades de nuestros clientes para garantizar bienes y servicios de calidad al precio más competitivo del mercado.
+            Somos una empresa que nos dedicamos puramente a la venta de artículos de PC, buscamos continuamente nuevas formas de satisfacer las necesidades de nuestros clientes para garantizar bienes y servicios de calidad al precio más competitivo del mercado.
             </Typography>
             <Typography variant="h4" align="left" color="textSecondary" paragraph>
             Nos apoyamos en tres pilares fundamentales para lograrlo: el esfuerzo, la seriedad y el compromiso con nuestros clientes. 
