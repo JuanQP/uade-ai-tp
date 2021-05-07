@@ -8,54 +8,60 @@ import {
   SvgIcon
 } from '@material-ui/core';
 import { Search as SearchIcon } from 'react-feather';
+import { Link as RouterLink } from 'react-router-dom';
 
-const AdminListToolbar = (props) => (
-  <Box {...props}>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end'
-      }}
-    >
-      <Button>
-        Editar
-      </Button>
-      <Button sx={{ mx: 1 }}>
-        Eliminar
-      </Button>
-      <Button
-        color="primary"
-        variant="contained"
+const AdminListToolbar = ({onDeleteClick, ...props}) => {
+
+  function handleDeleteClick() {
+    onDeleteClick();
+  }
+
+  return (
+    <Box {...props}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end'
+        }}
       >
-        Agregar Producto
-      </Button>
+        <Button color="secondary" onClick={handleDeleteClick} sx={{ mx: 1 }}>
+          Eliminar
+        </Button>
+        <Button
+          color="primary"
+          variant="contained"
+          component={RouterLink} to={'/app/add-product'}
+        >
+          Agregar Producto
+        </Button>
+      </Box>
+      <Box sx={{ mt: 3 }}>
+        <Card>
+          <CardContent>
+            <Box sx={{ maxWidth: 500 }}>
+              <TextField
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SvgIcon
+                        fontSize="small"
+                        color="action"
+                      >
+                        <SearchIcon />
+                      </SvgIcon>
+                    </InputAdornment>
+                  )
+                }}
+                placeholder="Buscar Producto"
+                variant="outlined"
+              />
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
     </Box>
-    <Box sx={{ mt: 3 }}>
-      <Card>
-        <CardContent>
-          <Box sx={{ maxWidth: 500 }}>
-            <TextField
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SvgIcon
-                      fontSize="small"
-                      color="action"
-                    >
-                      <SearchIcon />
-                    </SvgIcon>
-                  </InputAdornment>
-                )
-              }}
-              placeholder="Buscar Producto"
-              variant="outlined"
-            />
-          </Box>
-        </CardContent>
-      </Card>
-    </Box>
-  </Box>
-);
+  );
+}
 
 export default AdminListToolbar;

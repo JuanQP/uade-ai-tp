@@ -11,13 +11,13 @@ import {
 } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { useParams } from 'react-router-dom';
-import products from 'src/__mocks__/ABMlist';
 
 const ProductDetail = (props) => {
   const { product_id } = useParams();
+  const products = props.productsdb;
   const product = products.find(p => p.id === product_id);
 
-  function handleAgregarClick(product) {
+  function handleAgregarClick() {
     props.onAgregarClick(product);
   }
 
@@ -56,16 +56,16 @@ const ProductDetail = (props) => {
           {`${product.producto} ${product.marca} ${product.modelo}`}
         </Typography>
         <Grid sx={{marginTop: 3}} container spacing={3}>
-          <Grid item xs={6}>
-          <Typography color="textPrimary" variant="h4">Marca</Typography>
-          <Typography
-            color="textPrimary"
-            variant="body1"
-          >
-            {product.marca}
-          </Typography>
+          <Grid item xs={3}>
+            <Typography color="textPrimary" variant="h4">Marca</Typography>
+            <Typography
+              color="textPrimary"
+              variant="body1"
+            >
+              {product.marca}
+            </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <Typography color="textPrimary" variant="h4">Modelo</Typography>
             <Typography
               color="textPrimary"
@@ -74,18 +74,16 @@ const ProductDetail = (props) => {
               {product.modelo}
             </Typography>
           </Grid>
-        </Grid>
-        <Grid sx={{marginTop: 3}} container spacing={3}>
-          <Grid item xs={6}>
-          <Typography color="textPrimary" variant="h4">Conector</Typography>
-          <Typography
-            color="textPrimary"
-            variant="body1"
-          >
-            {product.conect}
-          </Typography>
+          <Grid item xs={3}>
+            <Typography color="textPrimary" variant="h4">Conector</Typography>
+            <Typography
+              color="textPrimary"
+              variant="body1"
+            >
+              {product.conect}
+            </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <Typography color="textPrimary" variant="h4">Peso</Typography>
             <Typography
               color="textPrimary"

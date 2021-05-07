@@ -18,7 +18,7 @@ const Home = () => (
         py: 3
       }}
     >
-      <Container maxWidth="ms">
+      <Container maxWidth={false}>
         <Grid
           container
           spacing={3}

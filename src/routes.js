@@ -11,6 +11,8 @@ import Register from 'src/pages/Register';
 import About from 'src/pages/About';
 import CartDetail from 'src/pages/CartDetail';
 import ProductDetail from 'src/pages/ProductDetail';
+import ABMAlta from 'src/components/admin/ABMalta';
+import ABMModificar from 'src/components/admin/ABMmodificar';
 
 const routes = (props) => [
   {
@@ -24,9 +26,24 @@ const routes = (props) => [
       : <Navigate to="/login" />,
     children: [
       { path: 'account', element: <Account user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} /> },
-      { path: 'ABM', element: <ABM /> },
+      { path: 'ABM', element: (
+        <ABM
+          productsdb={props.productsDB}
+          onDeleteProduct={props.deleteProduct}
+        />
+      )},
+      {
+        path: 'add-product', element: <ABMAlta onNewProduct={props.insertProduct}/>
+      },
+      {
+        path: 'change-product/:product_id', element: <ABMModificar onUpdateProduct={props.updateProduct} productsdb={props.productsDB}/>
+      },
       { path: 'home', element: <Home /> },
-      { path: 'products', element: <ProductList onAgregarClick={props.handleAddProduct} /> },
+      { path: 'products', element: (
+        <ProductList
+          productsdb={props.productsDB}
+          onAgregarClick={props.handleAddProduct}
+        />) },
       { path: 'about', element: <About /> },
       { path: 'cart-detail', element:
         <CartDetail
@@ -36,7 +53,7 @@ const routes = (props) => [
           onRemoveProduct={props.handleRemoveProduct}
           onFinishedBuy={props.handleFinishedBuy}
         /> },
-      { path: 'product/:product_id', element: <ProductDetail onAgregarClick={props.handleAddProduct} />},
+      { path: 'product/:product_id', element: <ProductDetail productsdb={props.productsDB} onAgregarClick={props.handleAddProduct} />},
     ]
   },
   {

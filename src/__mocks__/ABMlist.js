@@ -10,7 +10,7 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 85g',
     precio: 500,
-    cant: 30
+    stock: 30
   },
   {
     id: uuid(),
@@ -21,7 +21,7 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 85g',
     precio: 700,
-    cant: 20
+    stock: 20
   },
   {
     id: uuid(),
@@ -32,7 +32,7 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 488g',
     precio: 350,
-    cant: 12
+    stock: 12
   },
   {
     id: uuid(),
@@ -43,7 +43,7 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 467g',
     precio: 400,
-    cant: 8
+    stock: 8
   },
   {
     id: uuid(),
@@ -54,7 +54,7 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 1.5k',
     precio: 700,
-    cant: 10
+    stock: 10
   },
   {
     id: uuid(),
@@ -65,7 +65,7 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 1.7k',
     precio: 800,
-    cant: 15
+    stock: 15
   },
 ];
 export default ABMlist;

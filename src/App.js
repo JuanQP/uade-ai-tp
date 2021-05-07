@@ -6,6 +6,8 @@ import GlobalStyles from 'src/components/GlobalStyles';
 import 'src/mixins/chartjs';
 import theme from 'src/theme';
 import routes from 'src/routes';
+import ABMlist from 'src/__mocks__/ABMlist';
+import { v4 as uuid } from 'uuid';
 
 const usuarios = [
   {
@@ -22,6 +24,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [failedLogin, setFailedLogin] = useState(false);
   const [products, setProducts] = useState([]);
+  const [productsDB, setProductsDB] = useState(ABMlist.slice(0));
   const routing = useRoutes(routes({
     user: user,
     products: products,
@@ -34,6 +37,10 @@ const App = () => {
     handleMinusProduct: handleMinusProduct,
     handleRemoveProduct: handleRemoveProduct,
     handleFinishedBuy: handleFinishedBuy,
+    productsDB: productsDB,
+    insertProduct,
+    updateProduct,
+    deleteProduct,
   }));
 
   function checkLogin(loginAttempt) {
@@ -102,6 +109,33 @@ const App = () => {
 
       setProducts(products.filter(p => p.product.id !== product.id));
     }
+  }
+
+  function insertProduct(newProduct) {
+    setProductsDB([
+      ...productsDB,
+      {
+        id: uuid(),
+        ...newProduct,
+      },
+    ]);
+    navigate("/app/ABM");
+    alert("Producto agregado");
+  }
+
+  function updateProduct(updatedProduct) {
+    const toBeUpdated = productsDB.findIndex(p => updatedProduct.id === p.id);
+    if(toBeUpdated !== -1) {
+      productsDB[toBeUpdated] = updatedProduct;
+    }
+    // Hack medio feo de React para que se "entere" que un array mutó.
+    setProductsDB(productsDB.slice(0));
+    navigate("/app/ABM");
+    alert("Producto actualizado");
+  }
+
+  function deleteProduct(ids) {
+    setProductsDB(productsDB.filter(p => !ids.includes(p.id)));
   }
 
   function handleFinishedBuy() {

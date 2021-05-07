@@ -10,7 +10,7 @@ import {
   TextField
 } from '@material-ui/core';
 
-const AccountProfileDetails = (props) => {
+const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
   const [values, setValues] = useState({
     firstName: props.user.firstName,
     lastName: props.user.lastName,
@@ -25,7 +25,7 @@ const AccountProfileDetails = (props) => {
   };
 
   function handleSaveButtonClick() {
-    props.onAccountDetailsSave({
+    onAccountDetailsSave({
       firstName: values.firstName,
       lastName: values.lastName,
     });

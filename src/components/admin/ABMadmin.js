@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
+import { Link as RouterLink } from 'react-router-dom';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Avatar,
   Box,
   Card,
   Checkbox,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -16,8 +17,10 @@ import {
   Typography
 } from '@material-ui/core';
 import getInitials from 'src/utils/getInitials';
+import AdminListToolbar from 'src/components/admin/AdminListToolbar';
+import EditIcon from '@material-ui/icons/Edit';
 
-const ABMadmin = ({ ABMlist, ...rest }) => {
+const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, ...rest }) => {
   const [selectedABMlistIds, setSelectedABMlistIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -62,7 +65,13 @@ const ABMadmin = ({ ABMlist, ...rest }) => {
     setPage(newPage);
   };
 
+  function handleRemoveProduct() {
+    onDeleteProduct(selectedABMlistIds);
+  }
+
   return (
+    <>
+    <AdminListToolbar onDeleteClick={handleRemoveProduct} />
     <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
@@ -103,6 +112,9 @@ const ABMadmin = ({ ABMlist, ...rest }) => {
                 </TableCell>
                 <TableCell>
                   Fecha de ingreso
+                </TableCell>
+                <TableCell>
+                  Editar
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -160,13 +172,18 @@ const ABMadmin = ({ ABMlist, ...rest }) => {
                     {ABMlist.peso}
                   </TableCell>
                   <TableCell>
-                    {ABMlist.cant}
+                    {ABMlist.stock}
                   </TableCell>
                   <TableCell>
-                    {ABMlist.precio}
+                    ${ABMlist.precio}
                   </TableCell>
                   <TableCell>
-                    {moment().format('DD/MM/YYYY')}
+                    {ABMlist.fechaIngreso ? ABMlist.fechaIngreso : 'Sin especificar'}
+                  </TableCell>
+                  <TableCell>
+                    <IconButton component={RouterLink} to={`/app/change-product/${ABMlist.id}`} aria-label="edit">
+                      <EditIcon />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}
@@ -184,6 +201,7 @@ const ABMadmin = ({ ABMlist, ...rest }) => {
         rowsPerPageOptions={[5, 10, 25]}
       />
     </Card>
+    </>
   );
 };
 
