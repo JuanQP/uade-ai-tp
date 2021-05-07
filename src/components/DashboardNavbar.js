@@ -10,7 +10,9 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import Logo from './Logo';
+import {
+  Avatar,
+} from '@material-ui/core';
 
 const DashboardNavbar = ({ products, onMobileNavOpen, ...rest }) => {
 
@@ -20,9 +22,18 @@ const DashboardNavbar = ({ products, onMobileNavOpen, ...rest }) => {
       {...rest}
     >
       <Toolbar>
-        <RouterLink to="/">
-          <Logo />
-        </RouterLink>
+       <RouterLink to="/">
+      <Avatar
+            src={'/static/images/Logo.png'}
+            alt="Product"
+            variant="square"
+            sx={{
+              height: 60,
+              width: 75
+            }}
+          >
+          </Avatar>
+      </RouterLink>
         <Box sx={{ flexGrow: 1 }} />
         <Hidden lgDown>
           <IconButton color="inherit" component={RouterLink} to="/app/cart-detail">
