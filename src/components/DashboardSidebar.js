@@ -29,33 +29,39 @@ const items = [
   {
     href: '/app/home',
     icon: HomeIcon,
-    title: 'Home'
+    title: 'Home',
+    requiresAdmin: false,
   },
 
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Catálogo de Productos'
+    title: 'Catálogo de Productos',
+    requiresAdmin: false,
   },
   {
     href: '/app/about',
     icon: AboutIcon,
-    title: 'Quienes Somos'
+    title: 'Quienes Somos',
+    requiresAdmin: false,
   },
   {
     href: '/app/account',
     icon: SettingsIcon,
-    title: 'Datos de la cuenta'
+    title: 'Datos de la cuenta',
+    requiresAdmin: false,
   },
   {
     href: '/app/ABM',
     icon: EditIcon,
-    title: 'ABM'
+    title: 'ABM',
+    requiresAdmin: true,
   },
   {
     href: '/app/orders',
     icon: ListIcon,
-    title: 'Listado de Pedidos'
+    title: 'Listado de Pedidos',
+    requiresAdmin: true,
   }
 ];
 
@@ -109,7 +115,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
       <Divider />
       <Box sx={{ p: 2 }}>
         <List>
-          {items.map((item) => (
+          {items.filter((item) => !item.requiresAdmin || user.isAdmin).map((item) => (
             <NavItem
               href={item.href}
               key={item.title}
@@ -163,7 +169,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
       </Box>
       <Box sx={{ flexGrow: 1 }} />
     </Box>
-    
+
   );
 
   return (

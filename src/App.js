@@ -16,6 +16,15 @@ const usuarios = [
     email: 'juanquinteros@uade.edu.ar',
     password: 'password',
     avatar: 'doge.png',
+    isAdmin: true,
+  },
+  {
+    firstName: 'Meme',
+    lastName: 'Man',
+    email: 'cliente@uade.edu.ar',
+    password: 'password',
+    avatar: 'stonks.png',
+    isAdmin: false,
   },
 ];
 
