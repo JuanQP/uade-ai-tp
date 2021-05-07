@@ -5,8 +5,11 @@ import {
   Grid
 } from '@material-ui/core';
 import LatestProducts from 'src/components/home/LatestProducts';
+import DescuentoTarjeta from 'src/components/home/DescuentoTarjeta';
+import LatestSonido from 'src/components/home/LatestSonido';
+import Typography from '@material-ui/core/Typography';  
 
-const Home = ({productsdb, ...props}) => (
+const Home = () => (
   <>
     <Helmet>
       <title> FQ Computer | Home</title>
@@ -18,6 +21,18 @@ const Home = ({productsdb, ...props}) => (
         py: 3
       }}
     >
+      <main>
+        <div>
+          <Container maxWidth="lg">
+            <Typography variant="h1" align="center" color="textPrimary" gutterBottom>
+             Bienvenidos a FQ Computer
+            </Typography>
+            <Typography variant="h4" align="center" color="textSecondary" paragraph>
+             Encontrara los mejores accesorios para su PC al mejor precio.
+            </Typography>
+          </Container>
+        </div>
+      </main>
       <Container maxWidth={false}>
         <Grid
           container
@@ -30,7 +45,25 @@ const Home = ({productsdb, ...props}) => (
             xl={4}
             xs={12}
           >
-            <LatestProducts products={productsdb} />
+            <LatestProducts />
+          </Grid>
+          <Grid
+            item
+            lg={8}
+            md={12}
+            xl={4}
+            xs={12}
+          >
+            <LatestSonido />
+          </Grid>
+          <Grid
+              item
+              lg={3}
+              sm={6}
+              xl={3}
+              xs={12}
+          >
+            <DescuentoTarjeta />
           </Grid>
         </Grid>
       </Container>
