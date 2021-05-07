@@ -6,6 +6,8 @@ import {
 } from '@material-ui/core';
 import LatestProducts from 'src/components/home/LatestProducts';
 import DescuentoTarjeta from 'src/components/home/DescuentoTarjeta';
+import PromoEnvios from 'src/components/home/PromoEnvios';
+import RetiraPorlocal from 'src/components/home/RetiraPorlocal';
 import LatestSonido from 'src/components/home/LatestSonido';
 import Typography from '@material-ui/core/Typography';  
 
@@ -64,6 +66,8 @@ const Home = () => (
               xs={12}
           >
             <DescuentoTarjeta />
+            <PromoEnvios />
+            <RetiraPorlocal />
           </Grid>
         </Grid>
       </Container>
