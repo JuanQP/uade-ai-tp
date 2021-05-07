@@ -11,7 +11,7 @@ import {
   import {
     indigo as colorindigo
   } from '@material-ui/core/colors';
-  
+
   const PromoEnvios = (props) => (
     <Card
     sx={{  width: '130%'
@@ -30,7 +30,7 @@ import {
               gutterBottom
               variant="h3"
             >
-              Envios a todo el país al costo más bajo
+              Envíos a todo el país al costo más bajo
             </Typography>
           </Grid>
           <Grid item>
@@ -48,6 +48,5 @@ import {
       </CardContent>
     </Card>
   );
-  
+
   export default PromoEnvios;
-  

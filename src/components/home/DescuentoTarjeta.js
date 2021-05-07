@@ -13,7 +13,7 @@ import {
     red as colorRed,
     indigo as colorindigo
   } from '@material-ui/core/colors';
-  
+
   const DescuentoTarjeta = (props) => (
     <Card
       sx={{  width: '130%'
@@ -32,7 +32,7 @@ import {
               gutterBottom
               variant="h4"
             >
-              Pagando con tarjeta de credito en el mes de mayo
+              Pagando con tarjeta de crédito en el mes de mayo
             </Typography>
           </Grid>
           <Grid item>
@@ -73,6 +73,5 @@ import {
       </CardContent>
     </Card>
   );
-  
+
   export default DescuentoTarjeta;
-  
