@@ -11,6 +11,7 @@ import Register from 'src/pages/Register';
 import About from 'src/pages/About';
 import CartDetail from 'src/pages/CartDetail';
 import ProductDetail from 'src/pages/ProductDetail';
+import Orders from 'src/pages/Orders';
 
 const routes = (props) => [
   {
@@ -28,6 +29,7 @@ const routes = (props) => [
       { path: 'home', element: <Home /> },
       { path: 'products', element: <ProductList onAgregarClick={props.handleAddProduct} /> },
       { path: 'about', element: <About /> },
+      { path: 'orders', element: <Orders /> },
       { path: 'cart-detail', element:
         <CartDetail
           products={props.products}
