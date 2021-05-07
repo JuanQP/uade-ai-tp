@@ -35,7 +35,7 @@ const App = () => {
   const [user, setUser] = useState(null);
   const [failedLogin, setFailedLogin] = useState(false);
   const [products, setProducts] = useState([]);
-  const [productsDB, setProductsDB] = useState(ABMlist.slice(0));
+  const [productsDB, setProductsDB] = useState(ABMlist.slice(0).sort(() => Math.random() - 0.5));
   const [ordersDB, setOrdersDB] = useState(ordersList.slice(0));
   const routing = useRoutes(routes({
     user: user,

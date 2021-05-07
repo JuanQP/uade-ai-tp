@@ -9,9 +9,9 @@ import DescuentoTarjeta from 'src/components/home/DescuentoTarjeta';
 import PromoEnvios from 'src/components/home/PromoEnvios';
 import RetiraPorlocal from 'src/components/home/RetiraPorlocal';
 import LatestSonido from 'src/components/home/LatestSonido';
-import Typography from '@material-ui/core/Typography';  
+import Typography from '@material-ui/core/Typography';
 
-const Home = () => (
+const Home = ({productsdb, ...props}) => (
   <>
     <Helmet>
       <title> FQ Computer | Home</title>
@@ -47,7 +47,7 @@ const Home = () => (
             xl={4}
             xs={12}
           >
-            <LatestProducts />
+            <LatestProducts products={productsdb} />
           </Grid>
           <Grid
             item
@@ -56,7 +56,7 @@ const Home = () => (
             xl={4}
             xs={12}
           >
-            <LatestSonido />
+            <LatestSonido products={productsdb} />
           </Grid>
           <Grid
               item
