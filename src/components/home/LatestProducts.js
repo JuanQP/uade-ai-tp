@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Card,
@@ -10,6 +11,7 @@ import {
   ListItemText
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 
 const LatestProducts = ({products, ...props}) => (
   <Card {...props}>
@@ -23,15 +25,18 @@ const LatestProducts = ({products, ...props}) => (
           divider={i < products.length - 1}
           key={product.id}
         >
-          <ListItemAvatar>
-            <img
+          <ListItemAvatar >
+            <Avatar
+              variant="square"
               alt={`${product.producto} ${product.marca} ${product.modelo}`}
               src={product.img}
               style={{
                 height: 100,
                 width: 140
               }}
-            />
+            >
+              <BrokenImageIcon />
+            </Avatar>
           </ListItemAvatar>
           <ListItemText
             primary={`${product.producto} ${product.marca} ${product.modelo}`}

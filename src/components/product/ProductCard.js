@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 
 const ProductCard = ({ product, onAgregarClick, ...rest }) => {
   function handleAgregarClick() {
@@ -43,7 +44,9 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
               height: 170,
               width: 230
             }}
-          />
+          >
+            <BrokenImageIcon />
+          </Avatar>
         </Box>
         <Typography
           align="center"

@@ -16,8 +16,8 @@ import {
   TableRow,
   Typography
 } from '@material-ui/core';
-import getInitials from 'src/utils/getInitials';
 import AdminListToolbar from 'src/components/admin/AdminListToolbar';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import EditIcon from '@material-ui/icons/Edit';
 
 const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, ...rest }) => {
@@ -149,7 +149,7 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
                           width: 100
                         }}
                       >
-                        {getInitials(ABMlist.producto)}
+                        <BrokenImageIcon />
                       </Avatar>
                       <Typography
                         color="textPrimary"

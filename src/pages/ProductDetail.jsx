@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import { useParams } from 'react-router-dom';
 
 const ProductDetail = (props) => {
@@ -45,7 +46,9 @@ const ProductDetail = (props) => {
               height: 170,
               width: 230
             }}
-          />
+          >
+            <BrokenImageIcon />
+          </Avatar>
         </Box>
         <Typography
           align="center"
