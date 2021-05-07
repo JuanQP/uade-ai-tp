@@ -7,7 +7,9 @@ import 'src/mixins/chartjs';
 import theme from 'src/theme';
 import routes from 'src/routes';
 import ABMlist from 'src/__mocks__/ABMlist';
+import ordersList from 'src/__mocks__/ordersList';
 import { v4 as uuid } from 'uuid';
+import moment from 'moment';
 
 const usuarios = [
   {
@@ -34,6 +36,7 @@ const App = () => {
   const [failedLogin, setFailedLogin] = useState(false);
   const [products, setProducts] = useState([]);
   const [productsDB, setProductsDB] = useState(ABMlist.slice(0));
+  const [ordersDB, setOrdersDB] = useState(ordersList.slice(0));
   const routing = useRoutes(routes({
     user: user,
     products: products,
@@ -47,6 +50,7 @@ const App = () => {
     handleRemoveProduct: handleRemoveProduct,
     handleFinishedBuy: handleFinishedBuy,
     productsDB: productsDB,
+    ordersDB: ordersDB,
     insertProduct,
     updateProduct,
     deleteProduct,
@@ -148,7 +152,21 @@ const App = () => {
   }
 
   function handleFinishedBuy() {
-    setProducts([])
+    const lastCode = ordersDB[ordersDB.length - 1].cod;
+    setOrdersDB([
+      ...ordersDB,
+      {
+        id: uuid(),
+        cod: lastCode + 1,
+        nombreYapellido: `${user.firstName} ${user.lastName}`,
+        email: user.email,
+        cantidad: products.map(p => p.quantity).reduce((a,b) => (a+b), 0),
+        fechacompra: moment().format("DD/MM/YYYY"),
+        fechaentrega: moment().add(2, "days").format("DD/MM/YYYY"),
+        total: products.map(p => p.quantity * p.product.precio).reduce((a,b) => (a+b), 0)
+      }
+    ]);
+    setProducts([]);
     navigate("/app/home");
     alert("Compra realizada :D!");
   }

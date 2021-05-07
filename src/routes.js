@@ -46,7 +46,7 @@ const routes = (props) => [
           onAgregarClick={props.handleAddProduct}
         />) },
       { path: 'about', element: <About /> },
-      { path: 'orders', element: <Orders /> },
+      { path: 'orders', element: <Orders ordersdb={props.ordersDB} /> },
       { path: 'cart-detail', element:
         <CartDetail
           products={props.products}

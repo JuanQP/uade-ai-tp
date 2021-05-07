@@ -18,38 +18,6 @@ const AdminOrders= ({ ordersList, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
-  const handleSelectAll = (event) => {
-    let newSelectedOrdersListIds;
-
-    if (event.target.checked) {
-      newSelectedOrdersListIds = ordersList.map((ordersList) => ordersList.id);
-    } else {
-      newSelectedOrdersListIds = [];
-    }
-
-    setSelectedOrdersListIds(newSelectedOrdersListIds);
-  };
-
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedOrdersListIds.indexOf(id);
-    let newSelectedOrdersListIds = [];
-
-    if (selectedIndex === -1) {
-      newSelectedOrdersListIds = newSelectedOrdersListIds.concat(selectedOrdersListIds, id);
-    } else if (selectedIndex === 0) {
-      newSelectedOrdersListIds = newSelectedOrdersListIds.concat(selectedOrdersListIds.slice(1));
-    } else if (selectedIndex === selectedOrdersListIds.length - 1) {
-      newSelectedOrdersListIds = newSelectedOrdersListIds.concat(selectedOrdersListIds.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelectedOrdersListIds = newSelectedOrdersListIds.concat(
-        selectedOrdersListIds.slice(0, selectedIndex),
-        selectedOrdersListIds.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedOrdersListIds(newSelectedOrdersListIds);
-  };
-
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
@@ -130,7 +98,7 @@ const AdminOrders= ({ ordersList, ...rest }) => {
                     {ordersList.fechaentrega}
                   </TableCell>
                   <TableCell>
-                    {ordersList.total}
+                    ${ordersList.total}
                   </TableCell>
                 </TableRow>
               ))}
@@ -156,4 +124,3 @@ AdminOrders.propTypes = {
 };
 
 export default AdminOrders;
-
