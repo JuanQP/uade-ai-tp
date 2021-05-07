@@ -19,7 +19,7 @@ const LatestProducts = (props) => (
     />
     <Divider />
     <List>
-      {products.slice(0, 5).map((product, i) => (
+      {products.slice(0, 6).map((product, i) => (
         <ListItem
           divider={i < products.length - 1}
           key={product.id}
