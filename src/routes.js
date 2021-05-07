@@ -39,7 +39,7 @@ const routes = (props) => [
       {
         path: 'change-product/:product_id', element: <ABMModificar onUpdateProduct={props.updateProduct} productsdb={props.productsDB}/>
       },
-      { path: 'home', element: <Home /> },
+      { path: 'home', element: <Home productsdb={props.productsDB} /> },
       { path: 'products', element: (
         <ProductList
           productsdb={props.productsDB}

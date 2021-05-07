@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import LatestProducts from 'src/components/home/LatestProducts';
 
-const Home = () => (
+const Home = ({productsdb, ...props}) => (
   <>
     <Helmet>
       <title> FQ Computer | Home</title>
@@ -30,7 +30,7 @@ const Home = () => (
             xl={4}
             xs={12}
           >
-            <LatestProducts />
+            <LatestProducts products={productsdb} />
           </Grid>
         </Grid>
       </Container>

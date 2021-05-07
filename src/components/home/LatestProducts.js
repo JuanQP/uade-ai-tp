@@ -10,9 +10,8 @@ import {
   ListItemText
 } from '@material-ui/core';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-import products from 'src/__mocks__/ABMlist';
 
-const LatestProducts = (props) => (
+const LatestProducts = ({products, ...props}) => (
   <Card {...props}>
     <CardHeader
       title="Disfrute de los últimos productos"
