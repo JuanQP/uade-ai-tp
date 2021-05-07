@@ -17,6 +17,7 @@ import {
   ShoppingBag as ShoppingBagIcon,
   AlertCircle as AboutIcon,
   Edit3 as EditIcon,
+  List as ListIcon,
 } from 'react-feather';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import NavItem from './NavItem';
@@ -43,10 +44,15 @@ const items = [
     icon: SettingsIcon,
     title: 'Datos de la cuenta'
   },
-    {
+  {
     href: '/app/ABM',
     icon: EditIcon,
     title: 'ABM'
+  },
+  {
+    href: '/app/orders',
+    icon: ListIcon,
+    title: 'Listado de Pedidos'
   }
 ];
 
