@@ -18,6 +18,9 @@ import {
   AlertCircle as AboutIcon,
   Edit3 as EditIcon,
   List as ListIcon,
+  Twitter as TwitterIcon,
+  Facebook as FacebookIcon,
+  Instagram as InstagramIcon
 } from 'react-feather';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import NavItem from './NavItem';
@@ -128,9 +131,39 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
             onClick={handleLogOutClick}
           />
         </List>
+        <Typography
+          align="center"
+          gutterBottom
+          variant="h4"
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            pt: 15
+          }}
+        >
+          Seguinos
+        </Typography>
+        <Typography
+          align="center"
+          variant="body2"
+        >
+          en nuestras redes
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            pt: 2
+          }}
+        >
+          <TwitterIcon />
+          <FacebookIcon />
+          <InstagramIcon />
+        </Box>
       </Box>
       <Box sx={{ flexGrow: 1 }} />
     </Box>
+    
   );
 
   return (
