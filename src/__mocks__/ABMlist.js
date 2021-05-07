@@ -52,7 +52,7 @@ const ABMlist = [
     marca: 'Genius',
     modelo: 'SW-21-370',
     conect: 'USB',
-    peso: 'Aprox. 1.5k',
+    peso: 'Aprox. 1500g',
     precio: 700,
     stock: 10
   },
@@ -63,9 +63,31 @@ const ABMlist = [
     marca: 'Genius',
     modelo: 'SW-21-375',
     conect: 'USB',
-    peso: 'Aprox. 1.7k',
-    precio: 800,
-    stock: 15
+    peso: 'Aprox. 1700g',
+    precio: 700,
+    stock: 10
+  },
+  {
+    id: uuid(),
+    img: '/static/images/products/product_7.png',
+    producto: 'Parlante',
+    marca: 'Genius',
+    modelo: 'SP-HF500A',
+    conect: 'USB',
+    peso: 'Aprox. 2547g',
+    precio: 650,
+    stock: 8
+  },
+  {
+    id: uuid(),
+    img: '/static/images/products/product_8.png',
+    producto: 'Parlante',
+    marca: 'Genius',
+    modelo: 'SP-HF800A',
+    conect: 'USB',
+    peso: 'Aprox. 2142g',
+    precio: 600,
+    stock: 10
   },
 ];
 export default ABMlist;
