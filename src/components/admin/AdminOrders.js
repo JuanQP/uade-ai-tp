@@ -33,7 +33,7 @@ const AdminOrders= ({ ordersList, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell padding="">
+                <TableCell padding="none">
                 </TableCell>
                 <TableCell>
                   ID del Pedido
