@@ -13,6 +13,7 @@ import CartDetail from 'src/pages/CartDetail';
 import ProductDetail from 'src/pages/ProductDetail';
 import ABMAlta from 'src/components/admin/ABMalta';
 import ABMModificar from 'src/components/admin/ABMmodificar';
+import Orders from 'src/pages/Orders';
 
 const routes = (props) => [
   {
@@ -45,6 +46,7 @@ const routes = (props) => [
           onAgregarClick={props.handleAddProduct}
         />) },
       { path: 'about', element: <About /> },
+      { path: 'orders', element: <Orders /> },
       { path: 'cart-detail', element:
         <CartDetail
           products={props.products}
