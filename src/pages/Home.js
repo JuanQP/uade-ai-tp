@@ -30,7 +30,7 @@ const Home = () => (
              Bienvenidos a FQ Computer
             </Typography>
             <Typography variant="h4" align="center" color="textSecondary" paragraph>
-             Encontrara los mejores accesorios para su PC al mejor precio.
+             Encontrara los mejores artículos para su PC al mejor precio.
             </Typography>
           </Container>
         </div>
