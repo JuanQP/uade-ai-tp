@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 
 const AdminOrders= ({ ordersList, ...rest }) => {
-  const [selectedOrdersListIds, setSelectedOrdersListIds] = useState([]);
+  const [selectedOrdersListIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
