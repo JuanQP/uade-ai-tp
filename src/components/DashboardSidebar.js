@@ -13,6 +13,7 @@ import {
 import {
   Home as HomeIcon,
   LogOut,
+  LogIn,
   Settings as SettingsIcon,
   ShoppingBag as ShoppingBagIcon,
   AlertCircle as AboutIcon,
@@ -31,6 +32,7 @@ const items = [
     icon: HomeIcon,
     title: 'Home',
     requiresAdmin: false,
+    requiresLogin: false,
   },
 
   {
@@ -38,32 +40,51 @@ const items = [
     icon: ShoppingBagIcon,
     title: 'Catálogo de Productos',
     requiresAdmin: false,
+    requiresLogin: false,
   },
   {
     href: '/app/about',
     icon: AboutIcon,
     title: 'Quienes Somos',
     requiresAdmin: false,
+    requiresLogin: false,
   },
   {
     href: '/app/account',
     icon: SettingsIcon,
     title: 'Datos de la cuenta',
     requiresAdmin: false,
+    requiresLogin: true,
   },
   {
-    href: '/app/ABM',
+    href: '/admin/ABM',
     icon: EditIcon,
     title: 'ABM',
     requiresAdmin: true,
+    requiresLogin: true,
   },
   {
-    href: '/app/orders',
+    href: '/admin/orders',
     icon: ListIcon,
     title: 'Listado de Pedidos',
     requiresAdmin: true,
+    requiresLogin: true,
   }
 ];
+
+function visibleFor(link, user) {
+  if(user.isGuest) {
+    return !link.requiresLogin;
+  }
+  else {
+    if(!user.isAdmin) {
+      return !link.requiresAdmin;
+    }
+    else {
+      return link.requiresAdmin;
+    }
+  }
+}
 
 const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCount }) => {
   const location = useLocation();
@@ -109,13 +130,13 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
           color="textPrimary"
           variant="h5"
         >
-          {user.firstName}
+          {user.firstName || 'Visitante'}
         </Typography>
       </Box>
       <Divider />
       <Box sx={{ p: 2 }}>
         <List>
-          {items.filter((item) => !item.requiresAdmin || user.isAdmin).map((item) => (
+          {items.filter((item) => visibleFor(item, user)).map((item) => (
             <NavItem
               href={item.href}
               key={item.title}
@@ -123,19 +144,30 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
               icon={item.icon}
             />
           ))}
-          <NavItem
-            href={'/app/cart-detail'}
-            key={'Detalle del Carrito'}
-            title={`Detalle del Carrito (${productCount})`}
-            icon={ShoppingCart}
-          />
-          <NavItem
-            href={'#'}
-            key={'Log out'}
-            title={'Log out'}
-            icon={LogOut}
-            onClick={handleLogOutClick}
-          />
+          {!user.isAdmin ?
+            <NavItem
+              href={'/app/cart-detail'}
+              key={'Detalle del Carrito'}
+              title={`Detalle del Carrito (${productCount})`}
+              icon={ShoppingCart}
+            />
+            : null
+          }
+          {user.isGuest ?
+            <NavItem
+              href={'/login'}
+              key={'Log in'}
+              title={'Log in'}
+              icon={LogIn}
+            /> :
+            <NavItem
+              href={'#'}
+              key={'Log out'}
+              title={'Log out'}
+              icon={LogOut}
+              onClick={handleLogOutClick}
+            />
+          }
         </List>
         <Typography
           align="center"
@@ -216,7 +248,7 @@ DashboardSidebar.propTypes = {
 
 DashboardSidebar.defaultProps = {
   onMobileClose: () => { },
-  openMobile: false
+  openMobile: false,
 };
 
 export default DashboardSidebar;

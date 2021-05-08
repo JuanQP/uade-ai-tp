@@ -18,26 +18,16 @@ import Orders from 'src/pages/Orders';
 const routes = (props) => [
   {
     path: 'app',
-    element: props.user ?
+    element:
       <DashboardLayout
         user={props.user}
         products={props.products}
         onLogOut={props.handleLogOut}
-      />
-      : <Navigate to="/login" />,
+      />,
     children: [
-      { path: 'account', element: <Account user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} /> },
-      { path: 'ABM', element: (
-        <ABM
-          productsdb={props.productsDB}
-          onDeleteProduct={props.deleteProduct}
-        />
-      )},
-      {
-        path: 'add-product', element: <ABMAlta onNewProduct={props.insertProduct}/>
-      },
-      {
-        path: 'change-product/:product_id', element: <ABMModificar onUpdateProduct={props.updateProduct} productsdb={props.productsDB}/>
+      { path: 'account', element: !props.user.isGuest ?
+        <Account user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} />
+        : <Navigate to="/login" />
       },
       { path: 'home', element: <Home productsdb={props.productsDB} /> },
       { path: 'products', element: (
@@ -46,7 +36,6 @@ const routes = (props) => [
           onAgregarClick={props.handleAddProduct}
         />) },
       { path: 'about', element: <About /> },
-      { path: 'orders', element: <Orders ordersdb={props.ordersDB} /> },
       { path: 'cart-detail', element:
         <CartDetail
           products={props.products}
@@ -59,15 +48,39 @@ const routes = (props) => [
     ]
   },
   {
+    path: 'admin',
+      element: props.user.isAdmin ?
+        <DashboardLayout
+          user={props.user}
+          products={props.products}
+          onLogOut={props.handleLogOut}
+        /> : <Navigate to="/app/home" />,
+      children: [
+        { path: 'ABM', element:
+          <ABM
+            productsdb={props.productsDB}
+            onDeleteProduct={props.deleteProduct}
+          />
+        },
+        {
+          path: 'add-product', element: <ABMAlta onNewProduct={props.insertProduct}/>
+        },
+        {
+          path: 'change-product/:product_id', element: <ABMModificar onUpdateProduct={props.updateProduct} productsdb={props.productsDB}/>
+        },
+        { path: 'orders', element: <Orders ordersdb={props.ordersDB} /> },
+      ]
+    },
+  {
     path: '/',
     element: <MainLayout />,
     children: [
       { path: 'login',
-        element: props.user ? <Navigate to="/app/home" /> : <Login onLogin={props.checkLogin} failedLogin={props.failedLogin} /> },
+        element: props.user.isGuest ? <Login onLogin={props.checkLogin} failedLogin={props.failedLogin} /> : <Navigate to="/app/home" /> },
       { path: 'register',
-        element: props.user ? <Navigate to="/app/home" /> : <Register onSignUp={props.handleSignUp} /> },
+        element: props.user.isGuest ? <Register onSignUp={props.handleSignUp} /> : <Navigate to="/app/home" /> },
       { path: '/',
-        element: props.user ? <Navigate to="/app/home" /> : <Navigate to="/login" /> },
+        element: <Navigate to="/app/home" />},
     ]
   }
 ];

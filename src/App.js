@@ -19,6 +19,7 @@ const usuarios = [
     password: 'password',
     avatar: 'doge.png',
     isAdmin: true,
+    isGuest: false,
   },
   {
     firstName: 'Meme',
@@ -27,12 +28,22 @@ const usuarios = [
     password: 'password',
     avatar: 'stonks.png',
     isAdmin: false,
+    isGuest: false,
   },
 ];
 
+const guestUser = {
+  firstName: 'Visitante',
+  lastName: 'Visitante',
+  email: '',
+  avatar: '',
+  isAdmin: false,
+  isGuest: true,
+}
+
 const App = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(guestUser);
   const [failedLogin, setFailedLogin] = useState(false);
   const [products, setProducts] = useState([]);
   const [productsDB, setProductsDB] = useState(ABMlist.slice(0).sort(() => Math.random() - 0.5));
@@ -61,7 +72,6 @@ const App = () => {
     if (loggedUser) {
       setUser(loggedUser);
       setFailedLogin(false);
-      setProducts([]);
     }
     else {
       setFailedLogin(true);
@@ -69,8 +79,9 @@ const App = () => {
   }
 
   function handleLogOut() {
-    setUser(null);
+    setUser(guestUser);
     setProducts([]);
+    navigate('/app/home');
   }
 
   function handleSignUp(newUser) {
