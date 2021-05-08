@@ -38,21 +38,21 @@ const items = [
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Catálogo de Productos',
+    title: 'Tienda',
     requiresAdmin: false,
     requiresLogin: false,
   },
   {
     href: '/app/about',
     icon: AboutIcon,
-    title: 'Quienes Somos',
+    title: 'Nosotros',
     requiresAdmin: false,
     requiresLogin: false,
   },
   {
     href: '/app/account',
     icon: SettingsIcon,
-    title: 'Datos de la cuenta',
+    title: 'Mi cuenta',
     requiresAdmin: false,
     requiresLogin: true,
   },
@@ -66,7 +66,7 @@ const items = [
   {
     href: '/admin/orders',
     icon: ListIcon,
-    title: 'Listado de Pedidos',
+    title: 'Pedidos',
     requiresAdmin: true,
     requiresLogin: true,
   }
@@ -157,13 +157,13 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
             <NavItem
               href={'/login'}
               key={'Log in'}
-              title={'Log in'}
+              title={'Ingresar'}
               icon={LogIn}
             /> :
             <NavItem
               href={'#'}
               key={'Log out'}
-              title={'Log out'}
+              title={'Salir'}
               icon={LogOut}
               onClick={handleLogOutClick}
             />
@@ -206,6 +206,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
 
   return (
     <>
+      {/* Si es un monitor, se esconde el Sidebar */}
       <Hidden lgUp>
         <Drawer
           anchor="left"
@@ -221,7 +222,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
           {content}
         </Drawer>
       </Hidden>
-      <Hidden lgDown>
+      {/* <Hidden lgDown>
         <Drawer
           anchor="left"
           open
@@ -236,7 +237,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
         >
           {content}
         </Drawer>
-      </Hidden>
+      </Hidden> */}
     </>
   );
 };

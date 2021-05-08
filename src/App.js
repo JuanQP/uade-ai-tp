@@ -116,6 +116,7 @@ const App = () => {
     setUser(guestUser);
     setProducts([]);
     navigate('/app/home');
+    alert('Sesión cerrada');
   }
 
   function handleSignUp(newUser) {

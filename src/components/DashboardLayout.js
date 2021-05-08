@@ -20,9 +20,6 @@ const DashboardLayoutWrapper = experimentalStyled('div')(
     flex: '1 1 auto',
     overflow: 'hidden',
     paddingTop: 64,
-    [theme.breakpoints.up('lg')]: {
-      paddingLeft: 256
-    }
   })
 );
 
@@ -49,6 +46,8 @@ const DashboardLayout = (props) => {
     <DashboardLayoutRoot>
       <DashboardNavbar
         products={props.products}
+        user={props.user}
+        onLogOut={handleLogOut}
         onMobileNavOpen={() => setMobileNavOpen(true)}
       />
       <DashboardSidebar
