@@ -13,8 +13,29 @@ import {
 import InfoIcon from '@material-ui/icons/Info';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  magicButton: {
+    '&:hover': {
+      animation: `$myEffect 250ms ${theme.transitions.easing.easeInOut}`,
+      animationFillMode: 'forwards',
+    }
+  },
+  "@keyframes myEffect": {
+    "0%": {
+    },
+    "100%": {
+      background: 'linear-gradient(45deg, #00b09e 30%, #79fa6e 90%)',
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      color: 'white',
+    }
+  }
+}));
 
 const ProductCard = ({ product, onAgregarClick, ...rest }) => {
+  const classes = useStyles();
+
   function handleAgregarClick() {
     onAgregarClick(product);
   }
@@ -98,8 +119,9 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
             }}
           >
             <Button
+              className={classes.magicButton}
               variant="contained"
-              color="primary"
+              // color="primary"
               startIcon={<AddShoppingCartIcon />}
               onClick={handleAgregarClick}
             >
