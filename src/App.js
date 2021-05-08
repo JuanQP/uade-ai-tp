@@ -85,7 +85,11 @@ const App = () => {
   }
 
   function handleSignUp(newUser) {
-    usuarios.push(newUser);
+    usuarios.push({
+      ...newUser,
+      isAdmin: false,
+      isGuest: false,
+    });
     setProducts([]);
   }
 
