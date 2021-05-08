@@ -1,6 +1,8 @@
 import { Link as RouterLink } from 'react-router-dom';
 import { AppBar, Toolbar } from '@material-ui/core';
-import Logo from './Logo';
+import {
+  Avatar,
+} from '@material-ui/core';
 
 const MainNavbar = (props) => (
   <AppBar
@@ -8,8 +10,17 @@ const MainNavbar = (props) => (
     {...props}
   >
     <Toolbar sx={{ height: 64 }}>
-      <RouterLink to="/">
-        <Logo />
+     <RouterLink to="/">
+      <Avatar
+            src={'/static/images/Logo.png'}
+            alt="Product"
+            variant="square"
+            sx={{
+              height: 75,
+              width: 80
+            }}
+          >
+          </Avatar>
       </RouterLink>
     </Toolbar>
   </AppBar>
