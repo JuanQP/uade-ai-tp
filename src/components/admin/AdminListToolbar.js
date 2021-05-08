@@ -30,7 +30,7 @@ const AdminListToolbar = ({onDeleteClick, ...props}) => {
         <Button
           color="primary"
           variant="contained"
-          component={RouterLink} to={'/app/add-product'}
+          component={RouterLink} to={'/admin/add-product'}
         >
           Agregar Producto
         </Button>

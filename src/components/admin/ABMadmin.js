@@ -181,7 +181,7 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
                     {ABMlist.fechaIngreso ? ABMlist.fechaIngreso : 'Sin especificar'}
                   </TableCell>
                   <TableCell>
-                    <IconButton component={RouterLink} to={`/app/change-product/${ABMlist.id}`} aria-label="edit">
+                    <IconButton component={RouterLink} to={`/admin/change-product/${ABMlist.id}`} aria-label="edit">
                       <EditIcon />
                     </IconButton>
                   </TableCell>

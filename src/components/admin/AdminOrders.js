@@ -51,19 +51,19 @@ const AdminOrders= ({ ordersList, ...rest }) => {
                   Fecha de Compra
                 </TableCell>
                 <TableCell>
-                Fecha de Entrega
+                  Fecha de Entrega
                 </TableCell>
                 <TableCell>
-                Total a Pagar
+                  Total a Pagar
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {ordersList.slice(0, limit).map((ordersList) => (
+              {ordersList.slice(0, limit).map((order) => (
                 <TableRow
                   hover
-                  key={ordersList.id}
-                  selected={selectedOrdersListIds.indexOf(ordersList.id) !== -1}
+                  key={order.id}
+                  selected={selectedOrdersListIds.indexOf(order.id) !== -1}
                 >
                   <TableCell>
                     <Box
@@ -80,25 +80,25 @@ const AdminOrders= ({ ordersList, ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                  {ordersList.cod}
+                    {order.cod}
                   </TableCell>
                   <TableCell>
-                    {ordersList.nombreYapellido}
+                    {`${order.buyOrder.user.firstName} ${order.buyOrder.user.lastName}`}
                   </TableCell>
                   <TableCell>
-                    {ordersList.email}
+                    {order.buyOrder.user.email}
                   </TableCell>
                   <TableCell>
-                    {ordersList.cantidad}
+                    {order.cantidad}
                   </TableCell>
                   <TableCell>
-                    {ordersList.fechacompra}
+                    {order.fechacompra}
                   </TableCell>
                   <TableCell>
-                    {ordersList.fechaentrega}
+                    {order.fechaentrega}
                   </TableCell>
                   <TableCell>
-                    ${ordersList.total}
+                    ${order.total}
                   </TableCell>
                 </TableRow>
               ))}

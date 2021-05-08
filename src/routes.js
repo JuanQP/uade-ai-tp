@@ -14,6 +14,7 @@ import ProductDetail from 'src/pages/ProductDetail';
 import ABMAlta from 'src/components/admin/ABMalta';
 import ABMModificar from 'src/components/admin/ABMmodificar';
 import Orders from 'src/pages/Orders';
+import Checkout from 'src/pages/Checkout';
 
 const routes = (props) => [
   {
@@ -39,12 +40,13 @@ const routes = (props) => [
       { path: 'cart-detail', element:
         <CartDetail
           products={props.products}
+          user={props.user}
           onAddProduct={props.handleAddProduct}
           onMinusProduct={props.handleMinusProduct}
           onRemoveProduct={props.handleRemoveProduct}
-          onFinishedBuy={props.handleFinishedBuy}
         /> },
       { path: 'product/:product_id', element: <ProductDetail productsdb={props.productsDB} onAgregarClick={props.handleAddProduct} />},
+      { path: 'checkout', element: <Checkout user={props.user} products={props.products} onFinishedBuy={props.handleFinishedBuy} />}
     ]
   },
   {

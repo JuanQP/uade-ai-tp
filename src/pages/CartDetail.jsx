@@ -11,23 +11,10 @@ import {
   Typography,
 } from '@material-ui/core';
 import CartDetailItem from './CartDetailItem';
-import CheckIcon from '@material-ui/icons/Check';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles({
-  root: {
-    background: 'linear-gradient(45deg, #00b09e 30%, #79fa6e 90%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'white',
-    height: 48,
-    padding: '0 30px',
-  },
-});
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { Link as RouterLink } from 'react-router-dom';
 
 const CartDetail = (props) => {
-  const classes = useStyles();
 
   function handleAddUnit(item) {
     props.onAddProduct(item.product);
@@ -39,10 +26,6 @@ const CartDetail = (props) => {
 
   function handleRemoveProduct(item) {
     props.onRemoveProduct(item.product);
-  }
-
-  function handleFinalizarCompraClick() {
-    props.onFinishedBuy();
   }
 
   return (
@@ -67,6 +50,11 @@ const CartDetail = (props) => {
             // Si hay productos...
             <>
             <CardContent>
+              {props.user.isGuest ?
+              <Alert severity="info">
+                No estás logeado. <RouterLink to="/login">¿Tenés una cuenta? Ingresá</RouterLink>. Hacer las compras es más fácil si estás registrado 👌.
+              </Alert>
+              : null}
               <List>
                 {props.products.map(p => (
                   <CartDetailItem
@@ -85,11 +73,11 @@ const CartDetail = (props) => {
             <CardActions sx={{justifyContent: 'center'}}>
               <Button
                 variant="contained"
-                className={classes.root}
-                startIcon={<CheckIcon />}
-                onClick={handleFinalizarCompraClick}
+                endIcon={<ChevronRightIcon />}
+                component={RouterLink}
+                to='/app/checkout'
               >
-                Finalizar compra
+                Ir al pago
               </Button>
             </CardActions>
             </>

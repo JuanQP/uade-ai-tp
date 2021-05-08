@@ -22,13 +22,30 @@ const usuarios = [
     isGuest: false,
   },
   {
-    firstName: 'Meme',
-    lastName: 'Man',
+    firstName: 'Cliente',
+    lastName: 'Stonks',
     email: 'cliente@uade.edu.ar',
     password: 'password',
     avatar: 'stonks.png',
     isAdmin: false,
     isGuest: false,
+    address: {
+      address1: 'Evergreen 123',
+      state: 'Masachusets',
+      city: 'Springfield',
+      zip: '1999',
+      saveAddress: true,
+    },
+    payment: {
+      cardName: 'Cliente Stonks',
+      cardNumber: '1234 5678 9102 3456',
+      expDate: '04/24',
+      CVV: '999',
+      address1: 'Evergreen 123',
+      state: 'Masachusets',
+      city: 'Springfield',
+      zip: '1999',
+    },
   },
 ];
 
@@ -39,6 +56,23 @@ const guestUser = {
   avatar: '',
   isAdmin: false,
   isGuest: true,
+  address: {
+    address1: '',
+    state: '',
+    city: '',
+    zip: '',
+    saveAddress: false,
+  },
+  payment: {
+    cardName: '',
+    cardNumber: '',
+    expDate: '',
+    CVV: '',
+    address1: '',
+    state: '',
+    city: '',
+    zip: '',
+  },
 }
 
 const App = () => {
@@ -147,7 +181,7 @@ const App = () => {
         ...newProduct,
       },
     ]);
-    navigate("/app/ABM");
+    navigate("/admin/ABM");
     alert("Producto agregado");
   }
 
@@ -158,7 +192,7 @@ const App = () => {
     }
     // Hack medio feo de React para que se "entere" que un array mutó.
     setProductsDB(productsDB.slice(0));
-    navigate("/app/ABM");
+    navigate("/admin/ABM");
     alert("Producto actualizado");
   }
 
@@ -166,23 +200,44 @@ const App = () => {
     setProductsDB(productsDB.filter(p => !ids.includes(p.id)));
   }
 
-  function handleFinishedBuy() {
+  function handleFinishedBuy(buyOrder) {
     const lastCode = ordersDB[ordersDB.length - 1].cod;
     setOrdersDB([
       ...ordersDB,
       {
         id: uuid(),
         cod: lastCode + 1,
-        nombreYapellido: `${user.firstName} ${user.lastName}`,
-        email: user.email,
-        cantidad: products.map(p => p.quantity).reduce((a,b) => (a+b), 0),
+        buyOrder: buyOrder,
+        cantidad: buyOrder.products.map(p => p.quantity).reduce((a,b) => (a+b), 0),
         fechacompra: moment().format("DD/MM/YYYY"),
         fechaentrega: moment().add(2, "days").format("DD/MM/YYYY"),
-        total: products.map(p => p.quantity * p.product.precio).reduce((a,b) => (a+b), 0)
+        total: buyOrder.products.map(p => p.quantity * p.product.precio).reduce((a,b) => (a+b), 0),
       }
     ]);
     setProducts([]);
     navigate("/app/home");
+    if(!user.isGuest) {
+      // Actualizamos los datos de pago del usuario
+      // si clickeó en "Guardar tarjeta"...
+      const payment = {
+        ...user.payment,
+      };
+      Object.keys(payment).forEach((e) => {
+        payment[e] = buyOrder.payment.saveCard ? buyOrder.payment[e] : user.payment[e];
+      });
+      // Ahora sí, seteamos la nueva data del usuario
+      setUser({
+        ...user,
+        address: {
+          ...user.address,
+          saveAddress: buyOrder.address.saveAddress,
+        },
+        payment: {
+          ...payment,
+        }
+      });
+    }
+
     alert("Compra realizada :D!");
   }
 
