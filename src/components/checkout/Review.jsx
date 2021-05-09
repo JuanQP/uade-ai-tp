@@ -5,6 +5,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
+import ScrollToTop from 'src/ScrollToTop';
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -23,6 +24,7 @@ export default function Review({values, products, ...props}) {
 
   return (
     <React.Fragment>
+      <ScrollToTop />
       <Typography variant="h6" gutterBottom>
         Resumen
       </Typography>

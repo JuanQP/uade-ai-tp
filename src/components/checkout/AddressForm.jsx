@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import ScrollToTop from 'src/ScrollToTop';
 
 export default function AddressForm({values, ...props}) {
 
@@ -26,6 +27,7 @@ export default function AddressForm({values, ...props}) {
 
   return (
     <React.Fragment>
+      <ScrollToTop />
       <Typography variant="h6" gutterBottom>
         Dirección de envío
       </Typography>
@@ -54,7 +56,7 @@ export default function AddressForm({values, ...props}) {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <TextField
             required
             id="address1"
@@ -66,7 +68,7 @@ export default function AddressForm({values, ...props}) {
             onChange={handleChange}
           />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <TextField
             required
             id="email"

@@ -45,7 +45,6 @@ import {
           </ListItem>
         ))}
       </List>
-      <Divider />
       <Box
         sx={{
           display: 'flex',

@@ -45,7 +45,6 @@ const LatestProducts = ({products, ...props}) => (
         </ListItem>
       ))}
     </List>
-    <Divider />
     <Box
       sx={{
         display: 'flex',

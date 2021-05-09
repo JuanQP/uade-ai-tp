@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import ScrollToTop from 'src/ScrollToTop';
 
 export default function PaymentForm({values, ...props}) {
 
@@ -17,6 +18,7 @@ export default function PaymentForm({values, ...props}) {
 
   return (
     <React.Fragment>
+      <ScrollToTop />
       {values.address.saveAddress ? null :
       // Si no usa la dirección como dirección de facturación, mostramos esto
       <>

@@ -9,7 +9,7 @@ const DashboardLayoutRoot = experimentalStyled('div')(
     backgroundColor: theme.palette.background.default,
     display: 'flex',
     height: '100%',
-    overflow: 'hidden',
+    // overflow: 'hidden',
     width: '100%'
   })
 );
@@ -18,7 +18,7 @@ const DashboardLayoutWrapper = experimentalStyled('div')(
   ({ theme }) => ({
     display: 'flex',
     flex: '1 1 auto',
-    overflow: 'hidden',
+    // overflow: 'hidden',
     paddingTop: 64,
   })
 );
@@ -26,13 +26,13 @@ const DashboardLayoutWrapper = experimentalStyled('div')(
 const DashboardLayoutContainer = experimentalStyled('div')({
   display: 'flex',
   flex: '1 1 auto',
-  overflow: 'hidden'
+  // overflow: 'hidden'
 });
 
 const DashboardLayoutContent = experimentalStyled('div')({
   flex: '1 1 auto',
   height: '100%',
-  overflow: 'auto'
+  // overflow: 'scroll'
 });
 
 const DashboardLayout = (props) => {

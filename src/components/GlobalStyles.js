@@ -1,6 +1,6 @@
 import { createStyles, makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles(() => createStyles({
+const useStyles = makeStyles((theme) => createStyles({
   '@global': {
     '*': {
       boxSizing: 'border-box',
@@ -11,10 +11,11 @@ const useStyles = makeStyles(() => createStyles({
       '-webkit-font-smoothing': 'antialiased',
       '-moz-osx-font-smoothing': 'grayscale',
       height: '100%',
-      width: '100%'
+      width: '100%',
+      overflow: 'auto',
     },
     body: {
-      backgroundColor: '#008C23',
+      backgroundColor: theme.palette.background.default,
       height: '100%',
       width: '100%'
     },

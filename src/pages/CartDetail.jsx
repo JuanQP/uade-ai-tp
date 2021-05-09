@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   Alert,
   Box,
@@ -7,14 +8,37 @@ import {
   CardContent,
   CardHeader,
   Container,
+  Hidden,
   List,
+  Slide,
+  Snackbar,
   Typography,
 } from '@material-ui/core';
 import CartDetailItem from './CartDetailItem';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { Link as RouterLink } from 'react-router-dom';
 
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" />;
+}
+
 const CartDetail = (props) => {
+
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  useEffect(() => {
+    if(!props.user.isGuest) {
+      return () => {};
+    }
+    const timer = setTimeout(() => {
+      setSnackbarOpen(true);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [props.user.isGuest]);
+
+  function handleClose() {
+    setSnackbarOpen(false);
+  }
 
   function handleAddUnit(item) {
     props.onAddProduct(item.product);
@@ -45,16 +69,16 @@ const CartDetail = (props) => {
           {props.products.length === 0 ?
             // Si no hay productos...
             <CardContent>
-              <Alert severity="info">Todavía no seleccionaste ningún producto. ¿Qué estás esperando? 😁</Alert>
+              <Alert severity="info">Todavía no seleccionaste ningún producto. <RouterLink to="/app/products">¿Qué estás esperando? 😁</RouterLink></Alert>
             </CardContent> :
             // Si hay productos...
             <>
             <CardContent>
-              {props.user.isGuest ?
-              <Alert severity="info">
-                No estás logeado. <RouterLink to="/login">¿Tenés una cuenta? Ingresá</RouterLink>. Hacer las compras es más fácil si estás registrado 👌.
-              </Alert>
-              : null}
+              <Hidden lgUp>
+                <Typography variant="subtitle2">
+                  Para modificar las cantidades, presioná la imagen del producto que quieras editar.
+                </Typography>
+              </Hidden>
               <List>
                 {props.products.map(p => (
                   <CartDetailItem
@@ -66,11 +90,11 @@ const CartDetail = (props) => {
                   />
                 ))}
               </List>
-              <Typography variant="h3" paragraph>
+              <Typography variant="h3" align="right">
                 Total ${props.products.map(p => p.product.precio * p.quantity).reduce((a,b) => (a+b), 0)}
               </Typography>
             </CardContent>
-            <CardActions sx={{justifyContent: 'center'}}>
+            <CardActions sx={{justifyContent: 'right'}}>
               <Button
                 variant="contained"
                 endIcon={<ChevronRightIcon />}
@@ -84,6 +108,19 @@ const CartDetail = (props) => {
           }
         </Card>
       </Container>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        open={snackbarOpen}
+        onClose={handleClose}
+        TransitionComponent={SlideTransition}
+      >
+        <Alert onClose={handleClose} severity="info">
+          No estás logeado. <RouterLink to="/login">¿Tenés una cuenta? Ingresá</RouterLink>. Hacer las compras es más fácil si estás registrado 👌.
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }

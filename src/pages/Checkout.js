@@ -34,8 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
   layout: {
     width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
       marginLeft: 'auto',
@@ -55,9 +53,13 @@ const useStyles = makeStyles((theme) => ({
   stepper: {
     padding: theme.spacing(3, 0, 5),
   },
-  buttons: {
+  addressStepButtons: {
     display: 'flex',
     justifyContent: 'flex-end',
+  },
+  finalStepsButtons: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   button: {
     marginTop: theme.spacing(3),
@@ -141,7 +143,7 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" style={{paddingLeft: '0px', paddingRight: '0px'}}>
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
@@ -156,7 +158,7 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
             ))}
           </Stepper>
             {getStepContent(activeStep, values, products)}
-            <div className={classes.buttons}>
+            <div className={activeStep === 0 ? classes.addressStepButtons : classes.finalStepsButtons}>
               {activeStep !== 0 && (
                 <Button onClick={handleBack} className={classes.button}>
                   Volver
