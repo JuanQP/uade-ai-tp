@@ -76,7 +76,7 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
         </Typography>
         <Typography
           align="right"
-          color="green"
+          color="#009688"
         >
           Hay stock
         </Typography>

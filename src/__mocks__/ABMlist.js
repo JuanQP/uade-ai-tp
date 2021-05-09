@@ -10,7 +10,8 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 85g',
     precio: 500,
-    stock: 30
+    stock: 30,
+		descripcion: '',
   },
   {
     id: uuid(),
@@ -21,7 +22,8 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 85g',
     precio: 700,
-    stock: 20
+    stock: 20,
+		descripcion: '',
   },
   {
     id: uuid(),
@@ -32,7 +34,8 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 488g',
     precio: 350,
-    stock: 12
+    stock: 12,
+		descripcion: '',
   },
   {
     id: uuid(),
@@ -43,7 +46,8 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 467g',
     precio: 400,
-    stock: 8
+    stock: 8,
+		descripcion: '',
   },
   {
     id: uuid(),
@@ -54,7 +58,8 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 1500g',
     precio: 700,
-    stock: 10
+    stock: 10,
+		descripcion: '',
   },
   {
     id: uuid(),
@@ -65,7 +70,8 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 1700g',
     precio: 700,
-    stock: 10
+    stock: 10,
+		descripcion: '',
   },
   {
     id: uuid(),
@@ -76,7 +82,8 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 2547g',
     precio: 650,
-    stock: 8
+    stock: 8,
+		descripcion: '',
   },
   {
     id: uuid(),
@@ -87,7 +94,8 @@ const ABMlist = [
     conect: 'USB',
     peso: 'Aprox. 2142g',
     precio: 600,
-    stock: 10
+    stock: 10,
+		descripcion: '',
   },
 ];
 export default ABMlist;

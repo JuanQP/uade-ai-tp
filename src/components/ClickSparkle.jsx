@@ -9,12 +9,13 @@ const DEFAULT_COLOR = '#FFC700';
 
 const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
-const generateSparkle = color => {
+const generateSparkle = (color, text) => {
   const sparkle = {
     id: String(random(10000, 99999)),
     createdAt: Date.now(),
     color,
     size: 10,
+    text: text,
     style: {
       top: '0%',
       left: '50%',
@@ -24,12 +25,12 @@ const generateSparkle = color => {
   };
   return sparkle;
 };
-const ClickSparkles = ({ color = DEFAULT_COLOR, children, ...delegated }) => {
+const ClickSparkles = ({ color = DEFAULT_COLOR, children, text, ...delegated }) => {
 
   const [sparkles, setSparkles] = useState([]);
 
   function handleClick() {
-    const newSparkle = generateSparkle(color);
+    const newSparkle = generateSparkle(color, text);
     const now = Date.now();
     let nextSparkles = sparkles.filter(sp => {
       const delta = now - sp.createdAt;
@@ -47,17 +48,18 @@ const ClickSparkles = ({ color = DEFAULT_COLOR, children, ...delegated }) => {
           color={sparkle.color}
           size={sparkle.size}
           style={sparkle.style}
+          text={sparkle.text}
         />
       ))}
       <ChildWrapper>{children}</ChildWrapper>
     </Wrapper>
   );
 };
-const Sparkle = ({ size, color, style }) => {
+const Sparkle = ({ size, color, style, text }) => {
   return (
     <SparkleWrapper style={style}>
       <SparkleSpan width={size} height={size} fill="none">
-        <Badge color="secondary" badgeContent={"+1"} />
+        <Badge color="secondary" badgeContent={text} />
       </SparkleSpan>
     </SparkleWrapper>
   );

@@ -136,15 +136,15 @@ const App = () => {
     });
   }
 
-  function handleAddProduct(product) {
+  function handleAddProduct(product, quantity = 1) {
     const addedProduct = products.find(p => product.id === p.product.id);
     if(addedProduct) {
-      addedProduct.quantity++;
+      addedProduct.quantity += quantity ;
     }
     else {
       products.push({
         product,
-        quantity: 1,
+        quantity: quantity,
       });
     }
     // Hack medio feo de React para que se "entere" que un array mutó.
