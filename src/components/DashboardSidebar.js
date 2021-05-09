@@ -38,7 +38,7 @@ const items = [
   {
     href: '/app/products',
     icon: ShoppingBagIcon,
-    title: 'Tienda',
+    title: 'Productos',
     requiresAdmin: false,
     requiresLogin: false,
   },
