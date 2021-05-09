@@ -13,6 +13,7 @@ import AddressForm from 'src/components/checkout/AddressForm';
 import PaymentForm from 'src/components/checkout/PaymentForm';
 import Review from 'src/components/checkout/Review';
 import CheckIcon from "@material-ui/icons/Check";
+import Sparkle from 'src/components/Sparkle';
 
 function Copyright() {
   return (
@@ -163,15 +164,17 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
               )}
               {activeStep === steps.length - 1 ?
               // Último paso
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleFinalizarCompraClick}
-                className={classes.payButton}
-                startIcon={<CheckIcon />}
-              >
-                Comprar
-              </Button>
+              <Sparkle color='random'>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleFinalizarCompraClick}
+                  className={classes.payButton}
+                  startIcon={<CheckIcon />}
+                >
+                  Comprar
+                </Button>
+              </Sparkle>
               // Pasos intermedios
               : <Button
                   variant="contained"

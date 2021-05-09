@@ -14,6 +14,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import { makeStyles } from '@material-ui/core/styles';
+import ClickSparkle from 'src/components/ClickSparkle';
 
 const useStyles = makeStyles((theme) => ({
   magicButton: {
@@ -118,15 +119,17 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
               display: 'flex'
             }}
           >
-            <Button
-              className={classes.magicButton}
-              variant="contained"
-              // color="primary"
-              startIcon={<AddShoppingCartIcon />}
-              onClick={handleAgregarClick}
-            >
-              Agregar
-            </Button>
+            <ClickSparkle>
+              <Button
+                className={classes.magicButton}
+                variant="contained"
+                // color="primary"
+                startIcon={<AddShoppingCartIcon />}
+                onClick={handleAgregarClick}
+              >
+                Agregar
+              </Button>
+            </ClickSparkle>
           </Grid>
         </Grid>
       </Box>
