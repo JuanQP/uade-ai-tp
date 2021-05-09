@@ -7,6 +7,7 @@ import {
 } from '@material-ui/core';
 import ProductListToolbar from 'src/components/product/ProductListToolbar';
 import ProductCard from 'src/components/product//ProductCard';
+import { Link as RouterLink } from 'react-router-dom';
 
 const ProductList = (props) => {
 
@@ -39,11 +40,13 @@ const ProductList = (props) => {
                 <Grid
                   item
                   key={product.id}
-                  lg={4}
+                  lg={2.4}
                   md={6}
                   xs={12}
                 >
                   <ProductCard
+                    component={RouterLink}
+                    to={'/app/product/' + product.id}
                     product={product}
                     onAgregarClick={handleAgregarClick}
                   />

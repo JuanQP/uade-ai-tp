@@ -1,25 +1,18 @@
-import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Avatar,
   Box,
-  Button,
   Card,
   CardContent,
-  Divider,
-  Grid,
   Typography
 } from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import { makeStyles } from '@material-ui/core/styles';
-import ClickSparkle from 'src/components/ClickSparkle';
 
 const useStyles = makeStyles((theme) => ({
-  magicButton: {
+  magicCard: {
     '&:hover': {
-      animation: `$myEffect 250ms ${theme.transitions.easing.easeInOut}`,
+      animation: `$myEffect 100ms ${theme.transitions.easing.easeInOut}`,
       animationFillMode: 'forwards',
     }
   },
@@ -27,8 +20,7 @@ const useStyles = makeStyles((theme) => ({
     "0%": {
     },
     "100%": {
-      background: 'linear-gradient(45deg, #00b09e 30%, #79fa6e 90%)',
-      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      boxShadow: '0 3px 5px 2px lightgray',
       color: 'white',
     }
   }
@@ -36,13 +28,9 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductCard = ({ product, onAgregarClick, ...rest }) => {
   const classes = useStyles();
-
-  function handleAgregarClick() {
-    onAgregarClick(product);
-  }
-
   return (
     <Card
+      className={classes.magicCard}
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -80,59 +68,20 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
         </Typography>
         <Typography
           align="center"
-          color="textPrimary"
+          color="textSecondary"
           gutterBottom
-          variant="h4"
+          variant="h5"
         >
           ${product.precio}
         </Typography>
+        <Typography
+          align="right"
+          color="green"
+        >
+          Hay stock
+        </Typography>
       </CardContent>
       <Box sx={{ flexGrow: 4 }} />
-      <Divider />
-      <Box sx={{ p: 2 }}>
-        <Grid
-          container
-          spacing={2}
-          sx={{ justifyContent: 'space-between' }}
-        >
-          <Grid
-            item
-            sx={{
-              alignItems: 'center',
-              display: 'flex'
-            }}
-          >
-            <Button
-              variant="contained"
-              color="inherit"
-              startIcon={<InfoIcon />}
-              component={RouterLink}
-              to={`/app/product/${product.id}`}
-            >
-              Detalles
-            </Button>
-          </Grid>
-          <Grid
-            item
-            sx={{
-              alignItems: 'center',
-              display: 'flex'
-            }}
-          >
-            <ClickSparkle>
-              <Button
-                className={classes.magicButton}
-                variant="contained"
-                // color="primary"
-                startIcon={<AddShoppingCartIcon />}
-                onClick={handleAgregarClick}
-              >
-                Agregar
-              </Button>
-            </ClickSparkle>
-          </Grid>
-        </Grid>
-      </Box>
     </Card>
   );
 }
