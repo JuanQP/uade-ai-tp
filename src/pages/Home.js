@@ -62,13 +62,13 @@ function Home({productsdb, ...props}) {
               md={12}
               space={2}
             >
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <DescuentoTarjeta style={{height: '100%'}} />
               </Grid>
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <PromoEnvios style={{height: '100%'}} />
               </Grid>
-              <Grid xs={12}>
+              <Grid item xs={12}>
                 <RetiraPorlocal style={{height: '100%'}} />
               </Grid>
             </Grid>

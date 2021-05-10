@@ -1,6 +1,8 @@
 import { createMuiTheme, colors } from '@material-ui/core';
 import shadows from './shadows';
 import typography from './typography';
+import teal from '@material-ui/core/colors/teal';
+import amber from '@material-ui/core/colors/amber';
 
 const theme = createMuiTheme({
   palette: {
@@ -10,7 +12,10 @@ const theme = createMuiTheme({
     },
     primary: {
       contrastText: '#ffffff',
-      main: '#5664d2'
+      main: teal[500],
+    },
+    secondary: {
+      main: amber[500],
     },
     text: {
       primary: '#172b4d',
