@@ -21,7 +21,7 @@ import {
       />
       <Divider />
       <List>
-        {products.filter(p => p.producto === 'Parlante').slice(-4).map((product, i) => (
+        {products.filter(p => p.categoria === 'Parlante').slice(-4).map((product, i) => (
           <ListItem
             divider={i < products.length - 1}
             key={product.id}
@@ -29,7 +29,7 @@ import {
             <ListItemAvatar>
               <Avatar
                 variant="square"
-                alt={`${product.producto} ${product.marca} ${product.modelo}`}
+                alt={product.nombre}
                 src={product.img}
                 style={{
                   height: 100,
@@ -40,7 +40,7 @@ import {
               </Avatar>
             </ListItemAvatar>
             <ListItemText
-              primary={`${product.producto} ${product.marca} ${product.modelo}`}
+              primary={product.nombre}
             />
           </ListItem>
         ))}

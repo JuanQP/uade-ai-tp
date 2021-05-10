@@ -65,12 +65,44 @@ const ABMmodificar = ({onUpdateProduct, ...props}) => {
                 >
                   <TextField
                     fullWidth
-                    label="Producto"
-                    name="producto"
+                    label="Nombre de Imagen"
+                    name="img"
                     onChange={handleChange}
                     required
                     variant="outlined"
-                    value={values.producto}
+                    placeholder="/static/images/products/product_1.png"
+                    value={values.img}
+                  />
+                </Grid>
+                <Grid
+                  item
+                  md={6}
+                  xs={12}
+                >
+                  <TextField
+                    fullWidth
+                    label="Nombre"
+                    name="nombre"
+                    onChange={handleChange}
+                    required
+                    variant="outlined"
+                    placeholder="Teclado inalámbrico Genius"
+                    value={values.nombre}
+                  />
+                </Grid>
+                <Grid
+                  item
+                  md={6}
+                  xs={12}
+                >
+                  <TextField
+                    fullWidth
+                    label="Categoria"
+                    name="categoria"
+                    onChange={handleChange}
+                    required
+                    variant="outlined"
+                    value={values.categoria}
                   />
                 </Grid>
                 <Grid
@@ -111,11 +143,11 @@ const ABMmodificar = ({onUpdateProduct, ...props}) => {
                   <TextField
                     fullWidth
                     label="Interfaz"
-                    name="conect"
+                    name="interfaz"
                     onChange={handleChange}
                     required
                     variant="outlined"
-                    value={values.conect}
+                    value={values.interfaz}
                   />
                 </Grid>
                 <Grid

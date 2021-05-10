@@ -32,10 +32,11 @@ const ordersList = [
           product: {
             id: uuid(),
             img: '/static/images/products/product_2.png',
-            producto: 'Mouse',
+            nombre: 'Mouse Genius DX-125',
+            categoria: 'Mouse',
             marca: 'Genius',
             modelo: 'DX-125',
-            conect: 'USB',
+            interfaz: 'USB',
             peso: 'Aprox. 85g',
             precio: 700,
           },
@@ -79,10 +80,11 @@ const ordersList = [
           product: {
             id: uuid(),
             img: '/static/images/products/product_3.png',
-            producto: 'Teclado',
+            nombre: 'Teclado Genius KB-116',
+            categoria: 'Teclado',
             marca: 'Genius',
             modelo: 'KB-116',
-            conect: 'USB',
+            interfaz: 'USB',
             peso: 'Aprox. 488g',
             precio: 350
           },
@@ -92,10 +94,11 @@ const ordersList = [
           product: {
             id: uuid(),
             img: '/static/images/products/product_4.png',
-            producto: 'Teclado',
+            nombre: 'Teclado Genius KB-118',
+            categoria: 'Teclado',
             marca: 'Genius',
             modelo: 'KB-118',
-            conect: 'USB',
+            interfaz: 'USB',
             peso: 'Aprox. 467g',
             precio: 400
           },

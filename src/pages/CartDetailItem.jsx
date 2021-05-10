@@ -88,7 +88,7 @@ const CartDetailItem = (props) => {
         <Avatar src={props.item.product.img} />
       </ListItemAvatar>
       <ListItemText
-        primary={`${props.item.product.producto} ${props.item.product.marca} ${props.item.product.modelo}`}
+        primary={props.item.product.nombre}
         secondary={`${props.item.quantity} ${props.item.quantity === 1 ? "unidad" : "unidades"} ($${props.item.quantity * props.item.product.precio})`}
       />
       <Hidden lgDown>

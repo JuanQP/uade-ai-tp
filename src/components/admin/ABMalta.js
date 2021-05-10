@@ -16,10 +16,11 @@ import {
 const ABMalta = ({onNewProduct, ...props}) => {
   const [values, setValues] = useState({
     img: '',
-    producto: '',
+    nombre: '',
+    categoria: '',
     marca: '',
     modelo: '',
-    conect: '',
+    interfaz: '',
     peso: '',
     stock: 0,
     precio: 0,
@@ -69,8 +70,38 @@ const ABMalta = ({onNewProduct, ...props}) => {
                 >
                   <TextField
                     fullWidth
-                    label="Producto"
-                    name="producto"
+                    label="Nombre de Imagen"
+                    name="img"
+                    onChange={handleChange}
+                    required
+                    variant="outlined"
+                    placeholder="/static/images/products/product_1.png"
+                  />
+                </Grid>
+                <Grid
+                  item
+                  md={6}
+                  xs={12}
+                >
+                  <TextField
+                    fullWidth
+                    label="Nombre"
+                    name="nombre"
+                    onChange={handleChange}
+                    required
+                    variant="outlined"
+                    placeholder="Teclado inalámbrico Genius"
+                  />
+                </Grid>
+                <Grid
+                  item
+                  md={6}
+                  xs={12}
+                >
+                  <TextField
+                    fullWidth
+                    label="Categoría"
+                    name="categoria"
                     onChange={handleChange}
                     required
                     variant="outlined"
@@ -112,7 +143,7 @@ const ABMalta = ({onNewProduct, ...props}) => {
                   <TextField
                     fullWidth
                     label="Interfaz"
-                    name="conect"
+                    name="interfaz"
                     onChange={handleChange}
                     required
                     variant="outlined"

@@ -155,7 +155,7 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
                         color="textPrimary"
                         variant="body1"
                       >
-                        {ABMlist.producto}
+                        {ABMlist.nombre}
                       </Typography>
                     </Box>
                   </TableCell>
@@ -166,7 +166,7 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
                     {ABMlist.modelo}
                   </TableCell>
                   <TableCell>
-                    {ABMlist.conect}
+                    {ABMlist.interfaz}
                   </TableCell>
                   <TableCell>
                     {ABMlist.peso}

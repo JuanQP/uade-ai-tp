@@ -64,7 +64,7 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
           gutterBottom
           variant="h4"
         >
-          {`${product.producto} ${product.marca} ${product.modelo}`}
+          {product.nombre}
         </Typography>
         <Typography
           align="center"

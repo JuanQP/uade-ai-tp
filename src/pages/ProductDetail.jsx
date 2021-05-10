@@ -95,7 +95,7 @@ const ProductDetail = (props) => {
                 gutterBottom
                 variant="h1"
               >
-                {`${product.producto} ${product.marca} ${product.modelo}`}
+                {product.nombre}
               </Typography>
               <Typography
                 color="#009688"
@@ -165,12 +165,12 @@ const ProductDetail = (props) => {
               </Typography>
             </Grid>
             <Grid item xs={6} md={3}>
-              <Typography color="textPrimary" variant="h4">Conector</Typography>
+              <Typography color="textPrimary" variant="h4">Interfaz</Typography>
               <Typography
                 color="textPrimary"
                 variant="body1"
               >
-                {product.conect}
+                {product.interfaz}
               </Typography>
             </Grid>
             <Grid item xs={6} md={3}>

@@ -29,7 +29,7 @@ const LatestProducts = ({products, ...props}) => (
           <ListItemAvatar>
             <Avatar
               variant="square"
-              alt={`${product.producto} ${product.marca} ${product.modelo}`}
+              alt={product.nombre}
               src={product.img}
               style={{
                 height: 100,
@@ -40,7 +40,7 @@ const LatestProducts = ({products, ...props}) => (
             </Avatar>
           </ListItemAvatar>
           <ListItemText
-            primary={`${product.producto} ${product.marca} ${product.modelo}`}
+            primary={product.nombre}
           />
         </ListItem>
       ))}

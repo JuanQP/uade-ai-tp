@@ -32,7 +32,7 @@ export default function Review({values, products, ...props}) {
         {products.map((product, i) => (
           <ListItem className={classes.listItem} key={i}>
             <ListItemText
-              primary={`${product.product.producto} ${product.product.marca} ${product.product.modelo}`}
+              primary={product.product.nombre}
               secondary={`${product.quantity} ${product.quantity === 1 ? "unidad" : "unidades"}`}
             />
             <Typography variant="body2">${product.product.precio * product.quantity}</Typography>
