@@ -2,8 +2,10 @@ import { Helmet } from 'react-helmet';
 import {
   Box,
   Container,
+  Card,
 } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';  
+import Footer from  'src/components/Footer';
 
 const About = () => (
   <>
@@ -12,11 +14,12 @@ const About = () => (
     </Helmet>
     <Box
       sx={{
-        backgroundColor: 'background.default',
+      
         minHeight: '100%',
         py: 3
       }}
     >
+    <Card>
       <main>
         <div>
           <Container maxWidth="lg">
@@ -63,8 +66,11 @@ const About = () => (
          </Container>
         </div>
       </main>
+  </Card>
     </Box>
+    <Footer></Footer>
   </>
+ 
 );
 
 export default About;
