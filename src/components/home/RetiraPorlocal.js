@@ -9,10 +9,10 @@ import {
     red as colorred
   } from '@material-ui/core/colors';
   import LocationOnIcon from '@material-ui/icons/LocationOn';
-
+  
   const RetirarPorlocal = (props) => (
     <Card
-    sx={{  width: '100%'
+    sx={{  width: '130%'
     }}
     {...props}
   >
@@ -46,5 +46,6 @@ import {
       </CardContent>
     </Card>
   );
-
+  
   export default RetirarPorlocal;
+  
