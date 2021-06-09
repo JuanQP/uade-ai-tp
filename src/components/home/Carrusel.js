@@ -13,15 +13,15 @@ import {
 const tutorialSteps = [
   {
     imgPath:
-      '/static/images/hot-sale-2.jpg',
+      '/static/images/noesperes.jpg',
   },
   {
     imgPath:
-      '/static/images/hot-sale-3.jpg',
+      '/static/images/hotsale.jpg',
   },
   {
     imgPath:
-    '/static/images/hot-sale-4.jpg',
+    '/static/images/descuento.jpg',
   },
 ];
 
