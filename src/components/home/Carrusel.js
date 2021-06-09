@@ -8,6 +8,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import {
   Container,
+  Box,
 } from '@material-ui/core';
 
 const tutorialSteps = [
@@ -27,7 +28,7 @@ const tutorialSteps = [
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      maxWidth: 1200,
+      maxWidth: '100%',
       flexGrow: 1,
     },
   header: {
@@ -38,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.default,
   },
   img: {
-    height: 300,
-    Width: 1920,
+    height: '100%',
+    Width: '100%',
     overflow: 'hidden',
     display: 'block',
     width: '100%',
@@ -60,6 +61,13 @@ export default function Carrusel() {
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
   return (
+    <Box
+      sx={{
+      
+        minHeight: '100%',
+        py: 3
+      }}
+    >
     <Container maxWidth="lg">
     <div className={classes.root}>
     <Paper square elevation={0} className={classes.header}>
@@ -90,5 +98,6 @@ export default function Carrusel() {
       />
       </div>
       </Container>
+      </Box>
   );
 }
