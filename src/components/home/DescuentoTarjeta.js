@@ -16,7 +16,7 @@ import {
 
   const DescuentoTarjeta = (props) => (
     <Card
-      sx={{  width: '100%'
+      sx={{  width: '130%'
     }}
       {...props}
     >
@@ -32,7 +32,7 @@ import {
               gutterBottom
               variant="h4"
             >
-              Pagando con tarjeta de crédito en el mes de mayo
+              Pagando con tarjeta de crédito en el mes de Junio
             </Typography>
           </Grid>
           <Grid item>
@@ -75,3 +75,4 @@ import {
   );
 
   export default DescuentoTarjeta;
+
