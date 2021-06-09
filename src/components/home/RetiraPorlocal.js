@@ -12,7 +12,7 @@ import {
   
   const RetirarPorlocal = (props) => (
     <Card
-    sx={{  width: '130%'
+    sx={{  width: '100%'
     }}
     {...props}
   >
