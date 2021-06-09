@@ -14,7 +14,7 @@ import {
 
   const PromoEnvios = (props) => (
     <Card
-    sx={{  width: '100%'
+    sx={{  width: '130%'
     }}
     {...props}
   >
