@@ -73,38 +73,47 @@ const Home = ({productsdb, ...props}) => (
          </Box>
           </Grid>
           <Grid
-              item
-              lg={3}
-              sm={6}
-              xl={3}
-              xs={12}
+            item
+            lg={8}
+            md={12}
+            xl={4}
+            xs={12}
           >
         <Box
           sx={{
+            backgroundColor: 'background.default',
+            minHeight: '100%',
+            py: 2
+          }}
+          > 
+        <Box
+          sx={{
+            backgroundColor: 'background.default',
             minHeight: '6vh',
-            py: 3
-          }}
-          >
-           <PromoEnvios />
-        </Box>
-        <Box
-          sx={{
-        
-            minHeight: '5vh',
             py: 1
           }}
           >
-           <RetiraPorlocal />
-        </Box>
-        <Box
+            <PromoEnvios />
+           </Box>
+         <Box
           sx={{
-        
-            minHeight: '5vh',
+            backgroundColor: 'background.default',
+            minHeight: '6vh',
             py: 1
           }}
           >
-          <DescuentoTarjeta/>
-        </Box>
+            <RetiraPorlocal />
+         </Box>
+         <Box
+          sx={{
+            backgroundColor: 'background.default',
+            minHeight: '6vh',
+            py: 1
+          }}
+          >
+            <DescuentoTarjeta />
+         </Box>
+         </Box> 
           </Grid>
         </Grid>
       </Container>
