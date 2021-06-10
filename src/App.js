@@ -20,6 +20,19 @@ const usuarios = [
     avatar: 'doge.png',
     isAdmin: true,
     isGuest: false,
+    address: {
+      address1: 'Rivadavia 123',
+      province: 'Buenos Aires',
+      city: 'CABA',
+      zip: '1999',
+      saveAddress: true,
+    },
+    payment: {
+      cardName: 'Juan ignacio Quinteros Parada',
+      cardNumber: '1234 5678 9102 3456',
+      expDate: '04/24',
+      CVV: '999',
+    },
   },
   {
     firstName: 'Cliente',
