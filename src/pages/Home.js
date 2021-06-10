@@ -11,11 +11,6 @@ import LatestSonido from 'src/components/home/LatestSonido';
 import Carrusel  from 'src/components/home/Carrusel';
 import DescuentoTarjeta  from 'src/components/home/DescuentoTarjeta';
 
-import {
-  Avatar,
-  ListItemAvatar,
-} from '@material-ui/core';
-import { FontDownload } from '@material-ui/icons';
 
 const Home = ({productsdb, ...props}) => (
   <>
