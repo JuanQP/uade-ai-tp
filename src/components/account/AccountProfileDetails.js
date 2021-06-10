@@ -143,11 +143,11 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
           ></Box>
      <Container maxWidth="lg">
             <Typography variant="h4" align="left" color="textPrimary" gutterBottom>
-             Datos de Envio
+             Datos de Envío
             </Typography>
         <Card>
         <CardHeader
-          subheader="Puede modificar sus datos de envio"
+          subheader="Puede modificar sus datos de envío"
         />
         <Divider />
         <CardContent>
