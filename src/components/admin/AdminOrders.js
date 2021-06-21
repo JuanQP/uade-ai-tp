@@ -13,17 +13,12 @@ import {
   Typography
 } from '@material-ui/core';
 
-const AdminOrders= ({ ordersList, ...rest }) => {
+const AdminOrders= ({ orders, page, count, onPageChange, ...rest }) => {
   const [selectedOrdersListIds] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(0);
-
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-  };
+  const [limit] = useState(10);
 
   const handlePageChange = (event, newPage) => {
-    setPage(newPage);
+    onPageChange(newPage+1);
   };
 
   return (
@@ -59,7 +54,7 @@ const AdminOrders= ({ ordersList, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {ordersList.slice(0, limit).map((order) => (
+              {orders.slice(0, limit).map((order) => (
                 <TableRow
                   hover
                   key={order.id}
@@ -80,7 +75,7 @@ const AdminOrders= ({ ordersList, ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {order.cod}
+                    {order._id}
                   </TableCell>
                   <TableCell>
                     {`${order.buyOrder.user.firstName} ${order.buyOrder.user.lastName}`}
@@ -108,12 +103,11 @@ const AdminOrders= ({ ordersList, ...rest }) => {
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={ordersList.length}
         onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPage={10}
+        rowsPerPageOptions={[10]}
+        page={page-1}
+        count={count}
       />
     </Card>
   );

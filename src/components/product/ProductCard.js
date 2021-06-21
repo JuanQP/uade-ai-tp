@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import { makeStyles } from '@material-ui/core/styles';
+import * as utils from 'src/utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   magicCard: {
@@ -47,7 +48,7 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
           }}
         >
           <Avatar
-            src={product.img}
+            src={utils.productPath(product.img)}
             alt="Product"
             variant="square"
             sx={{

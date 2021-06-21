@@ -6,61 +6,7 @@ import GlobalStyles from 'src/components/GlobalStyles';
 import 'src/mixins/chartjs';
 import theme from 'src/theme';
 import routes from 'src/routes';
-import ABMlist from 'src/__mocks__/ABMlist';
-import ordersList from 'src/__mocks__/ordersList';
-import { v4 as uuid } from 'uuid';
-import moment from 'moment';
-
-const usuarios = [
-  {
-    firstName: 'Juan Ignacio',
-    lastName: 'Quinteros Parada',
-    email: 'juanquinteros@uade.edu.ar',
-    password: 'password',
-    avatar: 'doge.png',
-    isAdmin: true,
-    isGuest: false,
-    address: {
-      address1: 'Rivadavia 123',
-      province: 'Buenos Aires',
-      city: 'CABA',
-      zip: '1999',
-      saveAddress: true,
-    },
-    payment: {
-      cardName: 'Juan ignacio Quinteros Parada',
-      cardNumber: '1234 5678 9102 3456',
-      expDate: '04/24',
-      CVV: '999',
-    },
-  },
-  {
-    firstName: 'Cliente',
-    lastName: 'Stonks',
-    email: 'cliente@uade.edu.ar',
-    password: 'password',
-    avatar: 'stonks.png',
-    isAdmin: false,
-    isGuest: false,
-    address: {
-      address1: 'Evergreen 123',
-      state: 'Masachusets',
-      city: 'Springfield',
-      zip: '1999',
-      saveAddress: true,
-    },
-    payment: {
-      cardName: 'Cliente Stonks',
-      cardNumber: '1234 5678 9102 3456',
-      expDate: '04/24',
-      CVV: '999',
-      address1: 'Evergreen 123',
-      state: 'Masachusets',
-      city: 'Springfield',
-      zip: '1999',
-    },
-  },
-];
+import axios from 'axios';
 
 const guestUser = {
   firstName: 'Visitante',
@@ -71,18 +17,18 @@ const guestUser = {
   isGuest: true,
   address: {
     address1: '',
-    state: '',
+    province: '',
     city: '',
     zip: '',
-    saveAddress: false,
+    useAddress: false,
   },
   payment: {
     cardName: '',
     cardNumber: '',
     expDate: '',
-    CVV: '',
+    cvv: '',
     address1: '',
-    state: '',
+    province: '',
     city: '',
     zip: '',
   },
@@ -91,38 +37,28 @@ const guestUser = {
 const App = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(guestUser);
-  const [failedLogin, setFailedLogin] = useState(false);
+  const [token, setToken] = useState('');
   const [products, setProducts] = useState([]);
-  const [productsDB, setProductsDB] = useState(ABMlist.slice(0).sort(() => Math.random() - 0.5));
-  const [ordersDB, setOrdersDB] = useState(ordersList.slice(0));
   const routing = useRoutes(routes({
     user: user,
     products: products,
-    checkLogin: checkLogin,
+    onSuccessfulLogin: onSuccessfulLogin,
     handleLogOut: handleLogOut,
     handleSignUp: handleSignUp,
-    failedLogin: failedLogin,
     handleAccountDetailsSave: handleAccountDetailsSave,
     handleAddProduct: handleAddProduct,
     handleMinusProduct: handleMinusProduct,
     handleRemoveProduct: handleRemoveProduct,
     handleFinishedBuy: handleFinishedBuy,
-    productsDB: productsDB,
-    ordersDB: ordersDB,
     insertProduct,
     updateProduct,
     deleteProduct,
   }));
 
-  function checkLogin(loginAttempt) {
-    const loggedUser = usuarios.find(u => u.email === loginAttempt.email && u.password === loginAttempt.password)
-    if (loggedUser) {
-      setUser(loggedUser);
-      setFailedLogin(false);
-    }
-    else {
-      setFailedLogin(true);
-    }
+  function onSuccessfulLogin(user, newToken) {
+    setUser(user);
+    setToken(token);
+    console.log("Token es: ", token);
   }
 
   function handleLogOut() {
@@ -133,12 +69,8 @@ const App = () => {
   }
 
   function handleSignUp(newUser) {
-    usuarios.push({
-      ...newUser,
-      isAdmin: false,
-      isGuest: false,
-    });
-    setProducts([]);
+    // Creación de usuario
+    // setProducts([]);
   }
 
   function handleAccountDetailsSave(data) {
@@ -150,9 +82,9 @@ const App = () => {
   }
 
   function handleAddProduct(product, quantity = 1) {
-    const addedProduct = products.find(p => product.id === p.product.id);
+    const addedProduct = products.find(p => product._id === p.product._id);
     if(addedProduct) {
-      addedProduct.quantity += quantity ;
+      addedProduct.quantity += quantity;
     }
     else {
       products.push({
@@ -165,7 +97,7 @@ const App = () => {
   }
 
   function handleMinusProduct(product) {
-    const diminishedProduct = products.find(p => product.id === p.product.id);
+    const diminishedProduct = products.find(p => product._id === p.product._id);
     if(diminishedProduct) {
       diminishedProduct.quantity--;
 
@@ -179,80 +111,44 @@ const App = () => {
   }
 
   function handleRemoveProduct(product) {
-    const toBeDeletedProduct = products.find(p => product.id === p.product.id);
+    const toBeDeletedProduct = products.find(p => product._id === p.product._id);
     if(toBeDeletedProduct) {
       // Hack medio feo de React para que se "entere" que un array mutó.
-
-      setProducts(products.filter(p => p.product.id !== product.id));
+      setProducts(products.filter(p => p.product._id !== product._id));
     }
   }
 
   function insertProduct(newProduct) {
-    setProductsDB([
-      ...productsDB,
-      {
-        id: uuid(),
-        ...newProduct,
-      },
-    ]);
+    // TODO: Nuevo producto
     navigate("/admin/ABM");
     alert("Producto agregado");
   }
 
   function updateProduct(updatedProduct) {
-    const toBeUpdated = productsDB.findIndex(p => updatedProduct.id === p.id);
-    if(toBeUpdated !== -1) {
-      productsDB[toBeUpdated] = updatedProduct;
-    }
-    // Hack medio feo de React para que se "entere" que un array mutó.
-    setProductsDB(productsDB.slice(0));
+    // TODO: Modificar producto
     navigate("/admin/ABM");
     alert("Producto actualizado");
   }
 
   function deleteProduct(ids) {
-    setProductsDB(productsDB.filter(p => !ids.includes(p.id)));
+    // TODO: Borrar producto
   }
 
   function handleFinishedBuy(buyOrder) {
-    const lastCode = ordersDB[ordersDB.length - 1].cod;
-    setOrdersDB([
-      ...ordersDB,
-      {
-        id: uuid(),
-        cod: lastCode + 1,
-        buyOrder: buyOrder,
-        cantidad: buyOrder.products.map(p => p.quantity).reduce((a,b) => (a+b), 0),
-        fechacompra: moment().format("DD/MM/YYYY"),
-        fechaentrega: moment().add(2, "days").format("DD/MM/YYYY"),
-        total: buyOrder.products.map(p => p.quantity * p.product.precio).reduce((a,b) => (a+b), 0),
-      }
-    ]);
-    setProducts([]);
-    navigate("/app/home");
-    if(!user.isGuest) {
-      // Actualizamos los datos de pago del usuario
-      // si clickeó en "Guardar tarjeta"...
-      const payment = {
-        ...user.payment,
-      };
-      Object.keys(payment).forEach((e) => {
-        payment[e] = buyOrder.payment.saveCard ? buyOrder.payment[e] : user.payment[e];
-      });
-      // Ahora sí, seteamos la nueva data del usuario
-      setUser({
-        ...user,
-        address: {
-          ...user.address,
-          saveAddress: buyOrder.address.saveAddress,
-        },
-        payment: {
-          ...payment,
+    axios.post('http://localhost:4000/orders', buyOrder)
+    .then((res) => {
+      setProducts([]);
+      navigate("/app/home");
+      if(!user.isGuest) {
+        // Actualizamos los datos de pago del usuario
+        // si clickeó en "Guardar tarjeta"...
+        if(buyOrder.payment.saveCard) {
+          console.log("Hay que actualizar los datos de pago del usuario!")
         }
-      });
-    }
-
-    alert("Compra realizada :D!");
+      }
+      alert("Compra realizada 😊");
+    })
+    .catch((err) => console.log(err));
   }
 
   return (

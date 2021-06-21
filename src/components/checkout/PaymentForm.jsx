@@ -19,7 +19,7 @@ export default function PaymentForm({values, ...props}) {
   return (
     <React.Fragment>
       <ScrollToTop />
-      {values.address.saveAddress ? null :
+      {values.address.useAddress ? null :
       // Si no usa la dirección como dirección de facturación, mostramos esto
       <>
         <Typography variant="h6" gutterBottom>
@@ -118,12 +118,12 @@ export default function PaymentForm({values, ...props}) {
           <TextField
             required
             id="cvv"
-            name="CVV"
+            name="cvv"
             label="CVV"
             helperText="Últimos tres dígitos en el dorso de la tarjeta"
             fullWidth
             autoComplete="cc-csc"
-            value={values.payment.CVV}
+            value={values.payment.cvv}
             onChange={handleChange}
           />
         </Grid>

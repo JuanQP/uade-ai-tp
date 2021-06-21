@@ -82,11 +82,11 @@ export default function AddressForm({values, ...props}) {
         </Grid>
         <Grid item xs={12} sm={4}>
           <TextField
-            id="state"
-            name="state"
+            id="province"
+            name="province"
             label="Provincia"
             fullWidth
-            value={values.address.state}
+            value={values.address.province}
             onChange={handleChange}
           />
         </Grid>
@@ -116,9 +116,9 @@ export default function AddressForm({values, ...props}) {
         </Grid>
         <Grid item xs={12} sm={12}>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
+            control={<Checkbox color="secondary" name="useAddress" value="yes" />}
             label="Usar dirección en método de pago"
-            checked={values.address.saveAddress}
+            checked={values.address.useAddress}
             onChange={handleChange}
           />
         </Grid>

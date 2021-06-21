@@ -47,7 +47,7 @@ const Home = ({productsdb, ...props}) => (
             py: 3
           }}
           >
-            <LatestProducts products={productsdb} />
+            <LatestProducts />
         </Box>
           </Grid>
           <Grid
@@ -64,7 +64,7 @@ const Home = ({productsdb, ...props}) => (
             py: 3
           }}
           >
-            <LatestSonido products={productsdb} />
+            <LatestSonido />
          </Box>
           </Grid>
           <Grid
@@ -80,7 +80,7 @@ const Home = ({productsdb, ...props}) => (
             minHeight: '100%',
             py: 2
           }}
-          > 
+          >
         <Box
           sx={{
             backgroundColor: 'background.default',
@@ -108,7 +108,7 @@ const Home = ({productsdb, ...props}) => (
           >
             <DescuentoTarjeta />
          </Box>
-         </Box> 
+         </Box>
           </Grid>
         </Grid>
       </Container>

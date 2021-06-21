@@ -14,6 +14,8 @@ import PaymentForm from 'src/components/checkout/PaymentForm';
 import Review from 'src/components/checkout/Review';
 import CheckIcon from "@material-ui/icons/Check";
 import Sparkle from 'src/components/Sparkle';
+import {useEffect} from 'react';
+import axios from 'axios';
 
 function Copyright() {
   return (
@@ -88,6 +90,7 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
     },
     address: {
       ...user.address,
+      useAddress: true,
     },
     payment: {
       ...user.payment,
@@ -95,6 +98,30 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
     },
   });
   const [activeStep, setActiveStep] = React.useState(0);
+
+  useEffect(() => {
+    if(!user._id) {
+      return;
+    }
+    axios.get('http://localhost:4000/users/detail/' + user._id)
+    .then((res) => {
+      setValues({
+        user: {
+          firstName: res.data.data.firstName,
+          lastName: res.data.data.lastName,
+          email: res.data.data.email,
+        },
+        address: {
+          useAddress: true,
+          ...res.data.data.address,
+        },
+        payment: {
+          saveCard: true,
+          ...res.data.data.payment,
+        },
+      });
+    });
+  }, [user._id]);
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);

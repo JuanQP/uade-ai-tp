@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -19,17 +19,30 @@ import {
 import AdminListToolbar from 'src/components/admin/AdminListToolbar';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import EditIcon from '@material-ui/icons/Edit';
+import * as utils from 'src/utils/utils';
+import axios from 'axios';
 
 const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, ...rest }) => {
   const [selectedABMlistIds, setSelectedABMlistIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [count, setCount] = useState(0);
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/products/', {params: {page: page+1}})
+    .then((res) => {
+      setProductos(res.data.data.docs);
+      setCount(res.data.data.total);
+      // setWaitingServer(false);
+    });
+  }, [page]);
 
   const handleSelectAll = (event) => {
     let newSelectedABMlistIds;
 
     if (event.target.checked) {
-      newSelectedABMlistIds = ABMlist.map((ABMlist) => ABMlist.id);
+      newSelectedABMlistIds = productos.map((producto) => producto._id);
     } else {
       newSelectedABMlistIds = [];
     }
@@ -80,11 +93,11 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedABMlistIds.length === ABMlist.length}
+                    checked={selectedABMlistIds.length === productos.length}
                     color="primary"
                     indeterminate={
                       selectedABMlistIds.length > 0
-                      && selectedABMlistIds.length < ABMlist.length
+                      && selectedABMlistIds.length < productos.length
                     }
                     onChange={handleSelectAll}
                   />
@@ -111,24 +124,21 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
                   Precio
                 </TableCell>
                 <TableCell>
-                  Fecha de ingreso
-                </TableCell>
-                <TableCell>
                   Editar
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {ABMlist.slice(0, limit).map((ABMlist) => (
+              {productos.slice(0, limit).map((producto) => (
                 <TableRow
                   hover
-                  key={ABMlist.id}
-                  selected={selectedABMlistIds.indexOf(ABMlist.id) !== -1}
+                  key={producto._id}
+                  selected={selectedABMlistIds.indexOf(producto._id) !== -1}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
-                      checked={selectedABMlistIds.indexOf(ABMlist.id) !== -1}
-                      onChange={(event) => handleSelectOne(event, ABMlist.id)}
+                      checked={selectedABMlistIds.indexOf(producto._id) !== -1}
+                      onChange={(event) => handleSelectOne(event, producto._id)}
                       value="true"
                     />
                   </TableCell>
@@ -140,7 +150,7 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
                       }}
                     >
                       <Avatar
-                        src={ABMlist.img}
+                        src={utils.productPath(producto.img)}
                         alt="Product"
                         variant="square"
                         sx={{
@@ -155,33 +165,30 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
                         color="textPrimary"
                         variant="body1"
                       >
-                        {ABMlist.nombre}
+                        {producto.nombre}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {ABMlist.marca}
+                    {producto.marca}
                   </TableCell>
                   <TableCell>
-                    {ABMlist.modelo}
+                    {producto.modelo}
                   </TableCell>
                   <TableCell>
-                    {ABMlist.interfaz}
+                    {producto.interfaz}
                   </TableCell>
                   <TableCell>
-                    {ABMlist.peso}
+                    {producto.peso}
                   </TableCell>
                   <TableCell>
-                    {ABMlist.stock}
+                    {producto.stock}
                   </TableCell>
                   <TableCell>
-                    ${ABMlist.precio}
+                    ${producto.precio}
                   </TableCell>
                   <TableCell>
-                    {ABMlist.fechaIngreso ? ABMlist.fechaIngreso : 'Sin especificar'}
-                  </TableCell>
-                  <TableCell>
-                    <IconButton component={RouterLink} to={`/admin/change-product/${ABMlist.id}`} aria-label="edit">
+                    <IconButton component={RouterLink} to={`/admin/change-product/${producto._id}`} aria-label="edit">
                       <EditIcon />
                     </IconButton>
                   </TableCell>
@@ -193,12 +200,12 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
       </PerfectScrollbar>
       <TablePagination
         component="div"
-        count={ABMlist.length}
+        count={count}
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
         page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPage={10}
+        rowsPerPageOptions={[10]}
       />
     </Card>
     </>

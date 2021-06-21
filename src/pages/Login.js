@@ -13,10 +13,25 @@ import {
 } from '@material-ui/core';
 import FacebookIcon from 'src/icons/Facebook';
 import GoogleIcon from 'src/icons/Google';
+import axios from 'axios';
+import {useState} from 'react';
 
 const Login = (props) => {
+  const [failedLogin, setFailedLogin] = useState(false);
+
   const handleLoginButtonClick = (values) => {
-    props.onLogin(values);
+    setFailedLogin(false);
+    axios.post('http://localhost:4000/users/login', {
+      email: values.email,
+      password: values.password,
+    })
+    .then((res) => {
+      props.onSuccessfulLogin(res.data.loginUser.user, res.data.loginUser.token);
+    })
+    .catch((err) => {
+      setFailedLogin(true);
+      console.error(err);
+    })
   }
 
   return (
@@ -123,7 +138,7 @@ const Login = (props) => {
                   </Typography>
                 </Box>
                 <TextField
-                  error={Boolean(touched.email && errors.email) || props.failedLogin}
+                  error={Boolean(touched.email && errors.email) || failedLogin}
                   fullWidth
                   helperText={touched.email && errors.email}
                   label="E-mail"
@@ -136,7 +151,7 @@ const Login = (props) => {
                   variant="outlined"
                 />
                 <TextField
-                  error={Boolean(touched.password && errors.password) || props.failedLogin}
+                  error={Boolean(touched.password && errors.password) || failedLogin}
                   fullWidth
                   helperText={touched.password && errors.password}
                   label="Contraseña"
@@ -159,7 +174,7 @@ const Login = (props) => {
                     Ingresar
                   </Button>
                 </Box>
-                {props.failedLogin
+                {failedLogin
                 ? (<Typography
                     color="red"
                     variant="body1"

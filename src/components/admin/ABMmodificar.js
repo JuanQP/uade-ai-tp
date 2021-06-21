@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Button,
   Card,
   CardContent,
   CardHeader,
+  CircularProgress,
   Container,
   Divider,
   Grid,
@@ -12,15 +13,20 @@ import {
   TextField,
 } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
-
+import axios from 'axios';
 
 const ABMmodificar = ({onUpdateProduct, ...props}) => {
   const { product_id } = useParams();
-  const products = props.productsdb;
-  const product = products.find(p => p.id === product_id);
-  const [values, setValues] = useState({
-    ...product,
-  });
+  const [values, setValues] = useState({});
+  const [waitingServer, setWaitingServer] = useState(true);
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/products/detail/' + product_id)
+    .then((res) => {
+      setValues(res.data.data);
+      setWaitingServer(false);
+    });
+  }, [product_id]);
 
   const handleChange = (event) => {
     setValues({
@@ -31,6 +37,16 @@ const ABMmodificar = ({onUpdateProduct, ...props}) => {
 
   function handleUpdateProduct() {
     onUpdateProduct(values);
+  }
+
+  if(waitingServer) {
+    return (
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center'}}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
+    );
   }
 
   return (
@@ -70,7 +86,7 @@ const ABMmodificar = ({onUpdateProduct, ...props}) => {
                     onChange={handleChange}
                     required
                     variant="outlined"
-                    placeholder="/static/images/products/product_1.png"
+                    placeholder="product_1.png"
                     value={values.img}
                   />
                 </Grid>
@@ -183,7 +199,7 @@ const ABMmodificar = ({onUpdateProduct, ...props}) => {
                 </Grid>
                 <Grid
                   item
-                  md={6}
+                  md={12}
                   xs={12}
                 >
                   <TextField
@@ -199,22 +215,6 @@ const ABMmodificar = ({onUpdateProduct, ...props}) => {
                       startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
                   />
-                </Grid>
-                <Grid
-                  item
-                  md={6}
-                  xs={12}
-                >
-                  <TextField
-                    fullWidth
-                    label="Fecha de ingreso"
-                    name="fechaIngreso"
-                    onChange={handleChange}
-                    required
-                    variant="outlined"
-                    value={values.fechaIngreso}
-                  >
-                  </TextField>
                 </Grid>
                 <Grid
                   item

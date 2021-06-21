@@ -9,6 +9,7 @@ import {
   Divider,
   Typography
 } from '@material-ui/core';
+import * as utils from 'src/utils/utils';
 
 const AccountProfile = (props) => (
   <Card {...props}>
@@ -21,7 +22,7 @@ const AccountProfile = (props) => (
         }}
       >
         <Avatar
-          src={props.user.avatar ? `/static/images/avatars/${props.user.avatar}` : ''}
+          src={props.user.avatar ? utils.avatarPath(props.user.avatar) : ''}
           sx={{
             height: 100,
             width: 100

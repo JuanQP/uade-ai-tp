@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Avatar,
   Box,
@@ -18,6 +18,8 @@ import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import ClickSparkle from 'src/components/ClickSparkle';
+import * as utils from 'src/utils/utils';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   magicButton: {
@@ -45,9 +47,15 @@ const useStyles = makeStyles((theme) => ({
 const ProductDetail = (props) => {
   const classes = useStyles();
   const { product_id } = useParams();
-  const products = props.productsdb;
-  const product = products.find(p => p.id === product_id);
+  const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/products/detail/' + product_id)
+    .then((res) => {
+      setProduct(res.data.data);
+    });
+  }, [product_id]);
 
   function handleChange(e) {
     setQuantity(e.target.value);
@@ -76,7 +84,7 @@ const ProductDetail = (props) => {
                 }}
               >
                 <Avatar
-                  src={product.img}
+                  src={utils.productPath(product.img)}
                   alt="Product"
                   variant="square"
                   align="center"

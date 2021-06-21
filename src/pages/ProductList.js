@@ -1,6 +1,7 @@
 import { Helmet } from 'react-helmet';
 import {
   Box,
+  CircularProgress,
   Container,
   Grid,
   Pagination
@@ -8,13 +9,41 @@ import {
 import ProductListToolbar from 'src/components/product/ProductListToolbar';
 import ProductCard from 'src/components/product//ProductCard';
 import { Link as RouterLink } from 'react-router-dom';
+import {useEffect, useState} from 'react';
+import axios from 'axios';
 
 const ProductList = (props) => {
 
-  const products = props.productsdb;
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pages, setPages] = useState(1);
+  const [waitingServer, setWaitingServer] = useState(true);
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/products/', {params: {page: page}})
+    .then((res) => {
+      setProducts(res.data.data.docs);
+      setPages(res.data.data.pages);
+      setWaitingServer(false);
+    });
+  }, [page]);
 
   function handleAgregarClick(product) {
     props.onAgregarClick(product);
+  }
+
+  function handlePageChange(event, value) {
+    setPage(value);
+  }
+
+  if(waitingServer) {
+    return (
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center'}}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
+    );
   }
 
   return (
@@ -39,14 +68,14 @@ const ProductList = (props) => {
               {products.map((product) => (
                 <Grid
                   item
-                  key={product.id}
+                  key={product._id}
                   lg={2.4}
                   md={6}
                   xs={12}
                 >
                   <ProductCard
                     component={RouterLink}
-                    to={'/app/product/' + product.id}
+                    to={'/app/product/' + product._id}
                     product={product}
                     onAgregarClick={handleAgregarClick}
                   />
@@ -63,8 +92,9 @@ const ProductList = (props) => {
           >
             <Pagination
               color="primary"
-              count={3}
+              count={pages}
               size="small"
+              onChange={handlePageChange}
             />
           </Box>
         </Container>

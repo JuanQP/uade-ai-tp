@@ -1,36 +1,50 @@
 import {
-    Avatar,
-    Box,
-    Button,
-    Card,
-    CardHeader,
-    Divider,
-    List,
-    ListItem,
-    ListItemAvatar,
-    ListItemText
-  } from '@material-ui/core';
-  import ArrowRightIcon from '@material-ui/icons/ArrowRight';
-  import BrokenImageIcon from '@material-ui/icons/BrokenImage';
-  import { Link as RouterLink } from 'react-router-dom';
+  Avatar,
+  Box,
+  Button,
+  Card,
+  CardHeader,
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText
+} from '@material-ui/core';
+import ArrowRightIcon from '@material-ui/icons/ArrowRight';
+import BrokenImageIcon from '@material-ui/icons/BrokenImage';
+import { Link as RouterLink } from 'react-router-dom';
+import * as utils from 'src/utils/utils';
+import {useEffect, useState} from 'react';
+import axios from 'axios';
 
-  const LatestSonido = ({products, ...props}) => (
+  const LatestSonido = ({products, ...props}) => {
+
+  const [productos, setProductos] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/products/latest-sonido')
+    .then((res) => {
+      setProductos(res.data.data);
+    });
+  }, [])
+
+  return (
     <Card {...props}>
       <CardHeader
         title="Disfrute lo mejor en audio"
       />
       <Divider />
       <List>
-        {products.filter(p => p.categoria === 'Parlante').slice(-4).map((product, i) => (
+        {productos.map((product, i) => (
           <ListItem
-            divider={i < products.length - 1}
-            key={product.id}
+            divider={i < productos.length - 1}
+            key={product._id}
           >
             <ListItemAvatar>
               <Avatar
                 variant="square"
                 alt={product.nombre}
-                src={product.img}
+                src={utils.productPath(product.img)}
                 style={{
                   height: 100,
                   width: 140
@@ -52,7 +66,7 @@ import {
           p: 2
         }}
       >
-       <Button
+        <Button
         color="primary"
         endIcon={<ArrowRightIcon />}
         size="small"
@@ -64,5 +78,6 @@ import {
       </Box>
     </Card>
   );
+}
 
   export default LatestSonido;

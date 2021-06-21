@@ -15,6 +15,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import IconButton from '@material-ui/core/IconButton';
+import * as utils from 'src/utils/utils';
 
 function SimpleDialog(props) {
 
@@ -85,7 +86,7 @@ const CartDetailItem = (props) => {
     <>
     <ListItem key={props.item.product.id}>
       <ListItemAvatar onClick={handleOpen}>
-        <Avatar src={props.item.product.img} />
+        <Avatar src={utils.productPath(props.item.product.img)} />
       </ListItemAvatar>
       <ListItemText
         primary={props.item.product.nombre}

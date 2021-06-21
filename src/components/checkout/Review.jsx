@@ -54,7 +54,7 @@ export default function Review({values, products, ...props}) {
             {values.user.firstName} {values.user.lastName}
           </Typography>
           <Typography gutterBottom>
-            {`${values.address.address1}, ${values.address.city}, ${values.address.state}, ${values.address.zip}`}
+            {`${values.address.address1}, ${values.address.city}, ${values.address.province}, ${values.address.zip}`}
           </Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
@@ -85,9 +85,9 @@ export default function Review({values, products, ...props}) {
             </Grid>
             <Grid item xs={6}>
               <Typography gutterBottom>
-                {values.address.saveAddress ?
-                `${values.address.address1}, ${values.address.city}, ${values.address.state}, ${values.address.zip}`
-                : `${values.payment.address1}, ${values.payment.city}, ${values.payment.state}, ${values.payment.zip}`}
+                {values.address.useAddress ?
+                `${values.address.address1}, ${values.address.city}, ${values.address.province}, ${values.address.zip}`
+                : `${values.payment.address1}, ${values.payment.city}, ${values.payment.province}, ${values.payment.zip}`}
               </Typography>
             </Grid>
           </Grid>

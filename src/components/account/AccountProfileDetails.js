@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Box,
   Button,
@@ -13,41 +12,36 @@ import {
 } from '@material-ui/core';
 
 const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
-  const [values, setValues] = useState({
-    firstName: props.user.firstName,
-    lastName: props.user.lastName,
-    email: props.user.email,
-    address: props.user.address.address1,
-    city: props.user.address.city,
-    province: props.user.address.province,
-    zip: props.user.address.zip,
-    cardName: props.user.payment.cardName,
-    cardNumber: props.user.payment.cardNumber,
-    expDate: props.user.payment.expDate,
-    CVV:  props.user.payment.CVV,
-   });
 
   function handleChange(event) {
-    setValues({
-      ...values,
+    props.onUserChange({
+      ...props.user,
       [event.target.name]: event.target.value
     });
   };
 
-  function handleSaveButtonClick() {
-    onAccountDetailsSave({
-      firstName: values.firstName,
-      lastName: values.lastName,
-      address1: values.address1,
-      city: values.city,
-      province: values.province,
-      zip: values.zip,
-      cardName: values.cardName,
-      cardNumber: values.cardNumber,
-      expDate: values.expDate,
-      CVV: values.CVV,
-    
+  function handleShippingChange(event) {
+    props.onUserChange({
+      ...props.user,
+      address: {
+        ...props.user.address,
+        [event.target.name]: event.target.value
+      }
     });
+  }
+
+  function handlePaymentChange(event) {
+    props.onUserChange({
+      ...props.user,
+      payment: {
+        ...props.user.payment,
+        [event.target.name]: event.target.value
+      }
+    });
+  }
+
+  function handleSaveButtonClick() {
+    onAccountDetailsSave();
   }
 
   return (
@@ -60,7 +54,7 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
             <Typography variant="h2" align="left" color="textPrimary" gutterBottom>
              Mis Datos
             </Typography>
-          </Container>    
+          </Container>
           <Box
             sx={{
               display: 'flex',
@@ -94,7 +88,7 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
                 name="firstName"
                 onChange={handleChange}
                 required
-                value={values.firstName}
+                value={props.user.firstName}
                 variant="outlined"
               />
             </Grid>
@@ -109,7 +103,7 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
                 name="lastName"
                 onChange={handleChange}
                 required
-                value={values.lastName}
+                value={props.user.lastName}
                 variant="outlined"
               />
             </Grid>
@@ -125,7 +119,7 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
                 name="email"
                 onChange={handleChange}
                 required
-                value={values.email}
+                value={props.user.email}
                 variant="outlined"
               />
             </Grid>
@@ -163,10 +157,10 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
               <TextField
                 fullWidth
                 label="Dirección"
-                name="direccion"
-                onChange={handleChange}
+                name="address1"
+                onChange={handleShippingChange}
                 required
-                value={values.address}
+                value={props.user.address.address1}
                 variant="outlined"
               />
             </Grid>
@@ -178,10 +172,10 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
             <TextField
                 fullWidth
                 label="Ciudad"
-                name="ciudad"
-                onChange={handleChange}
+                name="city"
+                onChange={handleShippingChange}
                 required
-                value={values.city}
+                value={props.user.address.city}
                 variant="outlined"
               />
             </Grid>
@@ -193,10 +187,10 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
             <TextField
                 fullWidth
                 label="Provincia"
-                name="provincia"
-                onChange={handleChange}
+                name="province"
+                onChange={handleShippingChange}
                 required
-                value={values.province}
+                value={props.user.address.province}
                 variant="outlined"
               />
             </Grid>
@@ -209,9 +203,9 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
                 fullWidth
                 label="Código Postal"
                 name="zip"
-                onChange={handleChange}
+                onChange={handleShippingChange}
                 required
-                value={values.zip}
+                value={props.user.address.zip}
                 variant="outlined"
               />
             </Grid>
@@ -250,9 +244,9 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
                 fullWidth
                 label="Nombre de la tarjeta"
                 name="cardName"
-                onChange={handleChange}
+                onChange={handlePaymentChange}
                 required
-                value={values.cardName}
+                value={props.user.payment.cardName}
                 variant="outlined"
               />
             </Grid>
@@ -265,9 +259,9 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
                 fullWidth
                 label="Número de tarjeta"
                 name="cardNumber"
-                onChange={handleChange}
+                onChange={handlePaymentChange}
                 required
-                value={values.cardNumber}
+                value={props.user.payment.cardNumber}
                 variant="outlined"
               />
             </Grid>
@@ -280,9 +274,9 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
                 fullWidth
                 label="Fecha de Vencimiento"
                 name="expDate"
-                onChange={handleChange}
+                onChange={handlePaymentChange}
                 required
-                value={values.expDate}
+                value={props.user.payment.expDate}
                 variant="outlined"
               />
             </Grid>
@@ -293,18 +287,18 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
             >
             <TextField
                 fullWidth
-                label="CVV"
-                name="CVV"
-                onChange={handleChange}
+                label="cvv"
+                name="cvv"
+                onChange={handlePaymentChange}
                 required
-                value={values.CVV}
+                value={props.user.payment.cvv}
                 variant="outlined"
               />
             </Grid>
           </Grid>
         </CardContent>
         <Divider />
-          
+
         <Box
           sx={{
             display: 'flex',
@@ -322,8 +316,8 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
         </Box>
         </Card>
         </Container>
-   
-    
+
+
     </form>
   );
 };

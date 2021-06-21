@@ -30,7 +30,7 @@ const routes = (props) => [
         <Account user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} />
         : <Navigate to="/login" />
       },
-      { path: 'home', element: <Home productsdb={props.productsDB} /> },
+      { path: 'home', element: <Home /> },
       { path: 'products', element: (
         <ProductList
           productsdb={props.productsDB}
@@ -78,7 +78,7 @@ const routes = (props) => [
     element: <MainLayout />,
     children: [
       { path: 'login',
-        element: props.user.isGuest ? <Login onLogin={props.checkLogin} failedLogin={props.failedLogin} /> : <Navigate to="/app/home" /> },
+        element: props.user.isGuest ? <Login onSuccessfulLogin={props.onSuccessfulLogin} /> : <Navigate to="/app/home" /> },
       { path: 'register',
         element: props.user.isGuest ? <Register onSignUp={props.handleSignUp} /> : <Navigate to="/app/home" /> },
       { path: '/',
