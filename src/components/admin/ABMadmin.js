@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
+  Alert,
   Avatar,
   Box,
   Card,
   Checkbox,
   IconButton,
+  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -28,6 +30,8 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
   const [productos, setProductos] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [serverMessage, setServerMessage] = useState('');
 
   useEffect(() => {
     refreshPage(page);
@@ -86,11 +90,16 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
     .then((res) => {
       refreshPage(page);
       setSelectedABMlistIds([]);
-      alert(res.data.message);
+      setServerMessage(res.data.message);
+      setOpen(true);
     })
     .catch((err) => {
       console.log(err);
     });
+  }
+
+  function handleClose() {
+    setOpen(false);
   }
 
   return (
@@ -218,6 +227,11 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
         rowsPerPage={10}
         rowsPerPageOptions={[10]}
       />
+      <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'center'}} open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert variant="filled" onClose={handleClose} severity="success">
+          {serverMessage}
+        </Alert>
+      </Snackbar>
     </Card>
     </>
   );
