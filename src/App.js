@@ -50,7 +50,6 @@ const App = () => {
     handleRemoveProduct: handleRemoveProduct,
     handleFinishedBuy: handleFinishedBuy,
     insertProduct,
-    updateProduct,
   }));
 
   function onSuccessfulLogin(user, newToken) {
@@ -120,12 +119,6 @@ const App = () => {
     // TODO: Nuevo producto
     navigate("/admin/ABM");
     alert("Producto agregado");
-  }
-
-  function updateProduct(updatedProduct) {
-    // TODO: Modificar producto
-    navigate("/admin/ABM");
-    alert("Producto actualizado");
   }
 
   function handleFinishedBuy(buyOrder) {

@@ -67,7 +67,7 @@ const routes = (props) => [
           path: 'add-product', element: <ABMAlta onNewProduct={props.insertProduct}/>
         },
         {
-          path: 'change-product/:product_id', element: <ABMModificar onUpdateProduct={props.updateProduct} productsdb={props.productsDB}/>
+          path: 'change-product/:product_id', element: <ABMModificar />
         },
         { path: 'orders', element: <Orders ordersdb={props.ordersDB} /> },
       ]

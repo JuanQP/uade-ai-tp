@@ -15,17 +15,13 @@ import {
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-const ABMmodificar = ({onUpdateProduct, ...props}) => {
+const ABMmodificar = ({...props}) => {
   const { product_id } = useParams();
   const [values, setValues] = useState({});
   const [waitingServer, setWaitingServer] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/products/detail/' + product_id)
-    .then((res) => {
-      setValues(res.data.data);
-      setWaitingServer(false);
-    });
+    refreshPage(product_id);
   }, [product_id]);
 
   const handleChange = (event) => {
@@ -36,7 +32,25 @@ const ABMmodificar = ({onUpdateProduct, ...props}) => {
   };
 
   function handleUpdateProduct() {
-    onUpdateProduct(values);
+    axios.put('http://localhost:4000/products/', values)
+    .then((res) => {
+      setValues(res.data.data);
+      alert("Producto modificado");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  function refreshPage(product_id) {
+    setWaitingServer(true);
+    axios.get('http://localhost:4000/products/detail/' + product_id)
+    .then((res) => {
+      setValues(res.data.data);
+    })
+    .finally(() =>{
+      setWaitingServer(false);
+    });
   }
 
   if(waitingServer) {
