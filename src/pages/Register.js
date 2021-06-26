@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Link as RouterLink, Navigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -13,17 +12,20 @@ import {
   TextField,
   Typography
 } from '@material-ui/core';
+import axios from 'axios';
 
 const Register = (props) => {
-  const [newUserCreated, setNewUserCreated] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSignUpButtonClick = (values) => {
-    props.onSignUp(values);
-    setNewUserCreated(true);
-  }
-
-  if (newUserCreated) {
-    return <Navigate to="/login"/>;
+  function handleSignUpButtonClick (values) {
+    axios.post('http://localhost:4000/users/registration', values)
+    .then(() => {
+      alert("Usuario nuevo creado");
+      navigate('/login');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   return (

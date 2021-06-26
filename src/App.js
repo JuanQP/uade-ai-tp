@@ -6,6 +6,7 @@ import GlobalStyles from 'src/components/GlobalStyles';
 import 'src/mixins/chartjs';
 import theme from 'src/theme';
 import routes from 'src/routes';
+import axios from 'axios';
 
 const guestUser = {
   firstName: 'Visitante',
@@ -43,7 +44,6 @@ const App = () => {
     products: products,
     onSuccessfulLogin: onSuccessfulLogin,
     handleLogOut: handleLogOut,
-    handleSignUp: handleSignUp,
     handleAccountDetailsSave: handleAccountDetailsSave,
     handleAddProduct: handleAddProduct,
     handleMinusProduct: handleMinusProduct,
@@ -64,17 +64,14 @@ const App = () => {
     alert('Sesión cerrada');
   }
 
-  function handleSignUp(newUser) {
-    // Creación de usuario
-    // setProducts([]);
-  }
-
   function handleAccountDetailsSave(data) {
-    setUser({
-      ...user,
-      firstName: data.firstName,
-      lastName: data.lastName,
-    });
+    axios.put('http://localhost:4000/users/', data)
+    .then((res) => {
+      setUser(...res.data.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   }
 
   function handleAddProduct(product, quantity = 1) {

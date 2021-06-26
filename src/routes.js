@@ -32,9 +32,7 @@ const routes = (props) => [
       },
       { path: 'home', element: <Home /> },
       { path: 'products', element: (
-        <ProductList
-          onAgregarClick={props.handleAddProduct}
-        />) },
+        <ProductList onAgregarClick={props.handleAddProduct} />) },
       { path: 'about', element: <About /> },
       { path: 'cart-detail', element:
         <CartDetail
@@ -57,15 +55,9 @@ const routes = (props) => [
           onLogOut={props.handleLogOut}
         /> : <Navigate to="/app/home" />,
       children: [
-        { path: 'ABM', element:
-          <ABM />
-        },
-        {
-          path: 'add-product', element: <ABMAlta />
-        },
-        {
-          path: 'change-product/:product_id', element: <ABMModificar />
-        },
+        { path: 'ABM', element: <ABM /> },
+        { path: 'add-product', element: <ABMAlta /> },
+        { path: 'change-product/:product_id', element: <ABMModificar /> },
         { path: 'orders', element: <Orders /> },
       ]
     },
@@ -76,7 +68,7 @@ const routes = (props) => [
       { path: 'login',
         element: props.user.isGuest ? <Login onSuccessfulLogin={props.onSuccessfulLogin} /> : <Navigate to="/app/home" /> },
       { path: 'register',
-        element: props.user.isGuest ? <Register onSignUp={props.handleSignUp} /> : <Navigate to="/app/home" /> },
+        element: props.user.isGuest ? <Register /> : <Navigate to="/app/home" /> },
       { path: '/',
         element: <Navigate to="/app/home" />},
     ]
