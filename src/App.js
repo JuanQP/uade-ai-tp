@@ -116,9 +116,24 @@ const App = () => {
     navigate("/app/home");
     if(!user.isGuest) {
       // Actualizamos los datos de pago del usuario
-      // si clickeó en "Guardar tarjeta"...
+      // si clickeó en "Guardar tarjeta" y al menos un campo es distinto del actual...
       if(buyOrder.payment.saveCard) {
-        console.log("Hay que actualizar los datos de pago del usuario!");
+        if(buyOrder.payment.cardName !== user.payment.cardName
+            || buyOrder.payment.cardNumber !== user.payment.cardNumber
+            || buyOrder.payment.expDate !== user.payment.expDate
+            || buyOrder.payment.cvv !== user.payment.cvv
+        ) {
+          const updatedUser = {...user};
+          updatedUser.payment = buyOrder.payment;
+          axios.put('http://localhost:4000/users/', updatedUser)
+          .then((res) => {
+            setUser(res.data.data);
+            alert("Se actualizaron los datos de pago del usuario");
+          })
+          .catch((err) => {
+            console.log(err);
+          })
+        }
       }
     }
     alert("Compra realizada 😊");
