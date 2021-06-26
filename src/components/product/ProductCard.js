@@ -75,12 +75,21 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
         >
           ${product.precio}
         </Typography>
+        {product.stock > 0 ?
         <Typography
           align="right"
           color="#009688"
         >
           Hay stock
         </Typography>
+        :
+        <Typography
+          align="right"
+          color="#d32f2f"
+        >
+          Sin stock
+        </Typography>
+        }
       </CardContent>
       <Box sx={{ flexGrow: 4 }} />
     </Card>

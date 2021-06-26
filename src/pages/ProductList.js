@@ -73,12 +73,17 @@ const ProductList = (props) => {
                   md={6}
                   xs={12}
                 >
+                  {product.stock > 0 ?
                   <ProductCard
                     component={RouterLink}
                     to={'/app/product/' + product._id}
                     product={product}
                     onAgregarClick={handleAgregarClick}
+                  /> :
+                  <ProductCard
+                    product={product}
                   />
+                  }
                 </Grid>
               ))}
             </Grid>
