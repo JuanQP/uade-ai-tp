@@ -69,6 +69,13 @@ const items = [
     title: 'Pedidos',
     requiresAdmin: true,
     requiresLogin: true,
+  },
+  {
+    href: '/admin/users',
+    icon: ListIcon,
+    title: 'Usuarios',
+    requiresAdmin: true,
+    requiresLogin: true,
   }
 ];
 

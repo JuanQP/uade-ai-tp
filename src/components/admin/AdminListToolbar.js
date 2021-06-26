@@ -24,7 +24,7 @@ const AdminListToolbar = ({onDeleteClick, ...props}) => {
           justifyContent: 'flex-end'
         }}
       >
-        <Button color="secondary" onClick={handleDeleteClick} sx={{ mx: 1 }}>
+        <Button color="secondary" variant="contained" onClick={handleDeleteClick} sx={{ mx: 1 }}>
           Eliminar
         </Button>
         <Button

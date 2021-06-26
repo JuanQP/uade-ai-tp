@@ -2,11 +2,7 @@ import { Helmet } from 'react-helmet';
 import { Box, Container } from '@material-ui/core';
 import ABMadmin from 'src/components/admin/ABMadmin';
 
-const ABM = ({onDeleteProduct, ...props}) => {
-
-  function handleRemoveProduct(ids) {
-    onDeleteProduct(ids);
-  }
+const ABM = ({...props}) => {
 
   return (
     <>
@@ -22,10 +18,7 @@ const ABM = ({onDeleteProduct, ...props}) => {
       >
         <Container maxWidth={false}>
           <Box sx={{ pt: 3 }}>
-            <ABMadmin
-              ABMlist={props.productsdb}
-              onDeleteProduct={handleRemoveProduct}
-            />
+            <ABMadmin />
           </Box>
         </Container>
       </Box>

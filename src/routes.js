@@ -15,6 +15,7 @@ import ABMAlta from 'src/components/admin/ABMalta';
 import ABMModificar from 'src/components/admin/ABMmodificar';
 import Orders from 'src/pages/Orders';
 import Checkout from 'src/pages/Checkout';
+import AdminUsers from 'src/components/admin/AdminUsers';
 
 const routes = (props) => [
   {
@@ -59,6 +60,7 @@ const routes = (props) => [
         { path: 'add-product', element: <ABMAlta /> },
         { path: 'change-product/:product_id', element: <ABMModificar /> },
         { path: 'orders', element: <Orders /> },
+        { path: 'users', element: <AdminUsers /> },
       ]
     },
   {
