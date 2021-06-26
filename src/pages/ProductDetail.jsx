@@ -5,8 +5,10 @@ import {
   Button,
   Card,
   CardContent,
+  CircularProgress,
   Container,
   FormControl,
+  FormHelperText,
   Grid,
   InputLabel,
   MenuItem,
@@ -44,16 +46,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+function unidadesItems(cantidad) {
+  const numeros = [...Array(Math.min(cantidad, 10)).keys()];
+  return numeros.map((n) => <MenuItem key={`item-${n+1}}`} value={n+1}>{`${n+1} ${(n+1) === 1 ? 'unidad': 'unidades'}`}</MenuItem>);
+}
+
 const ProductDetail = (props) => {
   const classes = useStyles();
   const { product_id } = useParams();
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [waitingServer, setWaitingServer] = useState(true);
 
   useEffect(() => {
     axios.get('http://localhost:4000/products/detail/' + product_id)
     .then((res) => {
       setProduct(res.data.data);
+    })
+    .finally(() => {
+      setWaitingServer(false);
     });
   }, [product_id]);
 
@@ -63,6 +74,16 @@ const ProductDetail = (props) => {
 
   function handleAgregarClick() {
     props.onAgregarClick(product, quantity);
+  }
+
+  if(waitingServer) {
+    return (
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center'}}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
+    );
   }
 
   return (
@@ -124,17 +145,9 @@ const ProductDetail = (props) => {
                       onChange={handleChange}
                       label="Cantidad"
                     >
-                      <MenuItem value={1}>1 unidad</MenuItem>
-                      <MenuItem value={2}>2 unidades</MenuItem>
-                      <MenuItem value={3}>3 unidades</MenuItem>
-                      <MenuItem value={4}>4 unidades</MenuItem>
-                      <MenuItem value={5}>5 unidades</MenuItem>
-                      <MenuItem value={6}>6 unidades</MenuItem>
-                      <MenuItem value={7}>7 unidades</MenuItem>
-                      <MenuItem value={8}>8 unidades</MenuItem>
-                      <MenuItem value={9}>9 unidades</MenuItem>
-                      <MenuItem value={10}>10 unidades</MenuItem>
+                      {unidadesItems(product.stock)}
                     </Select>
+                    <FormHelperText>Unidades disponibles: {product.stock}</FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item md={6} sm={12}>

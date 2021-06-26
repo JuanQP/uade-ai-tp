@@ -135,20 +135,16 @@ const App = () => {
   }
 
   function handleFinishedBuy(buyOrder) {
-    axios.post('http://localhost:4000/orders', buyOrder)
-    .then((res) => {
-      setProducts([]);
-      navigate("/app/home");
-      if(!user.isGuest) {
-        // Actualizamos los datos de pago del usuario
-        // si clickeó en "Guardar tarjeta"...
-        if(buyOrder.payment.saveCard) {
-          console.log("Hay que actualizar los datos de pago del usuario!")
-        }
+    setProducts([]);
+    navigate("/app/home");
+    if(!user.isGuest) {
+      // Actualizamos los datos de pago del usuario
+      // si clickeó en "Guardar tarjeta"...
+      if(buyOrder.payment.saveCard) {
+        console.log("Hay que actualizar los datos de pago del usuario!");
       }
-      alert("Compra realizada 😊");
-    })
-    .catch((err) => console.log(err));
+    }
+    alert("Compra realizada 😊");
   }
 
   return (

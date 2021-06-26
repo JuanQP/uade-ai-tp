@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import Alert from '@material-ui/core/Alert';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
@@ -98,6 +99,8 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
     },
   });
   const [activeStep, setActiveStep] = React.useState(0);
+  const [huboError, setHuboError] = React.useState(false);
+  const [mensajeError, setMensajeError] = React.useState([]);
 
   useEffect(() => {
     if(!user._id) {
@@ -132,6 +135,8 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
   };
 
   function handleFinalizarCompraClick() {
+    setHuboError(false);
+    setMensajeError([]);
     // Si seleccionó "Usar dirección para facturación"
     const finishedBuyOrder = {
       ...values,
@@ -143,7 +148,14 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
       finishedBuyOrder.payment.city = finishedBuyOrder.address.city;
       finishedBuyOrder.payment.zip = finishedBuyOrder.address.zip;
     }
-    onFinishedBuy(finishedBuyOrder);
+    axios.post('http://localhost:4000/orders', finishedBuyOrder)
+    .then(() => {
+      onFinishedBuy(finishedBuyOrder);
+    })
+    .catch((err) => {
+      setHuboError(true);
+      setMensajeError(err.response.data.message);
+    });
   }
 
   function handleChange(event) {
@@ -215,6 +227,11 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
                 </Button>
               }
             </div>
+            {huboError ?
+              <Alert severity="error">
+                {mensajeError.map((error, i) => <p key={i}>{error}</p>)}
+              </Alert> : null
+            }
         </Paper>
         <Copyright />
       </main>
