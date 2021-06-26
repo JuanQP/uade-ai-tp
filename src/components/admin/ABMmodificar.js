@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -10,6 +11,7 @@ import {
   Divider,
   Grid,
   InputAdornment,
+  Snackbar,
   TextField,
 } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
@@ -19,6 +21,9 @@ const ABMmodificar = ({...props}) => {
   const { product_id } = useParams();
   const [values, setValues] = useState({});
   const [waitingServer, setWaitingServer] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [serverMessage, setServerMessage] = useState('');
+  const [messageType, setMessageType] = useState('success');
 
   useEffect(() => {
     refreshPage(product_id);
@@ -35,10 +40,15 @@ const ABMmodificar = ({...props}) => {
     axios.put('http://localhost:4000/products/', values)
     .then((res) => {
       setValues(res.data.data);
-      alert("Producto modificado");
+      setServerMessage(res.data.message);
+      setMessageType('success');
     })
     .catch((err) => {
-      console.log(err);
+      setServerMessage(err.response.data.message);
+      setMessageType('error');
+    })
+    .finally(() => {
+      setOpen(true);
     });
   }
 
@@ -51,6 +61,10 @@ const ABMmodificar = ({...props}) => {
     .finally(() =>{
       setWaitingServer(false);
     });
+  }
+
+  function handleClose() {
+    setOpen(false);
   }
 
   if(waitingServer) {
@@ -274,6 +288,11 @@ const ABMmodificar = ({...props}) => {
             </Box>
           </Card>
         </form>
+        <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'center'}} open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert variant="filled" onClose={handleClose} severity={messageType}>
+            {serverMessage}
+          </Alert>
+        </Snackbar>
       </Container>
     </Box>
   );
