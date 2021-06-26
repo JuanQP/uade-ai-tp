@@ -30,12 +30,7 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/products/', {params: {page: page+1}})
-    .then((res) => {
-      setProductos(res.data.data.docs);
-      setCount(res.data.data.total);
-      // setWaitingServer(false);
-    });
+    refreshPage(page);
   }, [page]);
 
   const handleSelectAll = (event) => {
@@ -78,8 +73,24 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
     setPage(newPage);
   };
 
+  function refreshPage(newPage) {
+    axios.get('http://localhost:4000/products/', {params: {page: newPage+1}})
+    .then((res) => {
+      setProductos(res.data.data.docs);
+      setCount(res.data.data.total);
+    });
+  }
+
   function handleRemoveProduct() {
-    onDeleteProduct(selectedABMlistIds);
+    axios.delete('http://localhost:4000/products/', {data: {ids: selectedABMlistIds}})
+    .then((res) => {
+      refreshPage(page);
+      setSelectedABMlistIds([]);
+      alert(res.data.message);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   return (

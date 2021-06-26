@@ -61,7 +61,6 @@ const routes = (props) => [
         { path: 'ABM', element:
           <ABM
             productsdb={props.productsDB}
-            onDeleteProduct={props.deleteProduct}
           />
         },
         {

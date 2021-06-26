@@ -6,7 +6,6 @@ import GlobalStyles from 'src/components/GlobalStyles';
 import 'src/mixins/chartjs';
 import theme from 'src/theme';
 import routes from 'src/routes';
-import axios from 'axios';
 
 const guestUser = {
   firstName: 'Visitante',
@@ -52,7 +51,6 @@ const App = () => {
     handleFinishedBuy: handleFinishedBuy,
     insertProduct,
     updateProduct,
-    deleteProduct,
   }));
 
   function onSuccessfulLogin(user, newToken) {
@@ -128,10 +126,6 @@ const App = () => {
     // TODO: Modificar producto
     navigate("/admin/ABM");
     alert("Producto actualizado");
-  }
-
-  function deleteProduct(ids) {
-    // TODO: Borrar producto
   }
 
   function handleFinishedBuy(buyOrder) {
