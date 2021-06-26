@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Button,
@@ -11,9 +12,10 @@ import {
   InputAdornment,
   TextField,
 } from '@material-ui/core';
+import axios from 'axios';
 
-
-const ABMalta = ({onNewProduct, ...props}) => {
+const ABMalta = ({...props}) => {
+  const navigate = useNavigate();
   const [values, setValues] = useState({
     img: '',
     nombre: '',
@@ -35,7 +37,14 @@ const ABMalta = ({onNewProduct, ...props}) => {
   };
 
   function handleNewProduct() {
-    onNewProduct(values);
+    axios.post('http://localhost:4000/products/', values)
+    .then((res) => {
+      navigate('/admin/ABM');
+      alert(res.data.message);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   return (
@@ -180,7 +189,7 @@ const ABMalta = ({onNewProduct, ...props}) => {
                 </Grid>
                 <Grid
                   item
-                  md={6}
+                  md={12}
                   xs={12}
                 >
                   <TextField
@@ -195,21 +204,6 @@ const ABMalta = ({onNewProduct, ...props}) => {
                       startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
                   />
-                </Grid>
-                <Grid
-                  item
-                  md={6}
-                  xs={12}
-                >
-                  <TextField
-                    fullWidth
-                    label="Fecha de ingreso"
-                    name="fechaIngreso"
-                    onChange={handleChange}
-                    required
-                    variant="outlined"
-                  >
-                  </TextField>
                 </Grid>
                 <Grid
                   item

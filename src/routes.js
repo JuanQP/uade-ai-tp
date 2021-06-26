@@ -33,7 +33,6 @@ const routes = (props) => [
       { path: 'home', element: <Home /> },
       { path: 'products', element: (
         <ProductList
-          productsdb={props.productsDB}
           onAgregarClick={props.handleAddProduct}
         />) },
       { path: 'about', element: <About /> },
@@ -45,7 +44,7 @@ const routes = (props) => [
           onMinusProduct={props.handleMinusProduct}
           onRemoveProduct={props.handleRemoveProduct}
         /> },
-      { path: 'product/:product_id', element: <ProductDetail productsdb={props.productsDB} onAgregarClick={props.handleAddProduct} />},
+      { path: 'product/:product_id', element: <ProductDetail onAgregarClick={props.handleAddProduct} />},
       { path: 'checkout', element: <Checkout user={props.user} products={props.products} onFinishedBuy={props.handleFinishedBuy} />}
     ]
   },
@@ -59,17 +58,15 @@ const routes = (props) => [
         /> : <Navigate to="/app/home" />,
       children: [
         { path: 'ABM', element:
-          <ABM
-            productsdb={props.productsDB}
-          />
+          <ABM />
         },
         {
-          path: 'add-product', element: <ABMAlta onNewProduct={props.insertProduct}/>
+          path: 'add-product', element: <ABMAlta />
         },
         {
           path: 'change-product/:product_id', element: <ABMModificar />
         },
-        { path: 'orders', element: <Orders ordersdb={props.ordersDB} /> },
+        { path: 'orders', element: <Orders /> },
       ]
     },
   {

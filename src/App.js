@@ -49,12 +49,11 @@ const App = () => {
     handleMinusProduct: handleMinusProduct,
     handleRemoveProduct: handleRemoveProduct,
     handleFinishedBuy: handleFinishedBuy,
-    insertProduct,
   }));
 
   function onSuccessfulLogin(user, newToken) {
     setUser(user);
-    setToken(token);
+    setToken(newToken);
     console.log("Token es: ", token);
   }
 
@@ -113,12 +112,6 @@ const App = () => {
       // Hack medio feo de React para que se "entere" que un array mutó.
       setProducts(products.filter(p => p.product._id !== product._id));
     }
-  }
-
-  function insertProduct(newProduct) {
-    // TODO: Nuevo producto
-    navigate("/admin/ABM");
-    alert("Producto agregado");
   }
 
   function handleFinishedBuy(buyOrder) {
