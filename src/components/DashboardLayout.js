@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import { experimentalStyled } from '@material-ui/core';
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
+import Footer from  'src/components/Footer';
 
 const DashboardLayoutRoot = experimentalStyled('div')(
   ({ theme }) => ({
@@ -61,6 +62,7 @@ const DashboardLayout = (props) => {
         <DashboardLayoutContainer>
           <DashboardLayoutContent>
             <Outlet />
+            <Footer></Footer>
           </DashboardLayoutContent>
         </DashboardLayoutContainer>
       </DashboardLayoutWrapper>
