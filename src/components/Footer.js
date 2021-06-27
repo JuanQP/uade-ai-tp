@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '20vh',
   },
   main: {
-    marginTop: theme.spacing(0),
+    marginTop: theme.spacing(5),
     marginBottom: theme.spacing(1),
   },
   footer: {
@@ -36,12 +36,12 @@ export default function Footer() {
     <div className={classes.root}>
       <Container component="main" className={classes.main} maxWidth="lg">
         <Typography variant="h3" align="center"component="h1" gutterBottom>
-        Copyright © FQ Computer 2021
+        Copyright © FQ Computer 2021.
         </Typography>
         <Typography variant="h5" align="center" component="h2" gutterBottom>
-          {'Todos los derechos reservados'}
+          {'Todos los derechos reservados.'}
         </Typography>
-        <Typography variant="body1" align="center">Seguinos en nuestras redes.</Typography>
+        <Typography variant="body1" align="center">Seguinos en nuestras redes:</Typography>
         <Box
           sx={{
             display: 'flex',
