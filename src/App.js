@@ -54,7 +54,8 @@ const App = () => {
   function onSuccessfulLogin(user, newToken) {
     setUser(user);
     setToken(newToken);
-    console.log("Token es: ", token);
+    console.log("Token es: ", newToken);
+    axios.defaults.headers.common['x-access-token'] = newToken;
   }
 
   function handleLogOut() {
