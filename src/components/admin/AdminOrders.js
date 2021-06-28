@@ -17,6 +17,106 @@ import {
   TableRow,
 } from '@material-ui/core';
 import axios from 'axios';
+import Collapse from '@material-ui/core/Collapse';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+
+function OrdersRow (props){
+  const { order, selected, checked, OnSelectOne } = props;
+  const [open, setOpen] = useState(false);
+  function handleSelect(e, id){
+    OnSelectOne (e, id)
+  }
+  return (         
+     <>
+    <TableRow
+      hover
+      key={order._id}
+      selected={selected}
+    >
+      <TableCell padding="checkbox">
+        <Checkbox
+          checked={checked}
+          onChange={(event) => handleSelect(event, order._id)}
+          value="true"
+        />
+      </TableCell>
+      <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+      <TableCell>
+        {order._id}
+      </TableCell>
+      <TableCell>
+        {`${order.buyOrder.user.firstName} ${order.buyOrder.user.lastName}`}
+      </TableCell>
+      <TableCell>
+        {order.buyOrder.user.email}
+      </TableCell>
+      <TableCell>
+        {order.cantidad}
+      </TableCell>
+      <TableCell>
+        {order.fechacompra}
+      </TableCell>
+      <TableCell>
+        {order.fechaentrega}
+      </TableCell>
+      <TableCell>
+        <Chip label={order.estado} color={order.estado === 'Enviado' ? 'primary' : 'default'} />
+      </TableCell>
+      <TableCell>
+        ${order.total}
+      </TableCell>
+    </TableRow>
+    <TableRow>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box sx={{ margin: 1 }}>
+              <Typography variant="h6" gutterBottom component="div">
+                Detalle del Pedido
+              </Typography>
+              <Table size="small" aria-label="purchases">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="left">Producto</TableCell>
+                    <TableCell align="left">Marca</TableCell>
+                    <TableCell align="left">Modelo</TableCell>
+                    <TableCell align="left">Cantidad</TableCell>
+                    <TableCell align="left">Precio</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {order.buyOrder.products.map((producto) => (
+                    <TableRow key={producto._id}>
+                      <TableCell component="th" scope="row">
+                        {producto.product.nombre}
+                      </TableCell>
+                      <TableCell>{producto.product.marca}</TableCell>
+                      <TableCell align="left">{producto.product.modelo}</TableCell>
+                      <TableCell align="left">{producto.quantity}</TableCell>
+                      <TableCell align="left">{producto.product.precio}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+
+
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+    )
+}
 
 const AdminOrders= ({ ...rest }) => {
   const [selectedOrders, setSelectedOrders] = useState([]);
@@ -139,6 +239,8 @@ const AdminOrders= ({ ...rest }) => {
                     />
                   </TableCell>
                   <TableCell>
+                  </TableCell>
+                  <TableCell>
                     ID del Pedido
                   </TableCell>
                   <TableCell>
@@ -166,43 +268,11 @@ const AdminOrders= ({ ...rest }) => {
               </TableHead>
               <TableBody>
                 {orders.slice(0, limit).map((order) => (
-                  <TableRow
-                    hover
-                    key={order._id}
-                    selected={selectedOrders.indexOf(order._id) !== -1}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={selectedOrders.indexOf(order._id) !== -1}
-                        onChange={(event) => handleSelectOne(event, order._id)}
-                        value="true"
-                      />
-                    </TableCell>
-                    <TableCell>
-                      {order._id}
-                    </TableCell>
-                    <TableCell>
-                      {`${order.buyOrder.user.firstName} ${order.buyOrder.user.lastName}`}
-                    </TableCell>
-                    <TableCell>
-                      {order.buyOrder.user.email}
-                    </TableCell>
-                    <TableCell>
-                      {order.cantidad}
-                    </TableCell>
-                    <TableCell>
-                      {order.fechacompra}
-                    </TableCell>
-                    <TableCell>
-                      {order.fechaentrega}
-                    </TableCell>
-                    <TableCell>
-                      <Chip label={order.estado} color={order.estado === 'Enviado' ? 'primary' : 'default'} />
-                    </TableCell>
-                    <TableCell>
-                      ${order.total}
-                    </TableCell>
-                  </TableRow>
+                  <OrdersRow order={order} 
+                  selected={selectedOrders.indexOf(order._id) !== -1} 
+                  checked={selectedOrders.indexOf(order._id) !== -1}
+                  OnSelectOne={(event, id) => handleSelectOne(event, id)}
+                  />
                 ))}
               </TableBody>
             </Table>
