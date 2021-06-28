@@ -218,7 +218,7 @@ function AdminUsers ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduc
                           <TableCell>
                             {user.isAdmin ?
                               <Chip label="Admin" color="primary" /> :
-                              <Chip label="Cliente" color="secondary" />
+                              <Chip label="Cliente" color="default" />
                             }
                           </TableCell>
                           <TableCell>
