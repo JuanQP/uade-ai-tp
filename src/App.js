@@ -37,7 +37,6 @@ const guestUser = {
 const App = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(guestUser);
-  const [token, setToken] = useState('');
   const [products, setProducts] = useState([]);
   const routing = useRoutes(routes({
     user: user,
@@ -53,7 +52,6 @@ const App = () => {
 
   function onSuccessfulLogin(user, newToken) {
     setUser(user);
-    setToken(newToken);
     console.log("Token es: ", newToken);
     axios.defaults.headers.common['x-access-token'] = newToken;
   }
