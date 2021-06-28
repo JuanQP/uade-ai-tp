@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
@@ -32,9 +31,11 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
   const [productos, setProductos] = useState([]);
   const [open, setOpen] = useState(false);
   const [serverMessage, setServerMessage] = useState('');
+  const [buscadorText, setBuscadorText] = useState('');
 
   useEffect(() => {
     refreshPage(page);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   const handleSelectAll = (event) => {
@@ -78,7 +79,11 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
   };
 
   function refreshPage(newPage) {
-    axios.get('http://localhost:4000/products/', {params: {page: newPage+1}})
+    axios.get('http://localhost:4000/products/', {
+      params: {
+        page: newPage+1,
+        nombre: buscadorText === '' ? undefined : buscadorText,
+      }})
     .then((res) => {
       setProductos(res.data.data.docs);
       setCount(res.data.data.total);
@@ -102,9 +107,22 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
     setOpen(false);
   }
 
+  function handleBuscadorChange(texto) {
+    setBuscadorText(texto);
+  }
+
+  function handleBuscar() {
+    refreshPage(page);
+  }
+
   return (
     <>
-    <AdminListToolbar onDeleteClick={handleRemoveProduct} />
+    <AdminListToolbar
+      buscadorText={buscadorText}
+      onBuscadorChange={handleBuscadorChange}
+      onBuscar={handleBuscar}
+      onDeleteClick={handleRemoveProduct}
+    />
     <Card {...rest}>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050 }}>
@@ -235,10 +253,6 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
     </Card>
     </>
   );
-};
-
-ABMadmin.propTypes = {
-  ABMlist: PropTypes.array.isRequired
 };
 
 export default ABMadmin;

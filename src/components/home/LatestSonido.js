@@ -37,6 +37,8 @@ import axios from 'axios';
       <List>
         {productos.map((product, i) => (
           <ListItem
+            component={RouterLink}
+            to={'/app/product/' + product._id}
             divider={i < productos.length - 1}
             key={product._id}
           >

@@ -10,10 +10,22 @@ import {
 import { Search as SearchIcon } from 'react-feather';
 import { Link as RouterLink } from 'react-router-dom';
 
-const AdminListToolbar = ({onDeleteClick, ...props}) => {
+const AdminListToolbar = ({buscadorText, onBuscadorChange, onBuscar, onDeleteClick, ...props}) => {
 
   function handleDeleteClick() {
     onDeleteClick();
+  }
+
+  function handleBuscadorChange(e) {
+    onBuscadorChange(e.target.value);
+  }
+
+  function handleKeyUp(e) {
+    if (e.keyCode === 13) {
+      // Cancel the default action, if needed
+      e.preventDefault();
+      onBuscar();
+    }
   }
 
   return (
@@ -53,8 +65,11 @@ const AdminListToolbar = ({onDeleteClick, ...props}) => {
                     </InputAdornment>
                   )
                 }}
-                placeholder="Buscar Producto"
+                placeholder="Presionar ENTER para buscar"
                 variant="outlined"
+                value={buscadorText}
+                onChange={handleBuscadorChange}
+                onKeyUp={handleKeyUp}
               />
             </Box>
           </CardContent>

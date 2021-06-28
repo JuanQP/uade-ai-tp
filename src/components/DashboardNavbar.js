@@ -52,7 +52,7 @@ const items = [
   {
     href: '/admin/ABM',
     icon: EditIcon,
-    title: 'ABM',
+    title: 'Listado de Productos',
     requiresAdmin: true,
     requiresLogin: true,
   },
