@@ -52,23 +52,23 @@ export default function Carrusel() {
     const theme = useTheme();
     const [activeStep, setActiveStep] = React.useState(0);
     const maxSteps = tutorialSteps.length;
-
+  
     const handleNext = () => {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
-
+  
     const handleBack = () => {
       setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
   return (
     <Box
       sx={{
-
+      
         minHeight: '100%',
         py: 3
       }}
     >
-    <Container maxWidth="lg">
+    <Container maxWidth="xl">
     <div className={classes.root}>
     <Paper square elevation={0} className={classes.header}>
       <Typography>{tutorialSteps[activeStep].label}</Typography>
@@ -76,7 +76,7 @@ export default function Carrusel() {
     <img
       className={classes.img}
       src={tutorialSteps[activeStep].imgPath}
-      alt={`Step-${activeStep}`}
+      alt="imag"
     />
     <MobileStepper
       variant="dots"

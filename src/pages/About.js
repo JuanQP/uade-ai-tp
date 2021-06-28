@@ -5,7 +5,6 @@ import {
   Card,
 } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';  
-import Footer from  'src/components/Footer';
 
 const About = () => (
   <>
@@ -68,7 +67,6 @@ const About = () => (
       </main>
   </Card>
     </Box>
-    <Footer></Footer>
   </>
  
 );
