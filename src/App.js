@@ -52,7 +52,6 @@ const App = () => {
 
   function onSuccessfulLogin(user, newToken) {
     setUser(user);
-    console.log("Token es: ", newToken);
     axios.defaults.headers.common['x-access-token'] = newToken;
   }
 
