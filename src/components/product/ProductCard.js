@@ -48,7 +48,7 @@ const ProductCard = ({ product, onAgregarClick, ...rest }) => {
           }}
         >
           <Avatar
-            src={utils.productPath(product.img)}
+            src={product.img}
             alt="Product"
             variant="square"
             sx={{
