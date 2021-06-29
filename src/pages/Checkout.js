@@ -8,7 +8,6 @@ import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from 'src/components/checkout/AddressForm';
 import PaymentForm from 'src/components/checkout/PaymentForm';
@@ -18,18 +17,6 @@ import Sparkle from 'src/components/Sparkle';
 import {useEffect} from 'react';
 import axios from 'axios';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        FQ Computer
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -233,7 +220,6 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
               </Alert> : null
             }
         </Paper>
-        <Copyright />
       </main>
     </Container>
   );
