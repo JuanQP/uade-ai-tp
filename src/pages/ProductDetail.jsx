@@ -105,7 +105,7 @@ const ProductDetail = (props) => {
                 }}
               >
                 <Avatar
-                  src={utils.productPath(product.img)}
+                  src={product.img}
                   alt="Product"
                   variant="square"
                   align="center"
