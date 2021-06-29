@@ -46,7 +46,7 @@ const LatestProducts = ({products, ...props}) => {
               <Avatar
                 variant="square"
                 alt={product.nombre}
-                src={utils.productPath(product.img)}
+                src={product.img}
                 style={{
                   height: 100,
                   width: 140
