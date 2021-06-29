@@ -188,7 +188,8 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
                       }}
                     >
                       <Avatar
-                        src={utils.productPath(producto.img)}
+                        // src={utils.productPath(producto.img)}
+                        src={producto.img}
                         alt="Product"
                         variant="square"
                         sx={{

@@ -11,6 +11,7 @@ import {
   Grid,
   InputAdornment,
   TextField,
+  Typography,
 } from '@material-ui/core';
 import axios from 'axios';
 
@@ -28,6 +29,10 @@ const ABMalta = ({...props}) => {
     precio: 0,
     fechaIngreso: '',
   });
+  const [mostrarImagenStatus, setMostrarImagenStatus] = useState(false);
+  const [subiendoImagen, setSubiendoImagen] = useState(false);
+  const [imagenOk, setImagenOk] = useState(true);
+  const [imagenSubida, setImagenSubida] = useState('');
 
   const handleChange = (event) => {
     setValues({
@@ -44,6 +49,31 @@ const ABMalta = ({...props}) => {
     })
     .catch((err) => {
       console.log(err);
+    });
+  }
+
+  function handleFileChange(e) {
+    setSubiendoImagen(true);
+    setMostrarImagenStatus(true);
+    const formData = new FormData()
+    formData.append("files", e.target.files[0]);
+    axios.post('http://localhost:4000/utils/upload', formData, {
+      headers: {"Content-Type": "multipart/form-data"}
+    })
+    .then((res) => {
+      setImagenOk(true);
+      setImagenSubida(res.data.url);
+      setValues({
+        ...values,
+        img: res.data.url,
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+      setImagenOk(false);
+    })
+    .finally(() => {
+      setSubiendoImagen(false);
     });
   }
 
@@ -77,7 +107,7 @@ const ABMalta = ({...props}) => {
                   md={6}
                   xs={12}
                 >
-                  <TextField
+                  {/* <TextField
                     fullWidth
                     label="Nombre de Imagen"
                     name="img"
@@ -85,7 +115,28 @@ const ABMalta = ({...props}) => {
                     required
                     variant="outlined"
                     placeholder="/static/images/products/product_1.png"
-                  />
+                  /> */}
+                  <Button
+                    variant="contained"
+                    component="label"
+                  >
+                    Elegir imagen
+                    <input
+                      type="file"
+                      hidden
+                      onChange={handleFileChange}
+                    />
+                  </Button>
+                  {
+                    mostrarImagenStatus ?
+                    <Typography>
+                      {subiendoImagen ? "Subiendo imagen..."
+                        : imagenOk ? `La imagen ${imagenSubida} se subio correctamente!`
+                          : "Error al subir imagen..."
+                      }
+                    </Typography>
+                    : null
+                  }
                 </Grid>
                 <Grid
                   item
