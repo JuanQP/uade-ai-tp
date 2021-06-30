@@ -32,7 +32,7 @@ import {
               gutterBottom
               variant="h4"
             >
-              Pagando con tarjeta de crédito en el mes de Junio
+              Paga con todas las tarjetas
             </Typography>
           </Grid>
           <Grid item>
@@ -47,29 +47,6 @@ import {
             </Avatar>
           </Grid>
         </Grid>
-        <Box
-          sx={{
-            pt: 2,
-            display: 'flex',
-            alignItems: 'center'
-          }}
-        >
-          <Typography
-            sx={{
-              color: colorRed[900],
-              mr: 1
-            }}
-            variant="h3"
-          >
-            15%
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="caption"
-          >
-            de descuento
-          </Typography>
-        </Box>
       </CardContent>
     </Card>
   );
