@@ -172,6 +172,7 @@ const DashboardNavbar = ({ products, user, onMobileNavOpen, onLogOut, ...rest })
                 onClose={handleClose}
               >
                 <MenuItem component={RouterLink} to="/app/account" onClick={handleClose}>Mi cuenta</MenuItem>
+                <MenuItem component={RouterLink} to="/app/misCompras" onClick={handleClose}>Mis compras</MenuItem>
                 <MenuItem onClick={handleLogOutClick}>Salir</MenuItem>
               </Menu>
             </div>
@@ -211,3 +212,4 @@ DashboardNavbar.propTypes = {
 };
 
 export default DashboardNavbar;
+
