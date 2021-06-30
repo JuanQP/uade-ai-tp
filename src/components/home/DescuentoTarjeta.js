@@ -1,6 +1,5 @@
 import {
     Avatar,
-    Box,
     Card,
     CardContent,
     Grid,
@@ -10,7 +9,6 @@ import {
     CreditCard as CreditCardIcon
   } from 'react-feather';
   import {
-    red as colorRed,
     indigo as colorindigo
   } from '@material-ui/core/colors';
 
