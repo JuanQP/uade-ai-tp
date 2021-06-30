@@ -30,7 +30,7 @@ import {
               gutterBottom
               variant="h3"
             >
-              Envíos a todo el país al costo más bajo
+              Envíos a todo el país
             </Typography>
           </Grid>
           <Grid item>
