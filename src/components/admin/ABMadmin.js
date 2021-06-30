@@ -20,7 +20,6 @@ import {
 import AdminListToolbar from 'src/components/admin/AdminListToolbar';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import EditIcon from '@material-ui/icons/Edit';
-import * as utils from 'src/utils/utils';
 import axios from 'axios';
 
 const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, ...rest }) => {
