@@ -16,7 +16,7 @@ import ABMModificar from 'src/components/admin/ABMmodificar';
 import Orders from 'src/pages/Orders';
 import Checkout from 'src/pages/Checkout';
 import AdminUsers from 'src/components/admin/AdminUsers';
-import MisCompras from 'src/components/misCompras/MisCompras';
+import MisCompras from 'src/components/miscompras/MisCompras';
 
 const routes = (props) => [
   {
