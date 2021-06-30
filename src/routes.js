@@ -16,6 +16,7 @@ import ABMModificar from 'src/components/admin/ABMmodificar';
 import Orders from 'src/pages/Orders';
 import Checkout from 'src/pages/Checkout';
 import AdminUsers from 'src/components/admin/AdminUsers';
+import MisCompras from 'src/components/misCompras/MisCompras';
 
 const routes = (props) => [
   {
@@ -29,6 +30,10 @@ const routes = (props) => [
     children: [
       { path: 'account', element: !props.user.isGuest ?
         <Account user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} />
+        : <Navigate to="/login" />
+      },
+      { path: 'misCompras', element: !props.user.isGuest ?
+        <MisCompras user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} />
         : <Navigate to="/login" />
       },
       { path: 'home', element: <Home /> },
