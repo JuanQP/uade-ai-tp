@@ -28,7 +28,7 @@ const Home = ({productsdb, ...props}) => (
         <div>
           <Container maxWidth="xl">
           <Carrusel/>
-      <Container maxWidth={false}>
+      <Container maxWidth="lg" >
         <Grid
           container
           spacing={2}
