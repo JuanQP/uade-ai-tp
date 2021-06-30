@@ -13,7 +13,6 @@ import {
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import { Link as RouterLink } from 'react-router-dom';
-import * as utils from 'src/utils/utils';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
