@@ -28,7 +28,7 @@ import {
               gutterBottom
               variant="h3"
             >
-              Retire su compra gratis por nuestro local
+             Conoce nuestro local
             </Typography>
           </Grid>
           <Grid item>
@@ -39,7 +39,7 @@ import {
                 width: 56
               }}
             >
-              <LocationOnIcon />
+              <LocationOnIcon/>
             </Avatar>
           </Grid>
         </Grid>
