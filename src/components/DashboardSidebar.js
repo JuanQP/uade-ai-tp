@@ -57,6 +57,13 @@ const items = [
     requiresLogin: true,
   },
   {
+    href: '/app/misCompras',
+    icon: SettingsIcon,
+    title: 'Mis compras',
+    requiresAdmin: false,
+    requiresLogin: true,
+  },
+  {
     href: '/admin/ABM',
     icon: EditIcon,
     title: 'ABM',
