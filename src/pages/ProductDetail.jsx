@@ -20,7 +20,6 @@ import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import ClickSparkle from 'src/components/ClickSparkle';
-import * as utils from 'src/utils/utils';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
