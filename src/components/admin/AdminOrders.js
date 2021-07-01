@@ -90,7 +90,7 @@ function OrdersRow (props){
                     <TableCell align="left">Marca</TableCell>
                     <TableCell align="left">Modelo</TableCell>
                     <TableCell align="left">Cantidad</TableCell>
-                    <TableCell align="left">Precio</TableCell>
+                    <TableCell align="left">Precio unitario</TableCell>
                     <TableCell align="left">Total</TableCell>
                   </TableRow>
                 </TableHead>
