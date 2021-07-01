@@ -17,7 +17,7 @@ const Account = (props) => {
   const [waitingServer, setWaitingServer] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/users/detail/' + props.user._id)
+    axios.get('http://localhost:4000/users/detail/')
     .then((res) => {
       console.log(res.data);
       setUser(res.data.data);
@@ -31,9 +31,9 @@ const Account = (props) => {
 
   function handleAccountDetailsSave() {
     setWaitingServer(true);
-    axios.put('http://localhost:4000/users', user)
+    axios.put('http://localhost:4000/users/detail/', user)
     .then((res) => {
-      axios.get('http://localhost:4000/users/detail/' + props.user._id)
+      axios.get('http://localhost:4000/users/detail/')
       .then((res) => {
         console.log(res.data);
         setUser(res.data.data);
