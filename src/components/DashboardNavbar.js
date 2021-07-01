@@ -177,6 +177,7 @@ const DashboardNavbar = ({ products, user, onMobileNavOpen, onLogOut, ...rest })
               </Menu>
             </div>
           }
+          {!user.isAdmin ?
           <IconButton color="inherit" component={RouterLink} to="/app/cart-detail">
             <Badge
               badgeContent={products.map(p => p.quantity).reduce((a,b) => (a+b), 0)}
@@ -184,17 +185,20 @@ const DashboardNavbar = ({ products, user, onMobileNavOpen, onLogOut, ...rest })
             >
               <ShoppingCart />
             </Badge>
-          </IconButton>
+          </IconButton> : null
+          }
         </Hidden>
         <Hidden lgUp>
-          <IconButton color="inherit" component={RouterLink} to="/app/cart-detail">
-            <Badge
-              badgeContent={products.map(p => p.quantity).reduce((a,b) => (a+b), 0)}
-              color="secondary"
-            >
-              <ShoppingCart />
-            </Badge>
-          </IconButton>
+          {!user.isAdmin ?
+            <IconButton color="inherit" component={RouterLink} to="/app/cart-detail">
+              <Badge
+                badgeContent={products.map(p => p.quantity).reduce((a,b) => (a+b), 0)}
+                color="secondary"
+              >
+                <ShoppingCart />
+              </Badge>
+            </IconButton> : null
+          }
           <IconButton
             color="inherit"
             onClick={onMobileNavOpen}
@@ -212,4 +216,3 @@ DashboardNavbar.propTypes = {
 };
 
 export default DashboardNavbar;
-
