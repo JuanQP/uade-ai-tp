@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
+  Alert,
   Box,
   Card,
+  CardContent,
   CardHeader,
   Chip,
+  CircularProgress,
   Container,
   Table,
   TableBody,
@@ -19,6 +22,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import { Link as RouterLink } from 'react-router-dom';
 
 function OrdersRow (props){
   const { order } = props;
@@ -101,6 +105,7 @@ const AdminOrders= ({ ...rest }) => {
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
+  const [waitingServer, setWaitingServer] = useState(true);
 
   useEffect(() => {
     refreshPage(page);
@@ -115,26 +120,39 @@ const AdminOrders= ({ ...rest }) => {
     .then((res) => {
       setOrders(res.data.data.docs);
       setCount(res.data.data.total);
+    })
+    .finally(() => {
+      setWaitingServer(false);
     });
+  }
+
+  if(waitingServer) {
+    return (
+      <Box
+        sx={{ display: 'flex', justifyContent: 'center'}}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
+    );
   }
 
   return (
     <>
-    <Box
-      sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3
-      }}
-    >
-    <Container maxWidth="lg">
+      <Box
+        sx={{
+          backgroundColor: 'background.default',
+          minHeight: '100%',
+          py: 3
+        }}
+      >
+      <Container maxWidth="lg">
         <Card>
           <CardHeader
             title="Mis Compras"
-            subheader="Acá podés ver todas las compras que realizastes"
+            subheader="Acá podés ver todas las compras que realizaste"
           />
-           </Card>
-          </Container>
+        </Card>
+      </Container>
       <Box
         sx={{
           display: 'flex',
@@ -143,6 +161,17 @@ const AdminOrders= ({ ...rest }) => {
         }}
       >
       </Box>
+      {orders.length === 0 ?
+      // Si no hay elementos, mostramos un mensaje amigable
+      <Container maxWidth="lg">
+        <Card>
+          <CardContent>
+            <Alert severity="info">Todavía no realizaste ninguna compra. <RouterLink to="/app/products">¿Qué estás esperando? 😁</RouterLink></Alert>
+          </CardContent>
+        </Card>
+      </Container>
+      :
+      // Si hay elementos...
       <Card {...rest}>
         <PerfectScrollbar>
           <Box sx={{ minWidth: 1050 }}>
@@ -188,6 +217,7 @@ const AdminOrders= ({ ...rest }) => {
           count={count}
         />
       </Card>
+      }
       </Box>
     </>
   );
