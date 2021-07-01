@@ -86,6 +86,11 @@ function visibleFor(link, user) {
   }
 }
 
+const menuItems = [
+  {to: '/app/account', nombre: 'Mi cuenta'},
+  {to: '/app/misCompras', nombre: 'Mis compras'},
+];
+
 const DashboardNavbar = ({ products, user, onMobileNavOpen, onLogOut, ...rest }) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -171,8 +176,14 @@ const DashboardNavbar = ({ products, user, onMobileNavOpen, onLogOut, ...rest })
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem component={RouterLink} to="/app/account" onClick={handleClose}>Mi cuenta</MenuItem>
-                <MenuItem component={RouterLink} to="/app/misCompras" onClick={handleClose}>Mis compras</MenuItem>
+                {!user.isAdmin ?
+                  menuItems.map((item, i) => (
+                    <MenuItem key={`mt-${i}`} component={RouterLink} to={item.to} onClick={handleClose}>
+                      {item.nombre}
+                    </MenuItem>
+                  ))
+                  : null
+                }
                 <MenuItem onClick={handleLogOutClick}>Salir</MenuItem>
               </Menu>
             </div>
