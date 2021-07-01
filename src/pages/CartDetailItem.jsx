@@ -83,7 +83,7 @@ const CartDetailItem = (props) => {
 
   return (
     <>
-    <ListItem key={props.item.product.id}>
+    <ListItem key={props.item.product._id}>
       <ListItemAvatar onClick={handleOpen}>
         <Avatar src={props.item.product.img} />
       </ListItemAvatar>

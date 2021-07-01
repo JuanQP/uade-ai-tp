@@ -82,7 +82,7 @@ const CartDetail = (props) => {
               <List>
                 {props.products.map(p => (
                   <CartDetailItem
-                    key={p.product.id}
+                    key={p.product._id}
                     item={p}
                     onAddUnit={handleAddUnit}
                     onMinusUnit={handleMinusUnit}
