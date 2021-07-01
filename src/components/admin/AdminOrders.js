@@ -91,6 +91,7 @@ function OrdersRow (props){
                     <TableCell align="left">Modelo</TableCell>
                     <TableCell align="left">Cantidad</TableCell>
                     <TableCell align="left">Precio</TableCell>
+                    <TableCell align="left">Total</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -102,7 +103,8 @@ function OrdersRow (props){
                       <TableCell>{producto.product.marca}</TableCell>
                       <TableCell align="left">{producto.product.modelo}</TableCell>
                       <TableCell align="left">{producto.quantity}</TableCell>
-                      <TableCell align="left">{producto.product.precio}</TableCell>
+                      <TableCell align="left">${producto.product.precio}</TableCell>
+                      <TableCell align="left">${producto.quantity * producto.product.precio}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
