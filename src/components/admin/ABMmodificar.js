@@ -13,6 +13,7 @@ import {
   InputAdornment,
   Snackbar,
   TextField,
+  Typography,
 } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -24,6 +25,10 @@ const ABMmodificar = ({...props}) => {
   const [open, setOpen] = useState(false);
   const [serverMessage, setServerMessage] = useState('');
   const [messageType, setMessageType] = useState('success');
+  const [mostrarImagenStatus, setMostrarImagenStatus] = useState(false);
+  const [subiendoImagen, setSubiendoImagen] = useState(false);
+  const [imagenOk, setImagenOk] = useState(true);
+  const [imagenSubida, setImagenSubida] = useState('');
 
   useEffect(() => {
     refreshPage(product_id);
@@ -76,6 +81,30 @@ const ABMmodificar = ({...props}) => {
       </Box>
     );
   }
+  function handleFileChange(e) {
+    setSubiendoImagen(true);
+    setMostrarImagenStatus(true);
+    const formData = new FormData()
+    formData.append("files", e.target.files[0]);
+    axios.post('http://localhost:4000/utils/upload', formData, {
+      headers: {"Content-Type": "multipart/form-data"}
+    })
+    .then((res) => {
+      setImagenOk(true);
+      setImagenSubida(res.data.url);
+      setValues({
+        ...values,
+        img: res.data.url,
+      })
+    })
+    .catch((err) => {
+      console.log(err);
+      setImagenOk(false);
+    })
+    .finally(() => {
+      setSubiendoImagen(false);
+    });
+  }
 
   return (
     <Box
@@ -93,7 +122,7 @@ const ABMmodificar = ({...props}) => {
         >
           <Card>
             <CardHeader
-              subheader="Ingrese los datos para publicar un nuevo producto"
+              subheader="Ingrese los datos a modificar del producto"
               title="Productos"
             />
             <Divider />
@@ -107,16 +136,27 @@ const ABMmodificar = ({...props}) => {
                   md={6}
                   xs={12}
                 >
-                  <TextField
-                    fullWidth
-                    label="Nombre de Imagen"
-                    name="img"
-                    onChange={handleChange}
-                    required
-                    variant="outlined"
-                    placeholder="product_1.png"
-                    value={values.img}
-                  />
+                 <Button
+                    variant="contained"
+                    component="label"
+                  >
+                    Elegir imagen
+                    <input
+                      type="file"
+                      hidden
+                      onChange={handleFileChange}
+                    />
+                  </Button>
+                  {
+                    mostrarImagenStatus ?
+                    <Typography>
+                      {subiendoImagen ? "Subiendo imagen..."
+                        : imagenOk ? `La imagen ${imagenSubida} se subio correctamente!`
+                          : "Error al subir imagen..."
+                      }
+                    </Typography>
+                    : null
+                  }
                 </Grid>
                 <Grid
                   item
@@ -272,13 +312,7 @@ const ABMmodificar = ({...props}) => {
                 p: 2
               }}
             >
-              <Button
-                color="primary"
-                variant="contained"
-              >
-                Cargar Foto
-              </Button>
-              <Button sx={{ mx: 40 }}
+              <Button sx={{ mx: 70 }}
                 color="primary"
                 variant="contained"
                 onClick={handleUpdateProduct}
