@@ -132,7 +132,7 @@ const DashboardSidebar = ({ onMobileClose, openMobile, onLogOut, user, productCo
       >
         <Avatar
           component={RouterLink}
-          src={user.avatar ? `/static/images/avatars/${user.avatar}` : ''}
+          src={user.avatar}
           sx={{
             cursor: 'pointer',
             width: 64,

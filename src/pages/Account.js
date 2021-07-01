@@ -1,10 +1,12 @@
 import { Helmet } from 'react-helmet';
 import {
+  Alert,
   Backdrop,
   Box,
   CircularProgress,
   Container,
-  Grid
+  Grid,
+  Snackbar,
 } from '@material-ui/core';
 import AccountProfile from 'src/components/account/AccountProfile';
 import AccountProfileDetails from 'src/components/account/AccountProfileDetails';
@@ -15,6 +17,9 @@ const Account = (props) => {
 
   const [user, setUser] = useState({});
   const [waitingServer, setWaitingServer] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [serverMessage, setServerMessage] = useState('');
+  const [messageType, setMessageType] = useState('success');
 
   useEffect(() => {
     axios.get('http://localhost:4000/users/detail/')
@@ -29,16 +34,39 @@ const Account = (props) => {
   }
 
   function handleAccountDetailsSave() {
-    setWaitingServer(true);
     axios.put('http://localhost:4000/users/detail/', user)
     .then((res) => {
-      axios.get('http://localhost:4000/users/detail/')
-      .then((res) => {
-        setUser(res.data.data);
-        setWaitingServer(false);
-    });
+      setUser(res.data.data);
+      setMessageType('success');
+      setServerMessage('La información de la cuenta se actualizó correctamente.');
+      setOpen(true);
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      setMessageType('error');
+      setServerMessage('Ocurrió un error al actualizar la información de esta cuenta.');
+      setOpen(true);
+      console.error(err);
+    });
+  }
+
+  function handleAvatarSave(avatarUrl) {
+    axios.put('http://localhost:4000/users/detail/', {"_id": user._id, avatar: avatarUrl})
+    .then((res) => {
+      setUser(res.data.data);
+      setMessageType('success');
+      setServerMessage('La foto de perfil fue actualizada correctamente.');
+      setOpen(true);
+    })
+    .catch((err) => {
+      setMessageType('error');
+      setServerMessage('Ocurrió un error al actualizar la foto de perfil.');
+      console.error(err);
+      setOpen(true);
+    });
+  }
+
+  function handleClose() {
+    setOpen(false);
   }
 
   if(waitingServer) {
@@ -75,7 +103,7 @@ const Account = (props) => {
               md={6}
               xs={12}
             >
-              <AccountProfile user={user} />
+              <AccountProfile user={user} onAvatarChange={handleAvatarSave} />
             </Grid>
             <Grid
               item
@@ -91,6 +119,11 @@ const Account = (props) => {
             </Grid>
           </Grid>
         </Container>
+        <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'center'}} open={open} autoHideDuration={6000} onClose={handleClose}>
+          <Alert variant="filled" onClose={handleClose} severity={messageType}>
+            {serverMessage}
+          </Alert>
+        </Snackbar>
       </Box>
     </>
   );

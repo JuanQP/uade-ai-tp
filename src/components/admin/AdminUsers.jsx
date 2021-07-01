@@ -22,7 +22,6 @@ import {
 } from '@material-ui/core';
 import BrokenImageIcon from '@material-ui/icons/BrokenImage';
 import EditIcon from '@material-ui/icons/Edit';
-import * as utils from 'src/utils/utils';
 import axios from 'axios';
 
 function AdminUsers ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, ...rest }) {
@@ -193,7 +192,7 @@ function AdminUsers ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduc
                               }}
                             >
                               <Avatar
-                                src={utils.avatarPath(user.avatar)}
+                                src={user.avatar}
                                 alt="Product"
                                 variant="rounded"
                                 sx={{

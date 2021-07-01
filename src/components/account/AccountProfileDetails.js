@@ -11,17 +11,17 @@ import {
   TextField
 } from '@material-ui/core';
 
-const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
+const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) => {
 
   function handleChange(event) {
-    props.onUserChange({
+    onUserChange({
       ...props.user,
       [event.target.name]: event.target.value
     });
   };
 
   function handleShippingChange(event) {
-    props.onUserChange({
+    onUserChange({
       ...props.user,
       address: {
         ...props.user.address,
@@ -31,7 +31,7 @@ const AccountProfileDetails = ({onAccountDetailsSave, ...props}) => {
   }
 
   function handlePaymentChange(event) {
-    props.onUserChange({
+    onUserChange({
       ...props.user,
       payment: {
         ...props.user.payment,
