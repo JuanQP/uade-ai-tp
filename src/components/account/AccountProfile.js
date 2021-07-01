@@ -16,7 +16,7 @@ function AccountProfile ({onAvatarChange, ...props}) {
   function handleFileChange(e) {
     const formData = new FormData()
     formData.append("files", e.target.files[0]);
-    axios.post('http://localhost:4000/utils/avatar-upload', formData, {
+    axios.post('/utils/avatar-upload', formData, {
       headers: {"Content-Type": "multipart/form-data"}
     })
     .then((res) => {

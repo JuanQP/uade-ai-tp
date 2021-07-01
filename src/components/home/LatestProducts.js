@@ -21,7 +21,7 @@ const LatestProducts = ({products, ...props}) => {
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/products/latest')
+    axios.get('/products/latest')
     .then((res) => {
       setProductos(res.data.data);
     });

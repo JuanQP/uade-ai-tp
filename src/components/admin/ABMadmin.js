@@ -78,7 +78,7 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
   };
 
   function refreshPage(newPage) {
-    axios.get('http://localhost:4000/products/', {
+    axios.get('/products/', {
       params: {
         page: newPage+1,
         nombre: buscadorText === '' ? undefined : buscadorText,
@@ -90,7 +90,7 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
   }
 
   function handleRemoveProduct() {
-    axios.delete('http://localhost:4000/products/', {data: {ids: selectedABMlistIds}})
+    axios.delete('/products/', {data: {ids: selectedABMlistIds}})
     .then((res) => {
       refreshPage(page);
       setSelectedABMlistIds([]);

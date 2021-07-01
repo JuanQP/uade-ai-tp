@@ -42,7 +42,7 @@ const ABMmodificar = ({...props}) => {
   };
 
   function handleUpdateProduct() {
-    axios.put('http://localhost:4000/products/', values)
+    axios.put('/products/', values)
     .then((res) => {
       setValues(res.data.data);
       setServerMessage(res.data.message);
@@ -59,7 +59,7 @@ const ABMmodificar = ({...props}) => {
 
   function refreshPage(product_id) {
     setWaitingServer(true);
-    axios.get('http://localhost:4000/products/detail/' + product_id)
+    axios.get('/products/detail/' + product_id)
     .then((res) => {
       setValues(res.data.data);
     })
@@ -86,7 +86,7 @@ const ABMmodificar = ({...props}) => {
     setMostrarImagenStatus(true);
     const formData = new FormData()
     formData.append("files", e.target.files[0]);
-    axios.post('http://localhost:4000/utils/upload', formData, {
+    axios.post('/utils/upload', formData, {
       headers: {"Content-Type": "multipart/form-data"}
     })
     .then((res) => {

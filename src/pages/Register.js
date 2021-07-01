@@ -18,7 +18,7 @@ const Register = (props) => {
   const navigate = useNavigate();
 
   function handleSignUpButtonClick (values) {
-    axios.post('http://localhost:4000/users/registration', values)
+    axios.post('/users/registration', values)
     .then(() => {
       alert("Usuario nuevo creado");
       navigate('/login');

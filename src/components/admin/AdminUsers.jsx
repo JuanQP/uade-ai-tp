@@ -78,7 +78,7 @@ function AdminUsers ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduc
   };
 
   function refreshPage(newPage) {
-    axios.get('http://localhost:4000/users/', {params: {page: newPage+1}})
+    axios.get('/users/', {params: {page: newPage+1}})
     .then((res) => {
       setUsers(res.data.data.docs);
       setCount(res.data.data.total);
@@ -86,7 +86,7 @@ function AdminUsers ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduc
   }
 
   function handleDeleteUsers() {
-    axios.delete('http://localhost:4000/users/', {data: {ids: selectedUsers}})
+    axios.delete('/users/', {data: {ids: selectedUsers}})
     .then((res) => {
       refreshPage(page);
       setSelectedUsers([]);
@@ -104,7 +104,7 @@ function AdminUsers ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduc
 
   function toggleUserAdmin(user) {
     user.isAdmin = !user.isAdmin;
-    axios.put('http://localhost:4000/users/', user)
+    axios.put('/users/', user)
     .then((res) => {
       refreshPage(page);
       setServerMessage(res.data.message);

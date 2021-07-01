@@ -21,7 +21,7 @@ const Login = (props) => {
 
   const handleLoginButtonClick = (values) => {
     setFailedLogin(false);
-    axios.post('http://localhost:4000/users/login', {
+    axios.post('/users/login', {
       email: values.email,
       password: values.password,
     })

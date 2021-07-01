@@ -93,7 +93,7 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
     if(!user._id) {
       return;
     }
-    axios.get('http://localhost:4000/users/detail/')
+    axios.get('/users/detail/')
     .then((res) => {
       setValues({
         user: {
@@ -135,7 +135,7 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
       finishedBuyOrder.payment.city = finishedBuyOrder.address.city;
       finishedBuyOrder.payment.zip = finishedBuyOrder.address.zip;
     }
-    axios.post('http://localhost:4000/orders', finishedBuyOrder)
+    axios.post('/orders', finishedBuyOrder)
     .then(() => {
       onFinishedBuy(finishedBuyOrder);
     })

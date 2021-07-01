@@ -63,7 +63,7 @@ const App = () => {
   }
 
   function handleAccountDetailsSave(data) {
-    axios.put('http://localhost:4000/users/', data)
+    axios.put('/users/', data)
     .then((res) => {
       setUser(...res.data.data);
     })
@@ -123,7 +123,7 @@ const App = () => {
         ) {
           const updatedUser = {...user};
           updatedUser.payment = buyOrder.payment;
-          axios.put('http://localhost:4000/users/', updatedUser)
+          axios.put('/users/', updatedUser)
           .then((res) => {
             setUser(res.data.data);
             alert("Se actualizaron los datos de pago del usuario");

@@ -31,7 +31,7 @@ const ProductList = (props) => {
   const [ordenamiento, setOrdenamiento] = useState(null);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/products/', {params: {
+    axios.get('/products/', {params: {
       page: page,
       marca: marca === '' ? undefined : marca,
       categoria: categoria === '' ? undefined : categoria,
@@ -45,7 +45,7 @@ const ProductList = (props) => {
   }, [page, marca, categoria, ordenamiento]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/products/filters')
+    axios.get('/products/filters')
     .then((res) => {
       setCategorias(res.data.data.categorias);
       setMarcas(res.data.data.marcas);

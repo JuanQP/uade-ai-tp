@@ -58,7 +58,7 @@ const ProductDetail = (props) => {
   const [waitingServer, setWaitingServer] = useState(true);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/products/detail/' + product_id)
+    axios.get('/products/detail/' + product_id)
     .then((res) => {
       setProduct(res.data.data);
     })

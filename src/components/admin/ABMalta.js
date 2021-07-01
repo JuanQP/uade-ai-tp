@@ -42,7 +42,7 @@ const ABMalta = ({...props}) => {
   };
 
   function handleNewProduct() {
-    axios.post('http://localhost:4000/products/', values)
+    axios.post('/products/', values)
     .then((res) => {
       navigate('/admin/ABM');
       alert(res.data.message);
@@ -57,7 +57,7 @@ const ABMalta = ({...props}) => {
     setMostrarImagenStatus(true);
     const formData = new FormData()
     formData.append("files", e.target.files[0]);
-    axios.post('http://localhost:4000/utils/upload', formData, {
+    axios.post('/utils/upload', formData, {
       headers: {"Content-Type": "multipart/form-data"}
     })
     .then((res) => {

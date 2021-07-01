@@ -21,7 +21,7 @@ import axios from 'axios';
   const [productos, setProductos] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000/products/latest-sonido')
+    axios.get('/products/latest-sonido')
     .then((res) => {
       setProductos(res.data.data);
     });

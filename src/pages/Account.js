@@ -22,7 +22,7 @@ const Account = (props) => {
   const [messageType, setMessageType] = useState('success');
 
   useEffect(() => {
-    axios.get('http://localhost:4000/users/detail/')
+    axios.get('/users/detail/')
     .then((res) => {
       setUser(res.data.data);
       setWaitingServer(false);
@@ -34,7 +34,7 @@ const Account = (props) => {
   }
 
   function handleAccountDetailsSave() {
-    axios.put('http://localhost:4000/users/detail/', user)
+    axios.put('/users/detail/', user)
     .then((res) => {
       setUser(res.data.data);
       setMessageType('success');
@@ -50,7 +50,7 @@ const Account = (props) => {
   }
 
   function handleAvatarSave(avatarUrl) {
-    axios.put('http://localhost:4000/users/detail/', {"_id": user._id, avatar: avatarUrl})
+    axios.put('/users/detail/', {"_id": user._id, avatar: avatarUrl})
     .then((res) => {
       setUser(res.data.data);
       setMessageType('success');

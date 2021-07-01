@@ -173,7 +173,7 @@ const AdminOrders= ({ ...rest }) => {
   }
 
   function refreshPage(newPage) {
-    axios.get('http://localhost:4000/orders/', {params: {page: newPage+1}})
+    axios.get('/orders/', {params: {page: newPage+1}})
     .then((res) => {
       setOrders(res.data.data.docs);
       setCount(res.data.data.total);
@@ -181,7 +181,7 @@ const AdminOrders= ({ ...rest }) => {
   }
 
   function handleEnviados() {
-    axios.post('http://localhost:4000/orders/update-status', {ids: selectedOrders, estado: 'Enviado'})
+    axios.post('/orders/update-status', {ids: selectedOrders, estado: 'Enviado'})
     .then((res) => {
       refreshPage(page);
       setSelectedOrders([]);
@@ -194,7 +194,7 @@ const AdminOrders= ({ ...rest }) => {
   }
 
   function handlePendientes() {
-    axios.post('http://localhost:4000/orders/update-status', {ids: selectedOrders, estado: 'Pendiente'})
+    axios.post('/orders/update-status', {ids: selectedOrders, estado: 'Pendiente'})
     .then((res) => {
       refreshPage(page);
       setSelectedOrders([]);
