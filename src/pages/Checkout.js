@@ -93,7 +93,7 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
     if(!user._id) {
       return;
     }
-    axios.get('http://localhost:4000/users/detail/' + user._id)
+    axios.get('http://localhost:4000/users/detail/')
     .then((res) => {
       setValues({
         user: {

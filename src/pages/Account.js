@@ -19,7 +19,6 @@ const Account = (props) => {
   useEffect(() => {
     axios.get('http://localhost:4000/users/detail/')
     .then((res) => {
-      console.log(res.data);
       setUser(res.data.data);
       setWaitingServer(false);
     });
@@ -35,7 +34,6 @@ const Account = (props) => {
     .then((res) => {
       axios.get('http://localhost:4000/users/detail/')
       .then((res) => {
-        console.log(res.data);
         setUser(res.data.data);
         setWaitingServer(false);
     });

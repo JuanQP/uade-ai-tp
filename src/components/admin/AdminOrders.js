@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
   Alert,
@@ -29,7 +28,7 @@ function OrdersRow (props){
   function handleSelect(e, id){
     OnSelectOne (e, id)
   }
-  return (         
+  return (
      <>
     <TableRow
       hover
@@ -268,10 +267,12 @@ const AdminOrders= ({ ...rest }) => {
               </TableHead>
               <TableBody>
                 {orders.slice(0, limit).map((order) => (
-                  <OrdersRow order={order} 
-                  selected={selectedOrders.indexOf(order._id) !== -1} 
-                  checked={selectedOrders.indexOf(order._id) !== -1}
-                  OnSelectOne={(event, id) => handleSelectOne(event, id)}
+                  <OrdersRow
+                    key={order._id}
+                    order={order}
+                    selected={selectedOrders.indexOf(order._id) !== -1}
+                    checked={selectedOrders.indexOf(order._id) !== -1}
+                    OnSelectOne={(event, id) => handleSelectOne(event, id)}
                   />
                 ))}
               </TableBody>
@@ -294,10 +295,6 @@ const AdminOrders= ({ ...rest }) => {
       </Card>
     </>
   );
-};
-
-AdminOrders.propTypes = {
-  ordersList: PropTypes.array.isRequired
 };
 
 export default AdminOrders;
