@@ -283,13 +283,7 @@ const ABMalta = ({...props}) => {
                 p: 2
               }}
             >
-              <Button
-                color="primary"
-                variant="contained"
-              >
-                Cargar Foto
-              </Button>
-              <Button sx={{ mx: 40 }}
+              <Button sx={{ mx: 70 }}
                 color="primary"
                 variant="contained"
                 onClick={handleNewProduct}
