@@ -212,7 +212,7 @@ const AdminOrders= ({ ...rest }) => {
         sx={{
           display: 'flex',
           justifyContent: 'flex-end',
-          mb: 1,
+          mb: 3,
         }}
       >
         <Button variant="contained" color="primary" onClick={handleEnviados} sx={{ mx: 1 }}>
