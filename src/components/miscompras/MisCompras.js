@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import {
-  Alert,
   Box,
   Card,
   CardHeader,
   Chip,
   Container,
-  Snackbar,
   Table,
   TableBody,
   TableCell,
@@ -24,18 +21,12 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 
 function OrdersRow (props){
-  const { order, selected, checked, OnSelectOne } = props;
+  const { order } = props;
   const [open, setOpen] = useState(false);
-  function handleSelect(e, id){
-    OnSelectOne (e, id)
-  }
-  return (         
+
+  return (
      <>
-    <TableRow
-      hover
-      key={order._id}
-      selected={selected}
-    >
+    <TableRow hover>
       <TableCell>
           <IconButton
             aria-label="expand row"
@@ -97,8 +88,6 @@ function OrdersRow (props){
                   ))}
                 </TableBody>
               </Table>
-
-
             </Box>
           </Collapse>
         </TableCell>
@@ -108,84 +97,24 @@ function OrdersRow (props){
 }
 
 const AdminOrders= ({ ...rest }) => {
-  const [selectedOrders, setSelectedOrders] = useState([]);
   const [limit] = useState(10);
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
-  const [open, setOpen] = useState(false);
-  const [serverMessage, setServerMessage] = useState('');
 
   useEffect(() => {
     refreshPage(page);
   }, [page]);
 
-  const handleSelectOne = (event, id) => {
-    const selectedIndex = selectedOrders.indexOf(id);
-    let newSelected = [];
-
-    if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selectedOrders, id);
-    } else if (selectedIndex === 0) {
-      newSelected = newSelected.concat(selectedOrders.slice(1));
-    } else if (selectedIndex === selectedOrders.length - 1) {
-      newSelected = newSelected.concat(selectedOrders.slice(0, -1));
-    } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selectedOrders.slice(0, selectedIndex),
-        selectedOrders.slice(selectedIndex + 1)
-      );
-    }
-
-    setSelectedOrders(newSelected);
-  };
-
   function handlePageChange(value) {
     setPage(value);
   }
 
-  const handleSelectAll = (event) => {
-    let newSelected;
-
-
-    setSelectedOrders(newSelected);
-  };
-
-  function handleClose() {
-    setOpen(false);
-  }
-
   function refreshPage(newPage) {
-    axios.get('http://localhost:4000/orders/', {params: {page: newPage+1}})
+    axios.get('http://localhost:4000/users/orders/', {params: {page: newPage+1}})
     .then((res) => {
       setOrders(res.data.data.docs);
       setCount(res.data.data.total);
-    });
-  }
-
-  function handleEnviados() {
-    axios.post('http://localhost:4000/orders/update-status', {ids: selectedOrders, estado: 'Enviado'})
-    .then((res) => {
-      refreshPage(page);
-      setSelectedOrders([]);
-      setServerMessage(res.data.message);
-      setOpen(true);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  }
-
-  function handlePendientes() {
-    axios.post('http://localhost:4000/orders/update-status', {ids: selectedOrders, estado: 'Pendiente'})
-    .then((res) => {
-      refreshPage(page);
-      setSelectedOrders([]);
-      setServerMessage(res.data.message);
-      setOpen(true);
-    })
-    .catch((err) => {
-      console.log(err);
     });
   }
 
@@ -238,17 +167,13 @@ const AdminOrders= ({ ...rest }) => {
                     Estado del Envío
                   </TableCell>
                   <TableCell>
-                    Total a Pagar
+                    Pagado
                   </TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {orders.slice(0, limit).map((order) => (
-                  <OrdersRow order={order} 
-                  selected={selectedOrders.indexOf(order._id) !== -1} 
-                  checked={selectedOrders.indexOf(order._id) !== -1}
-                  OnSelectOne={(event, id) => handleSelectOne(event, id)}
-                  />
+                  <OrdersRow key={order._id} order={order}/>
                 ))}
               </TableBody>
             </Table>
@@ -262,19 +187,10 @@ const AdminOrders= ({ ...rest }) => {
           page={page}
           count={count}
         />
-        <Snackbar anchorOrigin={{vertical: 'top', horizontal: 'center'}} open={open} autoHideDuration={6000} onClose={handleClose}>
-          <Alert variant="filled" onClose={handleClose} severity="success">
-            {serverMessage}
-          </Alert>
-        </Snackbar>
       </Card>
       </Box>
     </>
   );
-};
-
-AdminOrders.propTypes = {
-  ordersList: PropTypes.array.isRequired
 };
 
 export default AdminOrders;
