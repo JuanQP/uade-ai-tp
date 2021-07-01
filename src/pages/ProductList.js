@@ -101,7 +101,7 @@ const ProductList = (props) => {
             maxWidth={true}
             spacing={2}
           >
-            <Grid item lg={4}>
+            <Grid item xs={12} lg={4}>
               <Paper>
                 <Autocomplete
                   disablePortal
@@ -113,7 +113,7 @@ const ProductList = (props) => {
                 />
               </Paper>
             </Grid>
-            <Grid item lg={4}>
+            <Grid item xs={12} lg={4}>
               <Paper>
                 <Autocomplete
                   disablePortal
@@ -125,7 +125,7 @@ const ProductList = (props) => {
                 />
               </Paper>
             </Grid>
-            <Grid item lg={4}>
+            <Grid item xs={12} lg={4}>
               <Paper>
                 <Autocomplete
                   disablePortal
