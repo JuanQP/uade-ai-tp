@@ -120,7 +120,7 @@ const AdminOrders= ({ ...rest }) => {
   }
 
   function refreshPage(newPage) {
-    axios.get('http://localhost:4000/users/orders/', {params: {page: newPage+1}})
+    axios.get('/users/orders/', {params: {page: newPage+1}})
     .then((res) => {
       setOrders(res.data.data.docs);
       setCount(res.data.data.total);
