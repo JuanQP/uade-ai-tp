@@ -123,7 +123,7 @@ const App = () => {
         ) {
           const updatedUser = {...user};
           updatedUser.payment = buyOrder.payment;
-          axios.put('/users/', updatedUser)
+          axios.put('/users/detail/', updatedUser)
           .then((res) => {
             setUser(res.data.data);
             alert("Se actualizaron los datos de pago del usuario");
