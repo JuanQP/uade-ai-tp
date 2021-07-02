@@ -85,7 +85,7 @@ const CartDetailItem = (props) => {
     <>
     <ListItem key={props.item.product._id}>
       <ListItemAvatar onClick={handleOpen}>
-        <Avatar src={props.item.product.img} />
+        <Avatar variant="square" src={props.item.product.img} />
       </ListItemAvatar>
       <ListItemText
         primary={props.item.product.nombre}
