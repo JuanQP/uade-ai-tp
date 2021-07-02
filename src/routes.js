@@ -33,7 +33,7 @@ const routes = (props) => [
         : <Navigate to="/login" />
       },
       { path: 'misCompras', element: !props.user.isGuest ?
-        <MisCompras user={props.user} onAccountDetailsSave={props.handleAccountDetailsSave} />
+        <MisCompras />
         : <Navigate to="/login" />
       },
       { path: 'home', element: <Home /> },

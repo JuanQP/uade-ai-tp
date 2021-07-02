@@ -176,7 +176,7 @@ const AdminOrders= ({ ...rest }) => {
       </Container>
       :
       // Si hay elementos...
-      <Card {...rest}>
+      <Card>
         <PerfectScrollbar>
           <Box sx={{ minWidth: 1050 }}>
             <Table>

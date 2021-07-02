@@ -117,7 +117,7 @@ const CartDetail = (props) => {
         onClose={handleClose}
         TransitionComponent={SlideTransition}
       >
-        <Alert onClose={handleClose} severity="info">
+        <Alert variant="filled" onClose={handleClose} severity="info">
           No estás logeado. <RouterLink to="/login">¿Tenés una cuenta? Ingresá</RouterLink>. Hacer las compras es más fácil si estás registrado 👌.
         </Alert>
       </Snackbar>
