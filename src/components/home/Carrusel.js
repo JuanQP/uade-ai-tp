@@ -17,6 +17,9 @@ const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const tutorialSteps = [
   {
+    imgPath:'/static/images/mejores.jpg',
+  },
+  {
     imgPath:
     '/static/images/noesperes.jpg',
   },
