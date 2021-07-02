@@ -21,6 +21,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 
 function OrdersRow (props){
   const { order, selected, checked, OnSelectOne } = props;
@@ -83,6 +84,10 @@ function OrdersRow (props){
               <Typography variant="h6" gutterBottom component="div">
                 Detalle del Pedido
               </Typography>
+              <Chip
+                icon={<LocalShippingIcon />}
+                label={`${order.buyOrder.address.address1}, CP ${order.buyOrder.address.zip}, ${order.buyOrder.address.city}, ${order.buyOrder.address.province}.`}
+              />
               <Table size="small" aria-label="purchases">
                 <TableHead>
                   <TableRow>
