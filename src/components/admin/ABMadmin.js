@@ -81,6 +81,7 @@ const ABMadmin = ({ ABMlist, onInsertProduct, onUpdateProduct, onDeleteProduct, 
     axios.get('/products/', {
       params: {
         page: newPage+1,
+        limit: 10,
         nombre: buscadorText === '' ? undefined : buscadorText,
       }})
     .then((res) => {
