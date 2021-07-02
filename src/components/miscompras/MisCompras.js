@@ -23,6 +23,7 @@ import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import { Link as RouterLink } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 function OrdersRow (props){
   const { order } = props;
@@ -30,6 +31,9 @@ function OrdersRow (props){
 
   return (
      <>
+     <Helmet>
+       <title>FQ Computer | Mis Compras</title>
+    </Helmet>
     <TableRow hover>
       <TableCell>
           <IconButton
@@ -116,7 +120,7 @@ const AdminOrders= ({ ...rest }) => {
   }
 
   function refreshPage(newPage) {
-    axios.get('/users/orders/', {params: {page: newPage+1}})
+    axios.get('http://localhost:4000/users/orders/', {params: {page: newPage+1}})
     .then((res) => {
       setOrders(res.data.data.docs);
       setCount(res.data.data.total);
