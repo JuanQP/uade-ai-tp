@@ -62,14 +62,17 @@ const ProductList = (props) => {
 
   function handleCategoriaChange(e, value) {
     setCategoria(value);
+    setPage(1);
   }
 
   function handleMarcaChange(e, value) {
     setMarca(value);
+    setPage(1);
   }
 
   function handleSortChange(e, value) {
     setOrdenamiento(value);
+    setPage(1);
   }
 
   if(waitingServer) {
@@ -147,7 +150,7 @@ const ProductList = (props) => {
                 <Grid
                   item
                   key={product._id}
-                  lg={2.4}
+                  lg={3}
                   md={6}
                   xs={12}
                 >
@@ -175,6 +178,7 @@ const ProductList = (props) => {
           >
             <Pagination
               color="primary"
+              page={page}
               count={pages}
               size="small"
               onChange={handlePageChange}
