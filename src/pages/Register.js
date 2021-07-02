@@ -86,7 +86,7 @@ const Register = (props) => {
                     gutterBottom
                     variant="body2"
                   >
-                    Ingrse los datos para crear la cuenta
+                    Ingrese los datos para crear la cuenta
                   </Typography>
                 </Box>
                 <TextField
