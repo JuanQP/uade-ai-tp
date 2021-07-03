@@ -14,35 +14,60 @@ import {
   Typography,
 } from '@material-ui/core';
 import axios from 'axios';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
 
 const ABMalta = ({...props}) => {
   const navigate = useNavigate();
   const [values, setValues] = useState({
     img: '',
-    nombre: '',
-    categoria: '',
-    marca: '',
-    modelo: '',
-    interfaz: '',
-    peso: '',
-    stock: 0,
-    precio: 0,
-    fechaIngreso: '',
   });
   const [mostrarImagenStatus, setMostrarImagenStatus] = useState(false);
   const [subiendoImagen, setSubiendoImagen] = useState(false);
   const [imagenOk, setImagenOk] = useState(true);
   const [imagenSubida, setImagenSubida] = useState('');
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
+  const formik = useFormik({
+    initialValues: {
+      nombre: '',
+      categoria: '',
+      marca: '',
+      modelo: '',
+      interfaz: '',
+      peso: '',
+      stock: 0,
+      precio: 0,
+      descripcion: '',
+    },
+    validationSchema: Yup.object().shape({
+      nombre: Yup.string().max(255).required('Campo requerido'),
+      categoria: Yup.string().max(255).required('Campo requerido'),
+      marca: Yup.string().max(255).required('Campo requerido'),
+      modelo: Yup.string().max(255).required('Campo requerido'),
+      interfaz: Yup.string().max(255),
+      peso: Yup.string().max(255),
+      stock: Yup.number().integer("Tiene que ser un número entero").positive("Tiene que ser positivo").required("Campo requerido"),
+      precio: Yup.number().positive("Tiene que ser positivo").required("Campo requerido"),
+      descripcion: Yup.string().max(255),
+    }),
+    onSubmit: (values) => {
+      handleFormikSubmit(values);
+    },
+    validateOnBlur: true,
+    validateOnChange: false,
+  });
 
-  function handleNewProduct() {
-    axios.post('/products/', values)
+  function handleFormikSubmit(newValues) {
+    if (formik.isValid) {
+      handleNewProduct({
+        ...newValues,
+        img: values.img,
+      });
+    }
+  }
+
+  function handleNewProduct(newProduct) {
+    axios.post('/products/', newProduct)
     .then((res) => {
       navigate('/admin/ABM');
       alert(res.data.message);
@@ -88,8 +113,7 @@ const ABMalta = ({...props}) => {
       <Container maxWidth="lg">
         <form
           autoComplete="off"
-          noValidate
-          {...props}
+          onSubmit={formik.handleSubmit}
         >
           <Card>
             <CardHeader
@@ -107,15 +131,6 @@ const ABMalta = ({...props}) => {
                   md={6}
                   xs={12}
                 >
-                  {/* <TextField
-                    fullWidth
-                    label="Nombre de Imagen"
-                    name="img"
-                    onChange={handleChange}
-                    required
-                    variant="outlined"
-                    placeholder="/static/images/products/product_1.png"
-                  /> */}
                   <Button
                     variant="contained"
                     component="label"
@@ -147,10 +162,13 @@ const ABMalta = ({...props}) => {
                     fullWidth
                     label="Nombre"
                     name="nombre"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
                     placeholder="Teclado inalámbrico Genius"
+                    error={Boolean(formik.touched.nombre && formik.errors.nombre)}
+                    helperText={formik.touched.nombre && formik.errors.nombre}
+                    onBlur={formik.handleBlur}
                   />
                 </Grid>
                 <Grid
@@ -162,9 +180,12 @@ const ABMalta = ({...props}) => {
                     fullWidth
                     label="Categoría"
                     name="categoria"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
+                    error={Boolean(formik.touched.categoria && formik.errors.categoria)}
+                    helperText={formik.touched.categoria && formik.errors.categoria}
+                    onBlur={formik.handleBlur}
                   />
                 </Grid>
                 <Grid
@@ -176,9 +197,12 @@ const ABMalta = ({...props}) => {
                     fullWidth
                     label="Marca"
                     name="marca"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
+                    error={Boolean(formik.touched.marca && formik.errors.marca)}
+                    helperText={formik.touched.marca && formik.errors.marca}
+                    onBlur={formik.handleBlur}
                   />
                 </Grid>
                 <Grid
@@ -190,9 +214,12 @@ const ABMalta = ({...props}) => {
                     fullWidth
                     label="Modelo"
                     name="modelo"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
+                    error={Boolean(formik.touched.modelo && formik.errors.modelo)}
+                    helperText={formik.touched.modelo && formik.errors.modelo}
+                    onBlur={formik.handleBlur}
                   />
                 </Grid>
                 <Grid
@@ -204,9 +231,11 @@ const ABMalta = ({...props}) => {
                     fullWidth
                     label="Interfaz"
                     name="interfaz"
-                    onChange={handleChange}
-                    required
+                    onChange={formik.handleChange}
                     variant="outlined"
+                    error={Boolean(formik.touched.interfaz && formik.errors.interfaz)}
+                    helperText={formik.touched.interfaz && formik.errors.interfaz}
+                    onBlur={formik.handleBlur}
                   />
                 </Grid>
                 <Grid
@@ -218,9 +247,11 @@ const ABMalta = ({...props}) => {
                     fullWidth
                     label="Peso"
                     name="peso"
-                    onChange={handleChange}
-                    required
+                    onChange={formik.handleChange}
                     variant="outlined"
+                    error={Boolean(formik.touched.peso && formik.errors.peso)}
+                    helperText={formik.touched.peso && formik.errors.peso}
+                    onBlur={formik.handleBlur}
                   />
                 </Grid>
                 <Grid
@@ -232,10 +263,13 @@ const ABMalta = ({...props}) => {
                     fullWidth
                     label="Stock"
                     name="stock"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
                     type="number"
+                    error={Boolean(formik.touched.stock && formik.errors.stock)}
+                    helperText={formik.touched.stock && formik.errors.stock}
+                    onBlur={formik.handleBlur}
                   />
                 </Grid>
                 <Grid
@@ -247,13 +281,16 @@ const ABMalta = ({...props}) => {
                     fullWidth
                     label="Precio"
                     name="precio"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
                     type="number"
                     InputProps={{
                       startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
+                    error={Boolean(formik.touched.precio && formik.errors.precio)}
+                    helperText={formik.touched.precio && formik.errors.precio}
+                    onBlur={formik.handleBlur}
                   />
                 </Grid>
                 <Grid
@@ -265,11 +302,14 @@ const ABMalta = ({...props}) => {
                     fullWidth
                     label="Descripción"
                     name="descripcion"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
                     multiline
                     rows={3}
+                    error={Boolean(formik.touched.descripcion && formik.errors.descripcion)}
+                    helperText={formik.touched.descripcion && formik.errors.descripcion}
+                    onBlur={formik.handleBlur}
                   >
                   </TextField>
                 </Grid>
@@ -286,7 +326,7 @@ const ABMalta = ({...props}) => {
               <Button sx={{ mx: 70 }}
                 color="primary"
                 variant="contained"
-                onClick={handleNewProduct}
+                type="submit"
               >
                 Guardar
               </Button>
