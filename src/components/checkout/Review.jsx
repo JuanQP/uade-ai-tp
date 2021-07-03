@@ -6,6 +6,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import ScrollToTop from 'src/ScrollToTop';
+import Sparkle from 'src/components/Sparkle';
+import Button from '@material-ui/core/Button';
+import CheckIcon from "@material-ui/icons/Check";
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -17,9 +20,18 @@ const useStyles = makeStyles((theme) => ({
   title: {
     marginTop: theme.spacing(2),
   },
+  payButton: {
+    background: 'linear-gradient(45deg, #00b09e 30%, #79fa6e 90%)',
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+    color: 'white',
+    height: 48,
+    padding: '0 30px',
+  },
 }));
 
-export default function Review({values, products, ...props}) {
+export default function Review({values, products, onBuy, onStepBack, ...props}) {
   const classes = useStyles();
 
   return (
@@ -91,6 +103,24 @@ export default function Review({values, products, ...props}) {
               </Typography>
             </Grid>
           </Grid>
+        </Grid>
+      </Grid>
+      <Grid container>
+        <Grid item>
+          <Button onClick={onStepBack}>
+            Volver
+          </Button>
+          <Sparkle color='random'>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={onBuy}
+              className={classes.payButton}
+              startIcon={<CheckIcon />}
+            >
+              Comprar
+            </Button>
+          </Sparkle>
         </Grid>
       </Grid>
     </React.Fragment>

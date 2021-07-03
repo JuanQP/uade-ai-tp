@@ -7,13 +7,10 @@ import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from 'src/components/checkout/AddressForm';
 import PaymentForm from 'src/components/checkout/PaymentForm';
 import Review from 'src/components/checkout/Review';
-import CheckIcon from "@material-ui/icons/Check";
-import Sparkle from 'src/components/Sparkle';
 import {useEffect} from 'react';
 import axios from 'axios';
 
@@ -54,15 +51,6 @@ const useStyles = makeStyles((theme) => ({
   button: {
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
-  },
-  payButton: {
-    background: 'linear-gradient(45deg, #00b09e 30%, #79fa6e 90%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'white',
-    height: 48,
-    padding: '0 30px',
   },
 }));
 
@@ -145,24 +133,37 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
     });
   }
 
-  function handleChange(event) {
+  function handleFinishedAddress(addressValues) {
+    handleNext();
     setValues({
       ...values,
-      [event.form]: {
-        ...values[event.form],
-        [event.input]: event.value,
+      user: {
+        ...addressValues.user,
       },
-    })
-  };
+      address: {
+        ...addressValues.address
+      },
+    });
+  }
+
+  function handleFinishedPayment(paymentValues) {
+    handleNext();
+    setValues({
+      ...values,
+      payment: {
+        ...paymentValues
+      },
+    });
+  }
 
   function getStepContent() {
     switch (activeStep) {
       case 0:
-        return <AddressForm onAddressChange={handleChange} values={values} />;
+        return <AddressForm onStepBack={handleBack} onFinishedStep={handleFinishedAddress} values={values} />;
       case 1:
-        return <PaymentForm onPaymentChange={handleChange} values={values} />;
+        return <PaymentForm onStepBack={handleBack} onFinishedStep={handleFinishedPayment} values={values} />;
       case 2:
-        return <Review values={values} products={products} />;
+        return <Review onBuy={handleFinalizarCompraClick} onStepBack={handleBack} values={values} products={products} />;
       default:
         throw new Error('Unknown step');
     }
@@ -184,36 +185,6 @@ export default function Checkout({onFinishedBuy, user, products, ...props}) {
             ))}
           </Stepper>
             {getStepContent(activeStep, values, products)}
-            <div className={activeStep === 0 ? classes.addressStepButtons : classes.finalStepsButtons}>
-              {activeStep !== 0 && (
-                <Button onClick={handleBack} className={classes.button}>
-                  Volver
-                </Button>
-              )}
-              {activeStep === steps.length - 1 ?
-              // Último paso
-              <Sparkle color='random'>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleFinalizarCompraClick}
-                  className={classes.payButton}
-                  startIcon={<CheckIcon />}
-                >
-                  Comprar
-                </Button>
-              </Sparkle>
-              // Pasos intermedios
-              : <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                  className={classes.button}
-                >
-                  Siguiente
-                </Button>
-              }
-            </div>
             {huboError ?
               <Alert severity="error">
                 {mensajeError.map((error, i) => <p key={i}>{error}</p>)}
