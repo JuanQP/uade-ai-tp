@@ -29,8 +29,8 @@ export default function AddressForm({values, onStepBack, onFinishedStep, ...prop
     },
     validationSchema: Yup.object().shape({
       user: Yup.object().shape({
-        firstName: Yup.string().max(255).required('Campo requerido'),
-        lastName: Yup.string().max(255).required('Campo requerido'),
+        firstName: Yup.string().max(255).matches(/^[A-Za-z ]*$/, 'Nombre no válido').required('Campo requerido'),
+        lastName: Yup.string().max(255).matches(/^[A-Za-z ]*$/, 'Nombre no válido').required('Campo requerido'),
         email: Yup.string().email('Ingrese un e-mail válido').max(255).required('Campo requerido'),
       }),
       address: Yup.object().shape({

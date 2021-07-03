@@ -28,7 +28,7 @@ export default function PaymentForm({values, onStepBack, onFinishedStep, ...prop
       state: Yup.string().max(255).required('Campo requerido'),
       city: Yup.string().max(255).required('Campo requerido'),
       zip: Yup.number().required('Campo requerido'),
-      cardName: Yup.string().max(255).required('Campo requerido'),
+      cardName: Yup.string().max(255).matches(/^[A-Za-z ]*$/, 'Nombre no válido').required('Campo requerido'),
       cardNumber: Yup.string().typeError('Tarjeta no válida').max(19)
         .matches(/[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}/, 'Tarjeta no válida')
         .required('Campo requerido'),
