@@ -10,45 +10,122 @@ import {
   Typography,
   TextField
 } from '@material-ui/core';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
 
 const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) => {
 
-  function handleChange(event) {
-    onUserChange({
-      ...props.user,
-      [event.target.name]: event.target.value
-    });
-  };
+  const formik = useFormik({
+    initialValues: {
+      firstName: props.user.firstName,
+      lastName: props.user.lastName,
+      address1: props.user.address.address1,
+      province: props.user.address.province,
+      city: props.user.address.city,
+      zip: props.user.address.zip,
+      cardName: props.user.payment.cardName,
+      cardNumber: props.user.payment.cardNumber,
+      expDate: props.user.payment.expDate,
+      cvv: props.user.payment.cvv,
+    },
+    validationSchema: Yup.object().shape({
+      firstName: Yup.string().max(255).matches(/^[A-Za-z ]*$/, 'El nombre solo puede contener letras y espacios').required('Campo requerido'),
+      lastName: Yup.string().max(255).matches(/^[A-Za-z ]*$/, 'El apellido solo puede contener letras y espacios').required('Campo requerido'),
+      address1: Yup.string().max(255).required('Campo requerido'),
+      province: Yup.string().max(255).required('Campo requerido'),
+      city: Yup.string().max(255).required('Campo requerido'),
+      zip: Yup.number().required('Campo requerido'),
+      cardName: Yup.string().max(255).matches(/^[A-Za-z ]*$/, 'El nombre solo puede contener letras y espacios').required('Campo requerido'),
+      cardNumber: Yup.string().typeError('Tarjeta no válida').max(19)
+        .matches(/[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}/, 'Tarjeta no válida')
+        .required('Campo requerido'),
+      // https://stackoverflow.com/questions/50758729/using-yup-to-validate-credit-card-details
+      expDate: Yup.string().typeError('Fecha no válida').max(19)
+        .matches(/[0-9]{2}\/[0-9]{2}/, 'Formato de fecha no válida')
+        .required('Campo requerido')
+        .test(
+          'test-credit-card-expiration-date',
+          'La fecha está en el pasado',
+          expirationDate => {
+            if (!expirationDate) {
+              return false
+            }
 
-  function handleShippingChange(event) {
-    onUserChange({
-      ...props.user,
-      address: {
-        ...props.user.address,
-        [event.target.name]: event.target.value
-      }
-    });
-  }
+            const today = new Date();
+            const monthToday = today.getMonth() + 1;
+            const yearToday = today
+              .getFullYear()
+              .toString()
+              .substr(-2)
 
-  function handlePaymentChange(event) {
-    onUserChange({
-      ...props.user,
-      payment: {
-        ...props.user.payment,
-        [event.target.name]: event.target.value
-      }
-    });
-  }
+            const [expMonth, expYear] = expirationDate.split('/')
 
-  function handleSaveButtonClick() {
-    onAccountDetailsSave();
+            if (Number(expYear) < Number(yearToday)) {
+              return false
+            } else if (
+              Number(expMonth) < monthToday &&
+              Number(expYear) <= Number(yearToday)
+            ) {
+              return false
+            }
+
+            return true
+          }
+        )
+        .test(
+          'test-credit-card-expiration-date',
+          'Mes no válido',
+          expirationDate => {
+            if (!expirationDate) {
+              return false
+            }
+
+            const [expMonth] = expirationDate.split('/')
+
+            if (Number(expMonth) > 12) {
+              return false
+            }
+
+            return true
+          }
+        ),
+      cvv: Yup.string().min(3).max(4).required('Campo requerido'),
+    }),
+    onSubmit: (values) => {
+      handleFormikSubmit(values);
+    },
+    validateOnBlur: true,
+    validateOnChange: false,
+  });
+
+  function handleFormikSubmit(values) {
+    if (formik.isValid) {
+      const newUser = {
+        ...props.user,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        address: {
+          address1: values.address1,
+          province: values.province,
+          city: values.city,
+          zip: values.zip,
+        },
+        payment: {
+          cardName: values.cardName,
+          cardNumber: values.cardNumber,
+          expDate: values.expDate,
+          cvv: values.cvv,
+        }
+      };
+      onAccountDetailsSave(newUser);
+    }
   }
 
   return (
     <form
+      onSubmit={formik.handleSubmit}
       autoComplete="off"
       noValidate
-      {...props}
     >
        <Container maxWidth="lg">
             <Typography variant="h2" align="left" color="textPrimary" gutterBottom>
@@ -83,13 +160,15 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
             >
               <TextField
                 fullWidth
-                helperText="Especifique un Nombre"
                 label="Nombre"
                 name="firstName"
-                onChange={handleChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.firstName}
+                value={formik.values.firstName}
                 variant="outlined"
+                error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+                helperText={formik.touched.firstName && formik.errors.firstName}
+                onBlur={formik.handleBlur}
               />
             </Grid>
             <Grid
@@ -101,10 +180,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 fullWidth
                 label="Apellido"
                 name="lastName"
-                onChange={handleChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.lastName}
+                value={formik.values.lastName}
                 variant="outlined"
+                error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+                helperText={formik.touched.lastName && formik.errors.lastName}
+                onBlur={formik.handleBlur}
               />
             </Grid>
             <Grid
@@ -117,7 +199,7 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 disabled
                 label="E-mail"
                 name="email"
-                onChange={handleChange}
+                onChange={formik.handleChange}
                 required
                 value={props.user.email}
                 variant="outlined"
@@ -158,10 +240,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 fullWidth
                 label="Dirección"
                 name="address1"
-                onChange={handleShippingChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.address.address1}
+                value={formik.values.address1}
                 variant="outlined"
+                error={Boolean(formik.touched.adddress1 && formik.errors.address1)}
+                helperText={formik.touched.address1 && formik.errors.address1}
+                onBlur={formik.handleBlur}
               />
             </Grid>
             <Grid
@@ -173,10 +258,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 fullWidth
                 label="Ciudad"
                 name="city"
-                onChange={handleShippingChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.address.city}
+                value={formik.values.city}
                 variant="outlined"
+                error={Boolean(formik.touched.city && formik.errors.city)}
+                helperText={formik.touched.city && formik.errors.city}
+                onBlur={formik.handleBlur}
               />
             </Grid>
             <Grid
@@ -188,10 +276,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 fullWidth
                 label="Provincia"
                 name="province"
-                onChange={handleShippingChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.address.province}
+                value={formik.values.province}
                 variant="outlined"
+                error={Boolean(formik.touched.province && formik.errors.province)}
+                helperText={formik.touched.province && formik.errors.province}
+                onBlur={formik.handleBlur}
               />
             </Grid>
             <Grid
@@ -203,10 +294,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 fullWidth
                 label="Código Postal"
                 name="zip"
-                onChange={handleShippingChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.address.zip}
+                value={formik.values.zip}
                 variant="outlined"
+                error={Boolean(formik.touched.zip && formik.errors.zip)}
+                helperText={formik.touched.zip && formik.errors.zip}
+                onBlur={formik.handleBlur}
               />
             </Grid>
           </Grid>
@@ -244,10 +338,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 fullWidth
                 label="Nombre de la tarjeta"
                 name="cardName"
-                onChange={handlePaymentChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.payment.cardName}
+                value={formik.values.cardName}
                 variant="outlined"
+                error={Boolean(formik.touched.cardName && formik.errors.cardName)}
+                helperText={formik.touched.cardName && formik.errors.cardName}
+                onBlur={formik.handleBlur}
               />
             </Grid>
             <Grid
@@ -259,10 +356,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 fullWidth
                 label="Número de tarjeta"
                 name="cardNumber"
-                onChange={handlePaymentChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.payment.cardNumber}
+                value={formik.values.cardNumber}
                 variant="outlined"
+                error={Boolean(formik.touched.cardNumber && formik.errors.cardNumber)}
+                helperText={formik.touched.cardNumber && formik.errors.cardNumber}
+                onBlur={formik.handleBlur}
               />
             </Grid>
             <Grid
@@ -274,10 +374,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 fullWidth
                 label="Fecha de Vencimiento"
                 name="expDate"
-                onChange={handlePaymentChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.payment.expDate}
+                value={formik.values.expDate}
                 variant="outlined"
+                error={Boolean(formik.touched.expDate && formik.errors.expDate)}
+                helperText={formik.touched.expDate && formik.errors.expDate}
+                onBlur={formik.handleBlur}
               />
             </Grid>
             <Grid
@@ -289,10 +392,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
                 fullWidth
                 label="cvv"
                 name="cvv"
-                onChange={handlePaymentChange}
+                onChange={formik.handleChange}
                 required
-                value={props.user.payment.cvv}
+                value={formik.values.cvv}
                 variant="outlined"
+                error={Boolean(formik.touched.cvv && formik.errors.cvv)}
+                helperText={formik.touched.cvv && formik.errors.cvv}
+                onBlur={formik.handleBlur}
               />
             </Grid>
           </Grid>
@@ -309,15 +415,13 @@ const AccountProfileDetails = ({onAccountDetailsSave, onUserChange, ...props}) =
           <Button
             color="primary"
             variant="contained"
-            onClick={handleSaveButtonClick}
+            type="submit"
           >
             Guardar Cambios
           </Button>
         </Box>
         </Card>
-        </Container>
-
-
+      </Container>
     </form>
   );
 };

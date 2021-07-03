@@ -33,8 +33,8 @@ const Account = (props) => {
     setUser(modifiedUser);
   }
 
-  function handleAccountDetailsSave() {
-    axios.put('/users/detail/', user)
+  function handleAccountDetailsSave(newUser) {
+    axios.put('/users/detail/', newUser)
     .then((res) => {
       setUser(res.data.data);
       setMessageType('success');
