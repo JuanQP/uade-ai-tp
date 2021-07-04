@@ -17,10 +17,14 @@ import {
 } from '@material-ui/core';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
 
 const ABMmodificar = ({...props}) => {
   const { product_id } = useParams();
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({
+    img: '',
+  });
   const [waitingServer, setWaitingServer] = useState(true);
   const [open, setOpen] = useState(false);
   const [serverMessage, setServerMessage] = useState('');
@@ -30,21 +34,56 @@ const ABMmodificar = ({...props}) => {
   const [imagenOk, setImagenOk] = useState(true);
   const [imagenSubida, setImagenSubida] = useState('');
 
+  const formik = useFormik({
+    initialValues: {
+      nombre: '',
+      categoria: '',
+      marca: '',
+      modelo: '',
+      interfaz: '',
+      peso: '',
+      stock: 0,
+      precio: 0,
+      descripcion: '',
+    },
+    validationSchema: Yup.object().shape({
+      nombre: Yup.string().max(255).required('Campo requerido'),
+      categoria: Yup.string().max(255).required('Campo requerido'),
+      marca: Yup.string().max(255).required('Campo requerido'),
+      modelo: Yup.string().max(255).required('Campo requerido'),
+      interfaz: Yup.string().max(255),
+      peso: Yup.string().max(255),
+      stock: Yup.number().integer("Tiene que ser un número entero").positive("Tiene que ser positivo").required("Campo requerido"),
+      precio: Yup.number().positive("Tiene que ser positivo").required("Campo requerido"),
+      descripcion: Yup.string().max(255),
+    }),
+    onSubmit: (values) => {
+      handleFormikSubmit(values);
+    },
+    validateOnBlur: true,
+    validateOnChange: false,
+    enableReinitialize: true,
+  });
+
+  function handleFormikSubmit(newValues) {
+    if (formik.isValid) {
+      handleUpdateProduct({
+        ...newValues,
+        img: values.img,
+      });
+    }
+  }
+
   useEffect(() => {
     refreshPage(product_id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product_id]);
 
-  const handleChange = (event) => {
-    setValues({
-      ...values,
-      [event.target.name]: event.target.value
-    });
-  };
-
-  function handleUpdateProduct() {
-    axios.put('/products/', values)
+  function handleUpdateProduct(updatedProduct) {
+    axios.put('/products/', updatedProduct)
     .then((res) => {
-      setValues(res.data.data);
+      setValues({img: res.data.data.img});
+      formik.setValues(res.data.data);
       setServerMessage(res.data.message);
       setMessageType('success');
     })
@@ -61,7 +100,8 @@ const ABMmodificar = ({...props}) => {
     setWaitingServer(true);
     axios.get('/products/detail/' + product_id)
     .then((res) => {
-      setValues(res.data.data);
+      setValues({img: res.data.data.img});
+      formik.setValues(res.data.data);
     })
     .finally(() =>{
       setWaitingServer(false);
@@ -117,7 +157,7 @@ const ABMmodificar = ({...props}) => {
       <Container maxWidth="lg">
         <form
           autoComplete="off"
-          noValidate
+          onSubmit={formik.handleSubmit}
           {...props}
         >
           <Card>
@@ -167,11 +207,14 @@ const ABMmodificar = ({...props}) => {
                     fullWidth
                     label="Nombre"
                     name="nombre"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
                     placeholder="Teclado inalámbrico Genius"
-                    value={values.nombre}
+                    error={Boolean(formik.touched.nombre && formik.errors.nombre)}
+                    helperText={formik.touched.nombre && formik.errors.nombre}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.nombre}
                   />
                 </Grid>
                 <Grid
@@ -183,10 +226,13 @@ const ABMmodificar = ({...props}) => {
                     fullWidth
                     label="Categoria"
                     name="categoria"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
-                    value={values.categoria}
+                    error={Boolean(formik.touched.categoria && formik.errors.categoria)}
+                    helperText={formik.touched.categoria && formik.errors.categoria}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.categoria}
                   />
                 </Grid>
                 <Grid
@@ -198,10 +244,13 @@ const ABMmodificar = ({...props}) => {
                     fullWidth
                     label="Marca"
                     name="marca"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
-                    value={values.marca}
+                    error={Boolean(formik.touched.marca && formik.errors.marca)}
+                    helperText={formik.touched.marca && formik.errors.marca}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.marca}
                   />
                 </Grid>
                 <Grid
@@ -213,10 +262,13 @@ const ABMmodificar = ({...props}) => {
                     fullWidth
                     label="Modelo"
                     name="modelo"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
-                    value={values.modelo}
+                    error={Boolean(formik.touched.modelo && formik.errors.modelo)}
+                    helperText={formik.touched.modelo && formik.errors.modelo}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.modelo}
                   />
                 </Grid>
                 <Grid
@@ -228,10 +280,12 @@ const ABMmodificar = ({...props}) => {
                     fullWidth
                     label="Interfaz"
                     name="interfaz"
-                    onChange={handleChange}
-                    required
+                    onChange={formik.handleChange}
                     variant="outlined"
-                    value={values.interfaz}
+                    error={Boolean(formik.touched.interfaz && formik.errors.interfaz)}
+                    helperText={formik.touched.interfaz && formik.errors.interfaz}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.interfaz}
                   />
                 </Grid>
                 <Grid
@@ -243,10 +297,12 @@ const ABMmodificar = ({...props}) => {
                     fullWidth
                     label="Peso"
                     name="peso"
-                    onChange={handleChange}
-                    required
+                    onChange={formik.handleChange}
                     variant="outlined"
-                    value={values.peso}
+                    error={Boolean(formik.touched.peso && formik.errors.peso)}
+                    helperText={formik.touched.peso && formik.errors.peso}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.peso}
                   />
                 </Grid>
                 <Grid
@@ -258,11 +314,14 @@ const ABMmodificar = ({...props}) => {
                     fullWidth
                     label="Stock"
                     name="stock"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
                     type="number"
-                    value={values.stock}
+                    error={Boolean(formik.touched.stock && formik.errors.stock)}
+                    helperText={formik.touched.stock && formik.errors.stock}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.stock}
                   />
                 </Grid>
                 <Grid
@@ -274,14 +333,17 @@ const ABMmodificar = ({...props}) => {
                     fullWidth
                     label="Precio"
                     name="precio"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
                     type="number"
-                    value={values.precio}
                     InputProps={{
                       startAdornment: <InputAdornment position="start">$</InputAdornment>,
                     }}
+                    error={Boolean(formik.touched.precio && formik.errors.precio)}
+                    helperText={formik.touched.precio && formik.errors.precio}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.precio}
                   />
                 </Grid>
                 <Grid
@@ -293,12 +355,15 @@ const ABMmodificar = ({...props}) => {
                     fullWidth
                     label="Descripción"
                     name="descripcion"
-                    onChange={handleChange}
+                    onChange={formik.handleChange}
                     required
                     variant="outlined"
                     multiline
                     rows={3}
-                    value={values.descripcion}
+                    error={Boolean(formik.touched.descripcion && formik.errors.descripcion)}
+                    helperText={formik.touched.descripcion && formik.errors.descripcion}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.descripcion}
                   >
                   </TextField>
                 </Grid>
@@ -315,7 +380,7 @@ const ABMmodificar = ({...props}) => {
               <Button sx={{ mx: 70 }}
                 color="primary"
                 variant="contained"
-                onClick={handleUpdateProduct}
+                type="submit"
               >
                 Guardar
               </Button>
