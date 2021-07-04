@@ -16,3 +16,10 @@ Usuario admin de prueba:
 
 * Usuario: mfaraday@uade.edu.ar
 * Password: asd123
+
+# Cómo correrlo
+
+```sh
+npm install
+npm start
+```
