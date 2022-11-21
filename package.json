@@ -1,7 +1,7 @@
 {
   "name": "uade-ai-tp",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,10 +9,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@mantine/core": "^5.8.2",
+    "@mantine/hooks": "^5.8.2",
+    "@tabler/icons": "^1.112.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.39.4",
+    "react-router-dom": "^6.4.3"
   },
   "devDependencies": {
+    "@types/node": "^18.11.9",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
