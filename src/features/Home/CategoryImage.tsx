@@ -28,7 +28,7 @@ export function CategoryImage ({ category }: Props) {
           imageProps={{ style: imageStyle }}
         />
       </Link>
-      <Anchor component={Link} to={category.href} color="dark" underline={false}>
+      <Anchor component={Link} to={category.href} variant="text">
         {category.label}
       </Anchor>
     </Stack>
