@@ -1,7 +1,9 @@
-import { Text } from "@mantine/core";
+import { Categories } from "@features/Home";
 
 export function Home() {
   return (
-    <Text>Hello world!</Text>
+    <>
+      <Categories />
+    </>
   )
 }
