@@ -9,27 +9,23 @@ const imageStyle: React.CSSProperties = {
 }
 
 interface Props {
-  category: {
-    label: string
-    image: string
-    href: string
-  }
+  category: Category
 }
 
 export function CategoryImage ({ category }: Props) {
   return (
     <Stack align="center">
-      <Link to={category.href}>
+      <Link to={`/product-search?category=${category.id}`}>
         <Image
           withPlaceholder
           height={180}
           width={180}
-          src={category.image}
+          src={category.imageSrc}
           imageProps={{ style: imageStyle }}
         />
       </Link>
-      <Anchor component={Link} to={category.href} variant="text">
-        {category.label}
+      <Anchor component={Link} to={`/product-search?category=${category.id}`} variant="text">
+        {category.description}
       </Anchor>
     </Stack>
   )

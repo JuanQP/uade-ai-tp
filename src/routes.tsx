@@ -2,6 +2,7 @@ import { Layout } from "@features/UI/Layout";
 import { createBrowserRouter } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Product } from "./pages/Product";
+import { ProductSearch } from "./pages/ProductSearch";
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +15,11 @@ export const router = createBrowserRouter([
       {
         path: "/product/:id",
         element: <Product />,
-      }
+      },
+      {
+        path: "/product-search/",
+        element: <ProductSearch />,
+      },
     ]
   }
 ])

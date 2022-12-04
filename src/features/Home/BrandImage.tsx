@@ -8,20 +8,17 @@ const imageStyle: React.CSSProperties = {
 }
 
 interface Props {
-  brand: {
-    image: string
-    href: string
-  }
+  brand: Brand
 }
 
 export function BrandImage ({ brand }: Props) {
   return (
-    <Link to={brand.href}>
+    <Link to={`/product-search?brand=${brand.id}`}>
       <Box>
         <Image
           withPlaceholder
           height={180}
-          src={brand.image}
+          src={brand.imageSrc}
           imageProps={{ style: imageStyle }}
         />
       </Box>

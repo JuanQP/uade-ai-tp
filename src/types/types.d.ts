@@ -9,3 +9,11 @@ interface Product {
   productModel: string;
   stock: number;
 }
+
+interface Category {
+  id: string;
+  description: string;
+  imageSrc: string;
+}
+
+interface Brand extends Category {}

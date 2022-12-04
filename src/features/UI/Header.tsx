@@ -1,6 +1,7 @@
 import { Container, Grid, Paper, Text } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { IconMenu2, IconShoppingCart, IconUser } from "@tabler/icons";
+import { Link } from "react-router-dom";
 import { HeaderButton } from "./HeaderButton";
 import { SearchInput } from "./SearchInput";
 
@@ -28,7 +29,7 @@ export function Header({ onMenuClick, onUserClick, onCartClick }: Props) {
               Icon={IconMenu2}
               onClick={() => onMenuClick()}
             />
-            <Text size="xl">FQ Computer</Text>
+            <Text size="xl" component={Link} to="/">FQ Computer</Text>
             {!isSmallScreen ? <SearchInput size="md" sx={{ flex: 0.75 }} /> : null}
             <HeaderButton
               label="Log In"
