@@ -13,7 +13,7 @@ interface Props {
 
 export function BrandImage ({ brand }: Props) {
   return (
-    <Link to={`/product-search?brand=${brand.id}`}>
+    <Link to={`/product-search?brand=${brand.description}`}>
       <Box>
         <Image
           withPlaceholder

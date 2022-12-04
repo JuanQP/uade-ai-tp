@@ -15,7 +15,7 @@ interface Props {
 export function CategoryImage ({ category }: Props) {
   return (
     <Stack align="center">
-      <Link to={`/product-search?category=${category.id}`}>
+      <Link to={`/product-search?category=${category.description}`}>
         <Image
           withPlaceholder
           height={180}
@@ -24,7 +24,7 @@ export function CategoryImage ({ category }: Props) {
           imageProps={{ style: imageStyle }}
         />
       </Link>
-      <Anchor component={Link} to={`/product-search?category=${category.id}`} variant="text">
+      <Anchor component={Link} to={`/product-search?category=${category.description}`} variant="text">
         {category.description}
       </Anchor>
     </Stack>
