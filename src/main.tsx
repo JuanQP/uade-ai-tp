@@ -2,6 +2,7 @@ import { MantineProvider, MantineThemeOverride } from '@mantine/core'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
+import { CartProvider } from './hooks/useCart'
 import './index.css'
 import { router } from './routes'
 
@@ -14,7 +15,9 @@ const theme: MantineThemeOverride = {
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
-      <RouterProvider router={router} />
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </MantineProvider>
   </React.StrictMode>
 )

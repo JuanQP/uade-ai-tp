@@ -1,4 +1,5 @@
 import { StockStatus } from '@/features/Products';
+import { useCart } from '@/hooks/useCart';
 import * as productAPI from '@/services/productAPI';
 import { Badge, Button, Divider, Grid, Group, Image, Loader, NativeSelect, Stack, Text, Title } from "@mantine/core";
 import { IconBuildingStore, IconTruckDelivery } from '@tabler/icons';
@@ -9,7 +10,10 @@ export function Product() {
 
   const { id } = useParams()
   const navigate = useNavigate()
-  const [product, setProduct] = useState<Product>();
+  const [product, setProduct] = useState<Product>()
+  const [quantity, setQuantity] = useState<number>(1)
+  const { cart, addProduct } = useCart()
+  const hasProductInCart = cart.find(product => product.product._id === id)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,6 +27,17 @@ export function Product() {
     }
     fetchData()
   }, [])
+
+  function handleAddToCart() {
+    if(!product) throw new Error("No se selecionó ningún producto")
+    addProduct({ product, quantity })
+  }
+
+  function handleBuyNow() {
+    if(!product) throw new Error("No se selecionó ningún producto")
+    addProduct({ product, quantity })
+    navigate('/cart')
+  }
 
   if(!product) return <Loader />
 
@@ -65,14 +80,19 @@ export function Product() {
             label="Cantidad"
             description={`${product.stock} disponibles`}
             data={quantityOptions}
+            value={quantity}
             disabled={!hasStock}
+            onChange={(e) => setQuantity(Number(e.target.value))}
           />
-          <Button disabled={!hasStock}>
+          <Button disabled={!hasStock || !quantity} onClick={handleBuyNow}>
             Comprar ahora
           </Button>
-          <Button variant="light" disabled={!hasStock}>
+          <Button variant="light" disabled={!hasStock || !quantity} onClick={handleAddToCart}>
             Agregar al carrito
           </Button>
+          {!hasProductInCart ? null : (
+            <Text color="dimmed">Ya tenés este producto en tu carrito 👌</Text>
+          )}
         </Stack>
       </Grid.Col>
       <Grid.Col xs={12}>

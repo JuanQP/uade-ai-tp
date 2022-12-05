@@ -1,17 +1,17 @@
 import { Container, Grid, Paper, Text } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
-import { IconMenu2, IconShoppingCart, IconUser } from "@tabler/icons";
+import { IconMenu2, IconUser } from "@tabler/icons";
 import { Link } from "react-router-dom";
 import { HeaderButton } from "./HeaderButton";
+import { HeaderCartButton } from "./HeaderCartButton";
 import { SearchInput } from "./SearchInput";
 
 interface Props {
   onMenuClick: () => void
   onUserClick: () => void
-  onCartClick: () => void
 }
 
-export function Header({ onMenuClick, onUserClick, onCartClick }: Props) {
+export function Header({ onMenuClick, onUserClick }: Props) {
 
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
 
@@ -36,11 +36,7 @@ export function Header({ onMenuClick, onUserClick, onCartClick }: Props) {
               Icon={IconUser}
               onClick={() => onUserClick()}
             />
-            <HeaderButton
-              label="Productos"
-              Icon={IconShoppingCart}
-              onClick={() => onCartClick()}
-            />
+            <HeaderCartButton />
           </Grid.Col>
           {!isSmallScreen ? null : (
             <Grid.Col xs={12}>
