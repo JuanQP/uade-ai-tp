@@ -38,6 +38,7 @@ export function ProductSearch() {
           category: categoryQueryParam ? [categoryQueryParam] : undefined,
           pmin: undefined,
           pmax: undefined,
+          search: params.get("search"),
         })
         setCategories(categories)
         setBrands(brands)
@@ -55,6 +56,7 @@ export function ProductSearch() {
       category: selectedCategories,
       pmin: minPrice,
       pmax: maxPrice,
+      search: null,
       ...newFilters,
     })
     setProducts(products)

@@ -19,11 +19,13 @@ export interface ProductQuery {
   category: string[] | undefined;
   pmin: number | undefined;
   pmax: number | undefined;
+  search: string | null;
 }
 
 export async function getProducts(query: ProductQuery) {
+  const { search } = query;
   const { data } = await axios.get<ProductsResponse>(`/api/products/`, {
-    params: query,
+    params: search ? { search } : query,
   })
   return data.data.docs;
 }
