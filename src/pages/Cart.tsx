@@ -30,7 +30,13 @@ export function Cart() {
       </Text>
       <Divider my="lg" />
       <Box display="flex" sx={{ justifyContent: 'end' }}>
-        <Button size="lg" variant="gradient" gradient={{ from: 'blue', to: 'green.4'}}>
+        <Button
+          component={Link}
+          to="/checkout"
+          size="lg"
+          variant="gradient"
+          gradient={{ from: 'blue', to: 'green.4'}}
+        >
           Continuar compra
         </Button>
       </Box>
