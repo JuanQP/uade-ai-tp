@@ -12,7 +12,6 @@ export function Layout() {
     <>
       <Header
         onMenuClick={() => setDrawerOpened(true)}
-        onUserClick={() => console.log("User clicked")}
       />
       <NavDrawer
         opened={drawerOpened}

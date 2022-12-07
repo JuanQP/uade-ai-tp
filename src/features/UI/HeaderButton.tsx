@@ -3,11 +3,10 @@ import { TablerIcon } from "@tabler/icons";
 
 interface Props extends StackProps {
   Icon: TablerIcon
-  label: string
   onClick?: () => void
 }
 
-export function HeaderButton({ Icon, label, onClick, ...props }: Props) {
+export function HeaderButton({ Icon, onClick, ...props }: Props) {
 
   function handleActionIconClick() {
     onClick?.()

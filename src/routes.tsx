@@ -1,10 +1,14 @@
 import { Layout } from "@features/UI/Layout";
+import { RequireAuth } from 'react-auth-kit';
 import { createBrowserRouter } from "react-router-dom";
+import { Account } from "./pages/Account";
 import { Cart } from "./pages/Cart";
 import { Checkout } from "./pages/Checkout";
 import { Home } from "./pages/Home";
+import { Login } from "./pages/Login";
 import { Product } from "./pages/Product";
 import { ProductSearch } from "./pages/ProductSearch";
+import { Register } from "./pages/Register";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +34,22 @@ export const router = createBrowserRouter([
         path: "/checkout/",
         element: <Checkout />,
       },
+      {
+        path: "/account/",
+        element: (
+          <RequireAuth loginPath="/login">
+            <Account />
+          </RequireAuth>
+        ),
+      },
     ]
-  }
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
 ])

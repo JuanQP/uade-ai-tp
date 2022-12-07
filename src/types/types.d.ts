@@ -49,3 +49,20 @@ interface Order {
   payment: OrderPayment;
   products: Array<CartProduct>;
 }
+
+type LoginCredentials = {
+  email: string;
+  password: string;
+}
+
+interface User {
+  _id: string;
+  address: OrderAddress;
+  payment: OrderPayment;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  isAdmin: boolean;
+  avatar: string;
+}
