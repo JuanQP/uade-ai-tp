@@ -1,10 +1,10 @@
 import * as userAPI from "@/services/userAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, Center, Container, Paper, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
-import { IconAt } from "@tabler/icons";
+import { Box, Button, Paper, PasswordInput, Stack, TextInput, Title } from "@mantine/core";
+import { IconAt, IconLogin } from "@tabler/icons";
 import { useAuthUser, useIsAuthenticated, useSignIn } from "react-auth-kit";
 import { useForm } from "react-hook-form";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const schema = z.object({
@@ -49,47 +49,45 @@ export function Login() {
   }
 
   return (
-    <Box sx={{
-      background: 'linear-gradient(45deg, #0575E6, #00F260)',
-      height: '100vh',
-      width: '100vw'
-    }}>
-      <Container size="sm" sx={{ height: '100%' }}>
-        <Center sx={{ height: '100%' }}>
-          <Paper
-            withBorder
-            shadow="md"
-            p="xl"
-            sx={{ width: '100%' }}
+    <Paper
+      withBorder
+      shadow="md"
+      p="xl"
+      sx={{ width: '100%' }}
+    >
+      <Title>Ingresar</Title>
+      <Box component="form" onSubmit={handleSubmit(handleFormSubmit)}>
+        <Stack>
+          <TextInput
+            autoFocus
+            label="E-Mail"
+            placeholder="you@somedomain.com"
+            icon={<IconAt size={14} />}
+            withAsterisk
+            {...register('email')}
+          />
+          <PasswordInput
+            label="Password"
+            placeholder="No se lo digas a nadie 🤫"
+            withAsterisk
+            {...register('password')}
+          />
+          <Button
+            disabled={!formState.isValid}
+            type="submit"
+            leftIcon={<IconLogin />}
           >
-            <Title>Ingresar</Title>
-            <Box component="form" onSubmit={handleSubmit(handleFormSubmit)}>
-              <Stack>
-                <TextInput
-                  autoFocus
-                  label="E-Mail"
-                  placeholder="you@somedomain.com"
-                  icon={<IconAt size={14} />}
-                  withAsterisk
-                  {...register('email')}
-                />
-                <PasswordInput
-                  label="Password"
-                  placeholder="No se lo digas a nadie 🤫"
-                  withAsterisk
-                  {...register('password')}
-                />
-                <Button
-                  disabled={!formState.isValid}
-                  type="submit"
-                >
-                  Ingresar
-                </Button>
-              </Stack>
-            </Box>
-          </Paper>
-        </Center>
-      </Container>
-    </Box>
+            Ingresar
+          </Button>
+          <Button
+            component={Link}
+            to="/register"
+            variant="subtle"
+          >
+            ¿No tenés cuenta todavía? Hacé click acá
+          </Button>
+        </Stack>
+      </Box>
+    </Paper>
   )
 }

@@ -1,6 +1,7 @@
 import { Layout } from "@features/UI/Layout";
 import { RequireAuth } from 'react-auth-kit';
 import { createBrowserRouter } from "react-router-dom";
+import { LoginLayout } from "./features/UI/LoginLayout";
 import { Account } from "./pages/Account";
 import { Cart } from "./pages/Cart";
 import { Checkout } from "./pages/Checkout";
@@ -9,6 +10,7 @@ import { Login } from "./pages/Login";
 import { Product } from "./pages/Product";
 import { ProductSearch } from "./pages/ProductSearch";
 import { Register } from "./pages/Register";
+import { RegisterOk } from "./pages/RegisterOk";
 
 export const router = createBrowserRouter([
   {
@@ -45,11 +47,20 @@ export const router = createBrowserRouter([
     ]
   },
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
+    element: <LoginLayout />,
+    children: [
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/register-ok",
+        element: <RegisterOk />,
+      },
+    ]
   },
 ])
