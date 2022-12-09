@@ -32,7 +32,7 @@ export function NavDrawer({ opened, onClose }: Props) {
   const auth = useAuthUser()
   const logOut = useSignOut()
   const isAuthenticated = useIsAuthenticated()
-  const accountLabel = isAuthenticated() ? 'Mis datos' : 'Ingresar'
+  const accountLabel = isAuthenticated() ? 'Mi cuenta' : 'Ingresar'
   const accountHref = isAuthenticated() ? '/account' : '/login'
   const AccountIcon = isAuthenticated() ? IconUser : IconLogin
 

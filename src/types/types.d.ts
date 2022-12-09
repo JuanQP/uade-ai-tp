@@ -36,12 +36,14 @@ interface OrderAddress {
   zip: string;
 }
 
-interface OrderPayment extends OrderAddress {
+interface Payment {
   cardName: string;
   cardNumber: string;
   expDate: string;
   cvv: string;
 }
+
+interface OrderPayment extends Payment, OrderAddress { }
 
 interface Order {
   user: OrderUser;
@@ -58,7 +60,7 @@ type LoginCredentials = {
 interface User {
   _id: string;
   address: OrderAddress;
-  payment: OrderPayment;
+  payment: Payment;
   firstName: string;
   lastName: string;
   email: string;

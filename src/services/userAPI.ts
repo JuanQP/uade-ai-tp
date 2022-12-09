@@ -13,6 +13,12 @@ type RegistrationResponse = {
   message: string;
 }
 
+type CurrentUserResponse = {
+  status: number;
+  message: string;
+  data: User;
+}
+
 type UserRegisterData = {
   firstName: string;
   lastName: string;
@@ -28,4 +34,13 @@ export async function login(credentials: LoginCredentials) {
 export async function register(userData: UserRegisterData) {
   const { data } = await axios.post<RegistrationResponse>("/api/users/registration", userData)
   return data
+}
+
+export async function currentUser() {
+  const { data } = await axios.get<CurrentUserResponse>("/api/users/detail")
+  return data.data
+}
+
+export async function updateUser(values: Partial<User>) {
+  await axios.patch("/api/users/detail", values)
 }

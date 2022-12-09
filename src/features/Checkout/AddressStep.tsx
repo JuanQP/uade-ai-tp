@@ -1,7 +1,7 @@
+import { addressSchema } from "@/schemas/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid, TextInput } from "@mantine/core";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 interface Props {
   defaultValues: OrderAddress;
@@ -9,12 +9,7 @@ interface Props {
   onStepBack: () => void;
 }
 
-const schema = z.object({
-  address1: z.string().min(1),
-  province: z.string().min(1),
-  city: z.string().min(1),
-  zip: z.string().min(1).max(8),
-})
+const schema = addressSchema
 
 export function AddressStep({ defaultValues, onNextStep, onStepBack }: Props) {
 

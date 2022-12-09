@@ -5,13 +5,17 @@ import { PaymentStep } from "@/features/Checkout/PaymentStep";
 import { ReviewStep } from "@/features/Checkout/ReviewStep";
 import { useCart } from "@/hooks/useCart";
 import * as orderAPI from "@/services/orderAPI";
-import { Paper, Stepper } from "@mantine/core";
+import * as userAPI from "@/services/userAPI";
+import { Loader, Paper, Stepper } from "@mantine/core";
 import { IconCreditCard, IconListCheck, IconTruckDelivery, IconUser } from "@tabler/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useIsAuthenticated } from "react-auth-kit";
 import { Navigate } from "react-router-dom";
 
 export function Checkout() {
 
+  const isAuth = useIsAuthenticated()
+  const [fetching, setFetching] = useState(true)
   const { cart, update: setCart } = useCart()
   const [step, setStep] = useState(0);
   const [orderUser, setOrderUser] = useState<OrderUser>({
@@ -40,6 +44,27 @@ export function Checkout() {
     address: orderAddress,
     payment: orderPayment,
     products: cart,
+  }
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { firstName, lastName, email, address, payment } = await userAPI.currentUser()
+        setOrderUser({ firstName, lastName, email })
+        setOrderAddress(address)
+        setOrderPayment({ ...address, ...payment })
+      } catch (error) {
+        console.error(error)
+      } finally {
+        setFetching(false)
+      }
+    }
+    if(!isAuth()) return
+    fetchData()
+  }, [])
+
+  if(fetching) {
+    return <Loader />
   }
 
   if(cart.length === 0 && step !== 4) {

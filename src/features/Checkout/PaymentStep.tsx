@@ -1,8 +1,8 @@
+import { addressSchema, paymentSchema } from "@/schemas/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid, TextInput } from "@mantine/core";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 interface Props {
   defaultValues: OrderPayment;
@@ -10,16 +10,7 @@ interface Props {
   onStepBack: () => void;
 }
 
-const schema = z.object({
-  address1: z.string().min(1),
-  province: z.string().min(1),
-  city: z.string().min(1),
-  zip: z.string().min(1).max(8),
-  cardName: z.string().min(1),
-  cardNumber: z.string().regex(/^\d{4} \d{4} \d{4} \d{4}$/),
-  expDate: z.string().length(5).regex(/\d{2}\/\d{2}/),
-  cvv: z.string().regex(/\d{3}/),
-})
+const schema = addressSchema.merge(paymentSchema)
 
 export function PaymentStep({ defaultValues, onNextStep, onStepBack }: Props) {
 

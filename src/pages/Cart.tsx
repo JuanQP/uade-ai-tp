@@ -1,10 +1,12 @@
 import { CartItems } from "@/features/Cart/CartItems";
 import { useCart } from "@/hooks/useCart";
-import { Box, Button, Center, Divider, Paper, Text } from "@mantine/core";
+import { Anchor, Box, Button, Center, Divider, Paper, Text } from "@mantine/core";
+import { useIsAuthenticated } from "react-auth-kit";
 import { Link } from "react-router-dom";
 
 export function Cart() {
 
+  const isAuth = useIsAuthenticated()
   const { cart, update, removeProduct } = useCart()
   const total = cart.reduce((total, product) => total + product.quantity * product.product.price, 0)
 
@@ -36,10 +38,16 @@ export function Cart() {
           size="lg"
           variant="gradient"
           gradient={{ from: 'blue', to: 'green.4'}}
-        >
+          >
           Continuar compra
         </Button>
       </Box>
+      {isAuth() ? null : (
+        <Text color="dimmed" align="center" mt="lg">
+          ¿Tenés cuenta? Hacer las compras es más fácil si estás logeado 😌.
+          {' '}<Anchor component={Link} to="/login">Ingresá con tu cuenta</Anchor>
+        </Text>
+      )}
     </Paper>
   )
 }

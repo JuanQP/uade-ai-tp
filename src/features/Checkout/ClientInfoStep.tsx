@@ -1,7 +1,7 @@
+import { userSchema } from "@/schemas/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Box, Button, Grid, TextInput } from "@mantine/core";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
 interface Props {
   defaultValues: OrderUser;
@@ -9,11 +9,7 @@ interface Props {
   onStepBack: () => void;
 }
 
-const schema = z.object({
-  firstName: z.string().min(1),
-  lastName: z.string().min(1),
-  email: z.string().email(),
-})
+const schema = userSchema
 
 export function ClientInfoStep({ defaultValues, onNextStep, onStepBack }: Props) {
 
