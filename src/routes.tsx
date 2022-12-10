@@ -7,6 +7,8 @@ import { Cart } from "./pages/Cart";
 import { Checkout } from "./pages/Checkout";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
+import { MyOrders } from "./pages/MyOrders";
+import { OrderDetail } from "./pages/OrderDetail";
 import { Product } from "./pages/Product";
 import { ProductSearch } from "./pages/ProductSearch";
 import { Register } from "./pages/Register";
@@ -41,6 +43,22 @@ export const router = createBrowserRouter([
         element: (
           <RequireAuth loginPath="/login">
             <Account />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "/my-orders/",
+        element: (
+          <RequireAuth loginPath="/login">
+            <MyOrders />
+          </RequireAuth>
+        ),
+      },
+      {
+        path: "/order/:id",
+        element: (
+          <RequireAuth loginPath="/login">
+            <OrderDetail />
           </RequireAuth>
         ),
       },

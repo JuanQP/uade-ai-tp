@@ -45,11 +45,21 @@ interface Payment {
 
 interface OrderPayment extends Payment, OrderAddress { }
 
-interface Order {
+interface OrderRequest {
   user: OrderUser;
   address: OrderAddress;
   payment: OrderPayment;
   products: Array<CartProduct>;
+}
+
+interface Order {
+  buyOrder: OrderRequest;
+  _id: string;
+  quantity: number;
+  orderDate: string;
+  deliveryDate: string;
+  total: number;
+  status: "Pendiente" | "Finalizada";
 }
 
 type LoginCredentials = {

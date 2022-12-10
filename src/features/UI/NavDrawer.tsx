@@ -1,5 +1,5 @@
 import { Divider, Drawer, NavLink, Text } from "@mantine/core";
-import { IconBrandGithub, IconCpu, IconHome, IconInfoCircle, IconLogin, IconLogout, IconShoppingCart, IconUser } from "@tabler/icons";
+import { IconBrandGithub, IconCpu, IconHome, IconInfoCircle, IconListCheck, IconLogin, IconLogout, IconShoppingCart, IconUser } from "@tabler/icons";
 import { useAuthUser, useIsAuthenticated, useSignOut } from "react-auth-kit";
 import { Link } from "react-router-dom";
 
@@ -8,6 +8,11 @@ const LINKS = [
   { label: 'Products', to: '/product-search', Icon: IconCpu },
   { label: 'Cart', to: '/cart', Icon: IconShoppingCart },
   { label: 'About', to: '#', Icon: IconInfoCircle },
+]
+
+const AUTH_LINKS = [
+  { label: 'Mi cuenta', to: '/account', Icon: IconUser },
+  { label: 'Mis compras', to: '/my-orders', Icon: IconListCheck },
 ]
 
 const GITHUB_LINK = {
@@ -32,9 +37,6 @@ export function NavDrawer({ opened, onClose }: Props) {
   const auth = useAuthUser()
   const logOut = useSignOut()
   const isAuthenticated = useIsAuthenticated()
-  const accountLabel = isAuthenticated() ? 'Mi cuenta' : 'Ingresar'
-  const accountHref = isAuthenticated() ? '/account' : '/login'
-  const AccountIcon = isAuthenticated() ? IconUser : IconLogin
 
   function handleLogOut() {
     logOut()
@@ -59,14 +61,6 @@ export function NavDrawer({ opened, onClose }: Props) {
         />
       ))}
       <NavLink
-        component={Link}
-        icon={<AccountIcon />}
-        label={accountLabel}
-        to={accountHref}
-        styles={navLinkStyles}
-        onClick={onClose}
-      />
-      <NavLink
         component={"a"}
         icon={<GITHUB_LINK.Icon />}
         label={GITHUB_LINK.label}
@@ -74,15 +68,38 @@ export function NavDrawer({ opened, onClose }: Props) {
         target="_blank"
         styles={navLinkStyles}
         onClick={onClose}
-        />
+      />
+
       <Divider my="md" />
-      {!isAuthenticated() ? null : (
+
+      {!isAuthenticated() ? (
         <NavLink
-          icon={<IconLogout />}
-          label="Salir"
+          component={Link}
+          to="/login"
+          icon={<IconLogin />}
+          label="Ingresar"
           styles={navLinkStyles}
-          onClick={handleLogOut}
         />
+      ) : (
+        <>
+          {AUTH_LINKS.map(link => (
+            <NavLink
+              key={link.label}
+              component={Link}
+              label={link.label}
+              to={link.to}
+              icon={<link.Icon />}
+              styles={navLinkStyles}
+              onClick={onClose}
+            />
+          ))}
+          <NavLink
+            icon={<IconLogout />}
+            label="Salir"
+            styles={navLinkStyles}
+            onClick={handleLogOut}
+          />
+        </>
       )}
     </Drawer>
   )

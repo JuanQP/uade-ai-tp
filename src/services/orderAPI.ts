@@ -1,5 +1,16 @@
 import axios from "axios";
 
-export async function createOrder(order: Order) {
+interface OrderResponse {
+  status: number;
+  data: Order;
+  message: string;
+}
+
+export async function createOrder(order: OrderRequest) {
   await axios.post(`/api/orders`, order)
+}
+
+export async function getOrder(id: string) {
+  const { data } = await axios.get<OrderResponse>(`/api/orders/detail/${id}`)
+  return data.data
 }
