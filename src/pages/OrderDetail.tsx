@@ -85,7 +85,7 @@ export function OrderDetail() {
           <Text size="xl">Tus productos</Text>
         </Grid.Col>
         {order.buyOrder.products.map(product => (
-          <Grid.Col key={product.product._id} xs={12}>
+          <Grid.Col key={product._id} xs={12}>
             <ReviewStepItem product={product} />
           </Grid.Col>
         ))}

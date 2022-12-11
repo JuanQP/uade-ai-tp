@@ -19,6 +19,7 @@ interface Category {
 interface Brand extends Category {}
 
 interface CartProduct {
+  _id?: string;
   product: Product;
   quantity: number;
 }

@@ -12,10 +12,7 @@ export function HeaderCartButton() {
   return (
     <Indicator label={productsCount} dot={false} showZero={false} inline size={22} overflowCount={19}>
       <Link to="/cart">
-        <HeaderButton
-          label="Productos"
-          Icon={IconShoppingCart}
-        />
+        <HeaderButton Icon={IconShoppingCart} />
       </Link>
     </Indicator>
   )

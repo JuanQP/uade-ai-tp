@@ -32,6 +32,7 @@ export function Login() {
         authState: {
           firstName: user.user.firstName,
           lastName: user.user.lastName,
+          isAdmin: user.user.isAdmin,
           token: user.token,
         },
       })

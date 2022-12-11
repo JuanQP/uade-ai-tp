@@ -1,18 +1,23 @@
 import { Divider, Drawer, NavLink, Text } from "@mantine/core";
-import { IconBrandGithub, IconCpu, IconHome, IconInfoCircle, IconListCheck, IconLogin, IconLogout, IconShoppingCart, IconUser } from "@tabler/icons";
+import { IconBrandGithub, IconCpu, IconHome, IconInfoCircle, IconListCheck, IconLogin, IconLogout, IconShieldLock, IconShoppingCart, IconUser } from "@tabler/icons";
 import { useAuthUser, useIsAuthenticated, useSignOut } from "react-auth-kit";
 import { Link } from "react-router-dom";
 
 const LINKS = [
   { label: 'Home', to: '/', Icon: IconHome },
-  { label: 'Products', to: '/product-search', Icon: IconCpu },
-  { label: 'Cart', to: '/cart', Icon: IconShoppingCart },
+  { label: 'Productos', to: '/product-search', Icon: IconCpu },
+  { label: 'Carrito', to: '/cart', Icon: IconShoppingCart },
   { label: 'About', to: '#', Icon: IconInfoCircle },
 ]
 
 const AUTH_LINKS = [
   { label: 'Mi cuenta', to: '/account', Icon: IconUser },
   { label: 'Mis compras', to: '/my-orders', Icon: IconListCheck },
+]
+
+const ADMIN_LINKS = [
+  { label: 'Compras', to: '/orders', Icon: IconShieldLock },
+  { label: 'Productos', to: '/new-products', Icon: IconShieldLock },
 ]
 
 const GITHUB_LINK = {
@@ -74,31 +79,47 @@ export function NavDrawer({ opened, onClose }: Props) {
 
       {!isAuthenticated() ? (
         <NavLink
-          component={Link}
-          to="/login"
+        component={Link}
+        to="/login"
           icon={<IconLogin />}
           label="Ingresar"
           styles={navLinkStyles}
-        />
-      ) : (
-        <>
+          />
+          ) : (
+            <>
           {AUTH_LINKS.map(link => (
             <NavLink
-              key={link.label}
-              component={Link}
-              label={link.label}
-              to={link.to}
-              icon={<link.Icon />}
-              styles={navLinkStyles}
-              onClick={onClose}
+            key={link.label}
+            component={Link}
+            label={link.label}
+            to={link.to}
+            icon={<link.Icon />}
+            styles={navLinkStyles}
+            onClick={onClose}
             />
-          ))}
+            ))}
           <NavLink
             icon={<IconLogout />}
             label="Salir"
             styles={navLinkStyles}
             onClick={handleLogOut}
           />
+        </>
+      )}
+      {!auth()?.isAdmin ? null : (
+        <>
+          <Divider my="md" />
+          {ADMIN_LINKS.map(link => (
+            <NavLink
+              key={link.label}
+              component={Link}
+              label={link.label}
+              to={link.to}
+              icon={<link.Icon color="blue" />}
+              styles={navLinkStyles}
+              onClick={onClose}
+            />
+          ))}
         </>
       )}
     </Drawer>

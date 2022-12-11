@@ -1,6 +1,7 @@
 import { Layout } from "@features/UI/Layout";
 import { RequireAuth } from 'react-auth-kit';
 import { createBrowserRouter } from "react-router-dom";
+import { RequireAdminAuth } from "./features/Admin/RequireAdminAuth";
 import { LoginLayout } from "./features/UI/LoginLayout";
 import { Account } from "./pages/Account";
 import { Cart } from "./pages/Cart";
@@ -9,6 +10,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { MyOrders } from "./pages/MyOrders";
 import { OrderDetail } from "./pages/OrderDetail";
+import { Orders } from "./pages/Orders";
 import { Product } from "./pages/Product";
 import { ProductSearch } from "./pages/ProductSearch";
 import { Register } from "./pages/Register";
@@ -60,6 +62,14 @@ export const router = createBrowserRouter([
           <RequireAuth loginPath="/login">
             <OrderDetail />
           </RequireAuth>
+        ),
+      },
+      {
+        path: "/orders",
+        element: (
+          <RequireAdminAuth loginPath="/">
+            <Orders />
+          </RequireAdminAuth>
         ),
       },
     ]
