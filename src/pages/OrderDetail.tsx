@@ -1,6 +1,7 @@
 import { ReviewStepItem } from "@/features/Checkout/ReviewStepItem";
+import { OrderStatusBadge } from "@/features/Orders/OrderStatusBadge";
 import * as orderAPI from "@/services/orderAPI";
-import { Badge, Divider, Grid, Loader, Stack, Text, Title } from "@mantine/core";
+import { Divider, Grid, Loader, Stack, Text, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 
@@ -93,7 +94,7 @@ export function OrderDetail() {
           <Divider my="lg"/>
           <Text>Fecha de compra: <strong>{order.orderDate}</strong></Text>
           <Text>Fecha estimada de entrega: <strong>{order.deliveryDate}</strong></Text>
-          <Text>Estado actual: <Badge variant="filled">{order.status}</Badge></Text>
+          <Text>Estado actual: <OrderStatusBadge order={order} /> </Text>
           <Text>Productos totales: <strong>{order.quantity}</strong></Text>
           <Text align="end">Total</Text>
           <Text align="end" sx={{ fontSize: '1.5rem' }}>$ {order.total}</Text>

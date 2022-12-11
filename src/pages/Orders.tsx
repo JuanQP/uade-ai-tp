@@ -7,18 +7,27 @@ export function Orders() {
 
   const [orders, setOrders] = useState<Array<Order>>([])
 
+  async function fetchData() {
+    const orders = await orderAPI.getOrders()
+    setOrders(orders)
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
-      const orders = await orderAPI.getOrders()
-      setOrders(orders)
-    }
     fetchData()
   }, [])
+
+  async function handleUpdateOrder(order: Order, newStatus: Order["status"]) {
+    await orderAPI.updateStatus({
+      ids: [order._id],
+      status: newStatus,
+    })
+    fetchData()
+  }
 
   return (
     <>
       <Title>Compras</Title>
-      <OrderList orders={orders} />
+      <OrderList showUpdate orders={orders} onUpdateOrder={handleUpdateOrder} />
     </>
   )
 }

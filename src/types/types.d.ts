@@ -60,7 +60,7 @@ interface Order {
   orderDate: string;
   deliveryDate: string;
   total: number;
-  status: "Pendiente" | "Finalizada";
+  status: "Pendiente" | "Finalizado";
 }
 
 type LoginCredentials = {
