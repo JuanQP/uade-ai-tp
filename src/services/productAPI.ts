@@ -15,11 +15,11 @@ interface ProductsResponse {
 }
 
 export interface ProductQuery {
-  brand: string[] | undefined;
-  category: string[] | undefined;
-  pmin: number | undefined;
-  pmax: number | undefined;
-  search: string | null;
+  brand?: string[];
+  category?: string[];
+  pmin?: number;
+  pmax?: number;
+  search?: string | null;
 }
 
 export async function getProducts(query: ProductQuery) {
@@ -33,4 +33,19 @@ export async function getProducts(query: ProductQuery) {
 export async function getProduct(id: string) {
   const { data } = await axios.get<ProductResponse>(`/api/products/detail/${id}`)
   return data.data;
+}
+
+export async function createProduct(product: Omit<Product, "_id">) {
+  const { data } = await axios.post<ProductResponse>(`/api/products/`, product)
+  return data.data;
+}
+
+export async function updateProduct(product: Product) {
+  const { data } = await axios.put<ProductResponse>(`/api/products/`, product)
+  return data.data;
+}
+
+export async function deleteProduct(ids: string[]) {
+  const { data } = await axios.delete<Omit<ProductResponse, "data">>(`/api/products/`, {data: { ids }})
+  return data.message;
 }

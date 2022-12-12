@@ -16,8 +16,8 @@ const AUTH_LINKS = [
 ]
 
 const ADMIN_LINKS = [
-  { label: 'Compras', to: '/orders', Icon: IconShieldLock },
-  { label: 'Productos', to: '/new-products', Icon: IconShieldLock },
+  { label: 'Compras', to: '/admin/orders', Icon: IconShieldLock },
+  { label: 'Productos', to: '/admin/products', Icon: IconShieldLock },
 ]
 
 const GITHUB_LINK = {

@@ -19,3 +19,14 @@ export const paymentSchema = z.object({
   expDate: z.string().length(5).regex(/\d{2}\/\d{2}/),
   cvv: z.string().regex(/\d{3}/),
 })
+
+export const productSchema = z.object({
+  image: z.string(),
+  name: z.string().min(1),
+  category: z.string().min(1),
+  brand: z.string().min(1),
+  productModel: z.string().min(1),
+  price: z.number().min(1),
+  stock: z.number().min(1).int(),
+  description: z.string(),
+})

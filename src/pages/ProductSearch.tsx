@@ -1,8 +1,8 @@
 import { CheckboxFilter } from "@/features/ProductSearch/CheckboxFilter";
 import { PriceFilter } from "@/features/ProductSearch/PriceFilter";
 import { ProductsGrid } from "@/features/ProductSearch/ProductsGrid";
-import * as brandAPI from "@/services/brandAPI";
-import * as categoryAPI from "@/services/categoryAPI";
+import { useBrands } from "@/hooks/useBrands";
+import { useCategories } from "@/hooks/useCategories";
 import * as productAPI from "@/services/productAPI";
 import { Divider, Grid, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
@@ -11,8 +11,8 @@ import { useSearchParams } from "react-router-dom";
 export function ProductSearch() {
 
   const [params] = useSearchParams()
-  const [brands, setBrands] = useState<Brand[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
+  const { brands } = useBrands()
+  const { categories } = useCategories()
   const [products, setProducts] = useState<Product[]>([]);
 
   const [selectedBrands, setSelectedBrands] = useState<string[]>([])
@@ -23,8 +23,6 @@ export function ProductSearch() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const categories = await categoryAPI.getCategories()
-        const brands = await brandAPI.getBrands()
         const brandQueryParam = params.get("brand")
         const categoryQueryParam = params.get("category")
         if(brandQueryParam) {
@@ -40,8 +38,6 @@ export function ProductSearch() {
           pmax: undefined,
           search: params.get("search"),
         })
-        setCategories(categories)
-        setBrands(brands)
         setProducts(products)
       } catch (error) {
         console.error(error)

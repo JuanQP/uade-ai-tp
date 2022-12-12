@@ -1,45 +1,35 @@
 import { StockStatus } from '@/features/Products';
 import { useCart } from '@/hooks/useCart';
-import * as productAPI from '@/services/productAPI';
+import { useProduct } from '@/hooks/useProduct';
 import { Badge, Button, Divider, Grid, Group, Image, Loader, NativeSelect, Stack, Text, Title } from "@mantine/core";
 import { IconBuildingStore, IconTruckDelivery } from '@tabler/icons';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export function Product() {
 
   const { id } = useParams()
+  if(!id) throw new Error("No se especificó un ID de producto")
+
   const navigate = useNavigate()
-  const [product, setProduct] = useState<Product>()
+  const { product, isLoading } = useProduct(id)
   const [quantity, setQuantity] = useState<number>(1)
   const { cart, addProduct } = useCart()
   const hasProductInCart = cart.find(product => product.product._id === id)
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if(!id) throw new Error("Es necesario indicar un producto")
-        const product = await productAPI.getProduct(id)
-        setProduct(product)
-      } catch (error) {
-        navigate('/')
-      }
-    }
-    fetchData()
-  }, [])
 
   function handleAddToCart() {
-    if(!product) throw new Error("No se selecionó ningún producto")
+    if(!product) return
     addProduct({ product, quantity })
   }
 
   function handleBuyNow() {
-    if(!product) throw new Error("No se selecionó ningún producto")
+    if(!product) return
     addProduct({ product, quantity })
     navigate('/cart')
   }
 
-  if(!product) return <Loader />
+  if(isLoading || !product) return <Loader />
 
   // ["1", "2", "3", ...]
   const quantityOptions = Array(Math.min(product.stock, 10)).fill("0").map((_, i) => `${i+1}`)

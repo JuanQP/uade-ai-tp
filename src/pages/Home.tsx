@@ -1,26 +1,11 @@
-import * as brandAPI from "@/services/brandAPI";
-import * as categoryAPI from "@/services/categoryAPI";
+import { useBrands } from "@/hooks/useBrands";
+import { useCategories } from "@/hooks/useCategories";
 import { Brands, Categories, Welcome } from "@features/Home";
-import { useEffect, useState } from "react";
 
 export function Home() {
 
-  const [categories, setCategories] = useState<Category[]>([])
-  const [brands, setBrands] = useState<Brand[]>([])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const categories = await categoryAPI.getCategories()
-        const brands = await brandAPI.getBrands()
-        setCategories(categories)
-        setBrands(brands)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    fetchData()
-  }, [])
+  const { categories } = useCategories()
+  const { brands } = useBrands()
 
   return (
     <>

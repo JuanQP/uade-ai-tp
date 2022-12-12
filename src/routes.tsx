@@ -4,17 +4,20 @@ import { createBrowserRouter } from "react-router-dom";
 import { RequireAdminAuth } from "./features/Admin/RequireAdminAuth";
 import { LoginLayout } from "./features/UI/LoginLayout";
 import { Account } from "./pages/Account";
+import { AdminProducts } from "./pages/AdminProducts";
 import { Cart } from "./pages/Cart";
 import { Checkout } from "./pages/Checkout";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { MyOrders } from "./pages/MyOrders";
+import { NewProduct } from "./pages/NewProduct";
 import { OrderDetail } from "./pages/OrderDetail";
 import { Orders } from "./pages/Orders";
 import { Product } from "./pages/Product";
 import { ProductSearch } from "./pages/ProductSearch";
 import { Register } from "./pages/Register";
 import { RegisterOk } from "./pages/RegisterOk";
+import { UpdateProduct } from "./pages/UpdateProduct";
 
 export const router = createBrowserRouter([
   {
@@ -65,10 +68,34 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/orders",
+        path: "/admin/orders",
         element: (
           <RequireAdminAuth loginPath="/">
             <Orders />
+          </RequireAdminAuth>
+        ),
+      },
+      {
+        path: "/admin/products",
+        element: (
+          <RequireAdminAuth loginPath="/">
+            <AdminProducts />
+          </RequireAdminAuth>
+        ),
+      },
+      {
+        path: "/admin/new-product",
+        element: (
+          <RequireAdminAuth loginPath="/">
+            <NewProduct />
+          </RequireAdminAuth>
+        ),
+      },
+      {
+        path: "/admin/product/:id",
+        element: (
+          <RequireAdminAuth loginPath="/">
+            <UpdateProduct />
           </RequireAdminAuth>
         ),
       },

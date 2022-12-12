@@ -32,7 +32,7 @@ export function OrderList({ orders, showUpdate = false, onUpdateOrder }: Props) 
             <tr key={order._id}>
               <td>{order.orderDate}</td>
               <td>{order.deliveryDate}</td>
-              <td>{order.total}</td>
+              <td>{order.total.toFixed(2)}</td>
               <td>
                 <OrderStatusBadge order={order} onClick={showUpdate ? handleOrderStatusClick : undefined} />
               </td>
