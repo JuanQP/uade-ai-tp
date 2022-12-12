@@ -1,8 +1,10 @@
+import { ImageUploader } from "@/features/UI/ImageUploader";
 import { productSchema } from "@/schemas/schemas";
+import * as uploadAPI from "@/services/uploadAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Box, Button, NativeSelect, Stack, Textarea, TextInput } from "@mantine/core";
+import { Box, Button, Center, Image, NativeSelect, Stack, Textarea, TextInput } from "@mantine/core";
 import { IconDeviceFloppy } from "@tabler/icons";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = productSchema
@@ -29,7 +31,7 @@ const DEFAULT_VALUES: ProductType = {
 
 export function ProductForm({ brands, categories, loading = false, initialValues = DEFAULT_VALUES, onSubmit }: Props) {
 
-  const { register, formState: { errors }, handleSubmit } = useForm<ProductType>({
+  const { control, register, formState: { errors }, handleSubmit } = useForm<ProductType>({
     resolver: zodResolver(schema),
     defaultValues: initialValues,
   })
@@ -43,13 +45,29 @@ export function ProductForm({ brands, categories, loading = false, initialValues
   return (
     <Box component="form" onSubmit={handleSubmit(handleFormSubmit)}>
       <Stack>
-        <TextInput
-          withAsterisk
-          label="Imagen"
-          placeholder="/public/products/image.jpg"
-          error={errors.image?.message}
-          {...register("image")}
-          />
+        <Controller
+          name="image"
+          control={control}
+          render={({ field }) => (
+            <>
+              <Center>
+                <Image
+                  withPlaceholder
+                  src={field.value}
+                  radius="md"
+                  height={200}
+                  fit="contain"
+                />
+              </Center>
+              <ImageUploader
+                label="Imagen del Producto"
+                description="La imagen se va a guardar al clickear en el botón Guardar"
+                uploadCallback={uploadAPI.uploadProductImage}
+                {...field}
+              />
+            </>
+          )}
+        />
         <TextInput
           autoFocus
           withAsterisk
