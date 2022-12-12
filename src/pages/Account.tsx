@@ -1,8 +1,8 @@
 import { AddressInfo, AddressInfoSection } from "@/features/Account/AddressInfoSection";
 import { PaymentInfoSection } from "@/features/Account/PaymentInfoSection";
-import { UserInfoSection } from "@/features/Account/UserInfoSection";
+import { UserInfo, UserInfoSection } from "@/features/Account/UserInfoSection";
 import * as userAPI from "@/services/userAPI";
-import { Box, Button, Container, Divider, Loader, Title } from "@mantine/core";
+import { Avatar, Box, Button, Center, Container, Divider, Loader, Title } from "@mantine/core";
 import { IconListCheck, IconLogout } from "@tabler/icons";
 import { useEffect, useState } from "react";
 import { useSignOut } from "react-auth-kit";
@@ -40,6 +40,15 @@ export function Account() {
     await userAPI.updateUser({ payment })
   }
 
+  function handleAvatarUpdate(newUserData: UserInfo) {
+    if(!userData) return
+
+    setUserData({
+      ...userData,
+      ...newUserData,
+    })
+  }
+
   if(fetching) {
     return (
       <Container>
@@ -65,8 +74,11 @@ export function Account() {
           Salir
         </Button>
       </Box>
-      <Divider my="sm"/>
-      <UserInfoSection initialValues={userData} />
+      <Center>
+        <Avatar src={userData.avatar} size={100} radius={100} />
+      </Center>
+
+      <UserInfoSection initialValues={userData} onUpdatedUser={handleAvatarUpdate} />
 
       <Divider my="sm"/>
       <AddressInfoSection initialValues={address} />

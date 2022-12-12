@@ -1,31 +1,35 @@
 import { userSchema } from "@/schemas/schemas";
+import * as uploadAPI from "@/services/uploadAPI";
 import * as userAPI from "@/services/userAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Alert, Box, Button, Stack, TextInput, Title } from "@mantine/core";
 import { IconDeviceFloppy } from "@tabler/icons";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
+import { ImageUploader } from "../UI/ImageUploader";
 
-const schema = userSchema.pick({ firstName: true, lastName: true })
+const schema = userSchema.omit({ email: true })
 
 export type UserInfo = z.infer<typeof schema>
 
 interface Props {
   initialValues: User;
+  onUpdatedUser?: (user: UserInfo) => void;
 }
 
-export function UserInfoSection({ initialValues }: Props) {
+export function UserInfoSection({ initialValues, onUpdatedUser }: Props) {
 
   const [saving, setSaving] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [error, setError] = useState(false)
-  const { firstName, lastName } = initialValues
-  const { register, handleSubmit } = useForm<UserInfo>({
+  const { firstName, lastName, avatar } = initialValues
+  const { control, register, handleSubmit } = useForm<UserInfo>({
     resolver: zodResolver(schema),
     defaultValues: {
       firstName,
       lastName,
+      avatar,
     }
   })
 
@@ -35,6 +39,7 @@ export function UserInfoSection({ initialValues }: Props) {
       setError(false)
       setSaving(true)
       await userAPI.updateUser(values)
+      onUpdatedUser?.(values)
     } catch (error) {
       setError(true)
     } finally {
@@ -58,6 +63,17 @@ export function UserInfoSection({ initialValues }: Props) {
       </Alert>
       <Box component="form" onSubmit={handleSubmit(handleFormSubmit)}>
         <Stack>
+          <Controller
+            name="avatar"
+            control={control}
+            render={({ field }) => (
+              <ImageUploader
+                uploadCallback={uploadAPI.uploadAvatar}
+                label="Avatar"
+                {...field}
+              />
+            )}
+          />
           <TextInput
             label="Nombre"
             placeholder="Isaac"

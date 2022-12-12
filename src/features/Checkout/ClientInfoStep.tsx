@@ -9,7 +9,7 @@ interface Props {
   onStepBack: () => void;
 }
 
-const schema = userSchema
+const schema = userSchema.omit({ avatar: true })
 
 export function ClientInfoStep({ defaultValues, onNextStep, onStepBack }: Props) {
 
