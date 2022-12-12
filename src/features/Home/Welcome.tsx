@@ -1,4 +1,4 @@
-import { MantineGradient, Text, Title } from "@mantine/core";
+import { Box, MantineGradient, Text, Title } from "@mantine/core";
 
 export function Welcome() {
 
@@ -9,11 +9,11 @@ export function Welcome() {
   }
 
   return (
-    <>
-      <Title variant="gradient" gradient={gradient} align="center" fw={400}>
+    <Box>
+      <Title pt="xl" align="center" order={1}>
         FQ Computer
       </Title>
-      <Text align="center" color="dimmed">Todo lo que buscás en tecnología está acá.</Text>
-    </>
+      <Text align="center">Todo lo que buscás en tecnología está acá.</Text>
+    </Box>
   )
 }

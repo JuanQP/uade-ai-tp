@@ -2,6 +2,7 @@ import { Layout } from "@features/UI/Layout";
 import { RequireAuth } from 'react-auth-kit';
 import { createBrowserRouter } from "react-router-dom";
 import { RequireAdminAuth } from "./features/Admin/RequireAdminAuth";
+import { HomeLayout } from "./features/UI/HomeLayout";
 import { LoginLayout } from "./features/UI/LoginLayout";
 import { Account } from "./pages/Account";
 import { AdminProducts } from "./pages/AdminProducts";
@@ -21,12 +22,17 @@ import { UpdateProduct } from "./pages/UpdateProduct";
 
 export const router = createBrowserRouter([
   {
-    element: <Layout />,
+    element: <HomeLayout />,
     children: [
       {
         path: "/",
         element: <Home />,
-      },
+      }
+    ]
+  },
+  {
+    element: <Layout />,
+    children: [
       {
         path: "/product/:id",
         element: <Product />,

@@ -1,4 +1,4 @@
-import { Container, Grid, Paper, Text } from "@mantine/core";
+import { Container, Grid, Paper, Text, useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { IconMenu2 } from "@tabler/icons";
 import { Link } from "react-router-dom";
@@ -14,9 +14,15 @@ interface Props {
 export function Header({ onMenuClick }: Props) {
 
   const isSmallScreen = useMediaQuery('(max-width: 768px)');
+  const theme = useMantineTheme()
 
   return (
-    <Paper shadow="xs" p="sm" sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Paper
+      shadow="xs"
+      p="sm"
+      radius={0}
+      sx={{ display: 'flex', justifyContent: 'center', backgroundColor: theme.colors.teal[6] }}
+    >
       <Container size="xl" mx="xs" sx={{ width: '100%' }}>
         <Grid>
           <Grid.Col
